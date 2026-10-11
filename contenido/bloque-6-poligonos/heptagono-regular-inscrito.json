@@ -1,0 +1,535 @@
+{
+  "id": "heptagono-regular-inscrito",
+  "bloque": 6,
+  "titulo": "Heptágono regular inscrito (aproximado)",
+  "enunciado": "Inscribe un heptágono aproximadamente regular en la circunferencia de centro O y radio 50 mm, usando como lado la mitad del lado del triángulo equilátero inscrito.",
+  "ideaClave": "Llevar sobre la circunferencia una cuerda aproximadamente igual a 2r·sen(π/7) reparte la circunferencia en siete partes casi iguales.",
+  "requisitos": [
+    "triangulo-equilatero-inscrito"
+  ],
+  "datos": {
+    "O": [
+      105,
+      70
+    ],
+    "A": [
+      155,
+      70
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "B",
+        "F"
+      ],
+      "centros": [
+        "O",
+        "A"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K1",
+        "C"
+      ],
+      "centros": [
+        "B",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K2",
+        "D"
+      ],
+      "centros": [
+        "C",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K3",
+        "E"
+      ],
+      "centros": [
+        "D",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "L",
+      "entre": [
+        "A",
+        "M"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V1",
+        "W1"
+      ],
+      "centros": [
+        "A",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V2",
+        "W2"
+      ],
+      "centros": [
+        "V1",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V3",
+        "W3"
+      ],
+      "centros": [
+        "V2",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V4",
+        "W4"
+      ],
+      "centros": [
+        "V3",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V5",
+        "W5"
+      ],
+      "centros": [
+        "V4",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "V6",
+        "W6"
+      ],
+      "centros": [
+        "V5",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "rR"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La circunferencia y el vértice A",
+      "texto": "Tenemos la circunferencia de centro O y radio 50 mm, con el punto A sobre ella.",
+      "porque": "Todos los puntos de la circunferencia están a 50 mm de O.",
+      "consejo": "Pincha en O con firmeza y traza la circunferencia de una sola vez.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "F",
+          "pasaPor": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "F",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo equilátero",
+      "texto": "Con el radio, marca B y F a 60° de A. Desde B, C y D, con el mismo radio, marca C, D y E: el triángulo es ACE.",
+      "porque": "Un triángulo equilátero inscrito tiene sus vértices a 120° uno de otro: un vértice sí y otro no.",
+      "consejo": "Usa siempre la misma abertura de 50 mm: cualquier cambio desplaza el vértice.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "F"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "B"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rR",
+          "hacia": "C"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rR",
+          "hacia": "D"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rR",
+          "hacia": "E"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Une los vértices A, C y E",
+      "texto": "Une A con C, C con E y E con A. Tienes el triángulo equilátero inscrito.",
+      "porque": "Los tres lados del triángulo equilátero miden lo mismo: l = r·√3, unos 86,6 mm.",
+      "consejo": "Repasa el triángulo en trazo grueso y borra los arcos de 60° si te estorban.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La mitad del lado AC",
+      "texto": "Con la mediatriz, halla el punto medio M de AC. La distancia AM es la mitad del lado: unos 43 mm.",
+      "porque": "La mitad del lado del triángulo es la cuerda que se aproxima al lado del heptágono: 2r·sen(π/7) ≈ 43,4 mm.",
+      "consejo": "Traza la mediatriz con la escuadra y marca M justo en la mitad de AC.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "M"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "M",
+            "C"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Primera cuerda desde A",
+      "texto": "Pincha en A con la abertura AM y corta la circunferencia en V1. Es el primer vértice del heptágono.",
+      "porque": "AV1 es la cuerda aproximada del heptágono: su arco mide unos 51° en lugar de 360°/7 ≈ 51,4°.",
+      "consejo": "Cambia el compás a la abertura AM y no lo vuelvas a tocar hasta el último vértice.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "L",
+          "hacia": "V1"
+        },
+        {
+          "tipo": "punto",
+          "id": "V1",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Seis cuerdas iguales",
+      "texto": "Sin cambiar la abertura, pincha en V1 y corta la circunferencia en V2. Repite desde V2, V3, V4 y V5 hasta marcar V6.",
+      "porque": "Cada cuerda lleva la misma abertura, así que los vértices se reparten casi a la misma distancia por la circunferencia.",
+      "consejo": "Lleva la cuenta de los vértices en voz baja: el último, V6, debe quedar cerca de A.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V1",
+          "radio": "L",
+          "hacia": "V2"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V2",
+          "radio": "L",
+          "hacia": "V3"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V3",
+          "radio": "L",
+          "hacia": "V4"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V4",
+          "radio": "L",
+          "hacia": "V5"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V5",
+          "radio": "L",
+          "hacia": "V6"
+        },
+        {
+          "tipo": "punto",
+          "id": "V2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "V3",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "V4",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "V5",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "V6",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El heptágono",
+      "texto": "Une A, V1, V2, V3, V4, V5, V6 y de nuevo A. Tienes siete lados.",
+      "porque": "Siete cuerdas casi iguales dan un heptágono casi regular.",
+      "consejo": "El último lado V6A es el que más se separa del resto: no lo fuerces al cerrar.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "V1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V1",
+          "hasta": "V2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V2",
+          "hasta": "V3",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V3",
+          "hasta": "V4",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V4",
+          "hasta": "V5",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V5",
+          "hasta": "V6",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V6",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba y recuerda que es aproximado",
+      "texto": "Los lados AV1, V1V2, ..., V5V6 miden lo mismo. El último, V6A, se separa un poco: el método es aproximado.",
+      "porque": "El método reparte la circunferencia en partes casi iguales. Un heptágono exacto no se puede trazar solo con regla y compás.",
+      "consejo": "Si quieres más precisión, mide el error de cierre: será de unas décimas de milímetro.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "V1"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "V5",
+            "V6"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar como abertura el radio en lugar de la mitad del lado: las cuerdas son demasiado largas y el heptágono sale mal.",
+    "Cambiar la abertura entre cuerdas: los lados no son iguales y el polígono se deforma.",
+    "Forzar el último lado para cerrar el polígono: se distorsionan los demás vértices."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "V1"
+        ],
+        [
+          "V1",
+          "V2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "V1"
+        ],
+        [
+          "V5",
+          "V6"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "V6",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "V1",
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
