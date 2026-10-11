@@ -2,7 +2,7 @@ import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import { escribirJson, existentesDe, listarContenido } from '../src/almacen';
 import { comprobarBorrador } from '../src/borrador';
 import { leccionSchema } from '../src/esquema';
@@ -10,7 +10,7 @@ import { resumenEstado } from '../src/estado';
 import { prepararPromocion } from '../src/promover';
 import { marcarRevisada } from '../src/revisar';
 
-const RUTA = 'bloque-1-trazados/mediatriz-prueba.json';
+const RUTA = 'bloque-1-fundamentos/mediatriz-prueba.json';
 
 let raiz: string;
 

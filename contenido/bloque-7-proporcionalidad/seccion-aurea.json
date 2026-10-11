@@ -1,6 +1,6 @@
 {
   "id": "seccion-aurea",
-  "bloque": 3,
+  "bloque": 7,
   "titulo": "Sección áurea de un segmento",
   "enunciado": "Divide el segmento AB en media y extrema razón: el punto C tal que AB/AC = AC/CB.",
   "ideaClave": "El todo es a la parte mayor como la parte mayor es a la menor: AB/AC = AC/CB, con AB/AC igual al número áureo.",

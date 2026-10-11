@@ -1,6 +1,6 @@
 {
   "id": "tangente-en-punto",
-  "bloque": 5,
+  "bloque": 9,
   "titulo": "Tangente a una circunferencia en uno de sus puntos",
   "enunciado": "Dada una circunferencia de centro C y un punto T sobre ella, traza la recta tangente a la circunferencia en T.",
   "ideaClave": "La tangente en un punto es perpendicular al radio que llega a ese punto: toca la circunferencia en un solo punto.",

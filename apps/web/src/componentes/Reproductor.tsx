@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useReducer, useState } from 'react';
 import type { Leccion, LeccionResuelta } from '@traze/lecciones';
+import { nombreDeBloque } from '@traze/lecciones';
 import { ConstruccionImposible, interpretarLeccion } from '@traze/lecciones/interpretar';
 import { crearEstado, reductor, VELOCIDADES } from '../reproductor/estado';
 import { decimal } from '../reproductor/formato';
@@ -82,7 +83,9 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   return (
     <section className="escenario" aria-label="Demostración animada">
       <header className="escenario-titulo">
-        <p className="etiqueta">Bloque {leccion.bloque}</p>
+        <p className="etiqueta">
+          Bloque {leccion.bloque} · {nombreDeBloque(leccion.bloque)}
+        </p>
         <h1>{leccion.titulo}</h1>
       </header>
 

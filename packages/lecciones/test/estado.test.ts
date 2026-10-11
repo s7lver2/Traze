@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import type { Leccion } from '../src/esquema';
 import { resumenEstado } from '../src/estado';
 import { validarLeccion } from '../src/validar';
@@ -19,20 +19,20 @@ describe('resumenEstado', () => {
     const resumen = resumenEstado([
       leccion('bisectriz-angulo', 1, REVISADA),
       leccion('mediatriz-segmento', 1),
-      leccion('tangencia-recta', 5),
+      leccion('tangencia-recta', 9),
     ]);
     const ancho = 'mediatriz-segmento'.length;
     expect(resumen.split('\n')).toEqual([
       'Lecciones: 3 · revisadas: 1 · pendientes: 2 · prioritarias: 1',
       '',
-      `⚑ ${'tangencia-recta'.padEnd(ancho)}  bloque 5  v1  pendiente`,
+      `⚑ ${'tangencia-recta'.padEnd(ancho)}  bloque 9  v1  pendiente`,
       `  ${'mediatriz-segmento'.padEnd(ancho)}  bloque 1  v1  pendiente`,
       `  ${'bisectriz-angulo'.padEnd(ancho)}  bloque 1  v2  revisada (Ana, 2026-10-12)`,
     ]);
   });
 
   it('no marca como prioritaria una lección que ya está revisada', () => {
-    const resumen = resumenEstado([leccion('diedrico-punto', 7, REVISADA)]);
+    const resumen = resumenEstado([leccion('tangencia-circunferencia', 9, REVISADA)]);
     expect(resumen).not.toContain('⚑');
     expect(resumen).toContain('prioritarias: 0');
   });

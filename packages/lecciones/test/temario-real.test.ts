@@ -14,16 +14,16 @@ describe('temario/temario.json', () => {
     expect(resultado.success, resultado.success ? '' : resultado.error.issues.map(formatearIssue).join('\n')).toBe(true);
   });
 
-  it('tiene al menos las 22 lecciones del plan', () => {
+  it('tiene las 57 lecciones del temario', () => {
     if (!resultado.success) throw new Error('temario inválido');
-    expect(resultado.data.lecciones.length).toBeGreaterThanOrEqual(22);
+    expect(resultado.data.lecciones.length).toBe(57);
   });
 
-  it('empieza por el uso del compás y no se salta el bloque 7', () => {
+  it('empieza por el uso del compás y recorre los 10 bloques', () => {
     if (!resultado.success) throw new Error('temario inválido');
     const bloques = new Set(resultado.data.lecciones.map((entrada) => entrada.bloque));
     expect(resultado.data.lecciones[0].id).toBe('compas-basico');
-    expect([...bloques].sort()).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    expect([...bloques].sort((a, b) => a - b)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
   });
 
   it('las lecciones que ya existen cumplen su entrada', () => {

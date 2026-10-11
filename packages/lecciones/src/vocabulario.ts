@@ -1,16 +1,16 @@
 export const MARCA_VOCABULARIO = 'VOCABULARIO_INSUFICIENTE';
 
 export const BLOQUES_TEMARIO = [
-  'Primeros pasos',
-  'Trazados fundamentales',
-  'Polígonos',
-  'Proporcionalidad y escalas',
+  'Elementos fundamentales y lugar geométrico',
+  'Circunferencia',
+  'Arco capaz',
+  'Triángulos',
+  'Cuadriláteros',
+  'Polígonos regulares',
+  'Proporcionalidad',
   'Transformaciones',
-  'Tangencias y enlaces',
-  'Curvas técnicas y cónicas',
-  'Sistema diédrico',
-  'Axonometría y caballera',
-  'Normalización',
+  'Tangencias',
+  'Curvas técnicas',
 ] as const;
 
 export interface EntradaVocabulario {
@@ -35,7 +35,7 @@ export const CAMPOS_LECCION: readonly CampoLeccion[] = [
   {
     nombre: 'bloque',
     obligatorio: true,
-    descripcion: 'Número del bloque del temario, de 0 a 9 (tabla más abajo).',
+    descripcion: 'Número del bloque del temario, de 1 a 10 (tabla más abajo).',
   },
   {
     nombre: 'titulo',

@@ -1,7 +1,7 @@
 import type { Leccion } from './esquema';
 
-/** Bloques que el spec manda revisar con prioridad: tangencias (5) y diédrico (7). */
-export const BLOQUES_PRIORITARIOS: readonly number[] = [5, 7];
+/** Bloques que el spec manda revisar con prioridad: tangencias (9). */
+export const BLOQUES_PRIORITARIOS: readonly number[] = [9];
 
 export function esPrioritaria(leccion: Leccion): boolean {
   return leccion.meta.revision === 'pendiente' && BLOQUES_PRIORITARIOS.includes(leccion.bloque);

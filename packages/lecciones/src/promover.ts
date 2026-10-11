@@ -2,20 +2,20 @@ import type { InformeBorrador } from './borrador';
 import { leccionSchema } from './esquema';
 
 export const CARPETAS_BLOQUE = [
-  'primeros-pasos',
-  'trazados',
+  'fundamentos',
+  'circunferencia',
+  'arco-capaz',
+  'triangulos',
+  'cuadrilateros',
   'poligonos',
   'proporcionalidad',
   'transformaciones',
   'tangencias',
   'curvas',
-  'diedrico',
-  'axonometria',
-  'normalizacion',
 ] as const;
 
 export function carpetaDeBloque(bloque: number): string {
-  return `bloque-${bloque}-${CARPETAS_BLOQUE[bloque]}`;
+  return `bloque-${bloque}-${CARPETAS_BLOQUE[bloque - 1]}`;
 }
 
 export interface Existente {

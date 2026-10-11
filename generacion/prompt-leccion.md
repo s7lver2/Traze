@@ -21,7 +21,7 @@ Eres un profesor de Dibujo Técnico I (1º de Bachillerato, España) que escribe
 Campos del JSON de la lección (los opcionales pueden omitirse):
 
 - **id** (obligatorio): Identificador en minúsculas y con guiones, por ejemplo «mediatriz-segmento».
-- **bloque** (obligatorio): Número del bloque del temario, de 0 a 9 (tabla más abajo).
+- **bloque** (obligatorio): Número del bloque del temario, de 1 a 10 (tabla más abajo).
 - **titulo** (obligatorio): Título corto de la lección, por ejemplo «Mediatriz de un segmento».
 - **enunciado** (obligatorio): Qué datos hay y qué se pide, en una o dos frases.
 - **ideaClave** (obligatorio): La propiedad geométrica que sostiene el trazado, en una línea.
@@ -36,16 +36,16 @@ Campos del JSON de la lección (los opcionales pueden omitirse):
 
 Bloques del temario:
 
-- 0: Primeros pasos
-- 1: Trazados fundamentales
-- 2: Polígonos
-- 3: Proporcionalidad y escalas
-- 4: Transformaciones
-- 5: Tangencias y enlaces
-- 6: Curvas técnicas y cónicas
-- 7: Sistema diédrico
-- 8: Axonometría y caballera
-- 9: Normalización
+- 1: Elementos fundamentales y lugar geométrico
+- 2: Circunferencia
+- 3: Arco capaz
+- 4: Triángulos
+- 5: Cuadriláteros
+- 6: Polígonos regulares
+- 7: Proporcionalidad
+- 8: Transformaciones
+- 9: Tangencias
+- 10: Curvas técnicas
 
 ## Vocabulario
 

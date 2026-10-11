@@ -1,6 +1,6 @@
 {
   "id": "homotecia",
-  "bloque": 4,
+  "bloque": 8,
   "titulo": "Homotecia de un triángulo",
   "enunciado": "Aplica al triángulo ABC una homotecia de centro O y razón 2: obtén el triángulo A'B'C' con A', B' y C' en las rectas OA, OB y OC.",
   "ideaClave": "La homotecia multiplica las distancias al centro por la razón: conserva los ángulos y da lados paralelos a los originales.",

@@ -1,6 +1,6 @@
 {
   "id": "compas-basico",
-  "bloque": 0,
+  "bloque": 1,
   "titulo": "Uso del compás: transportar un segmento",
   "enunciado": "Dado el segmento AB y una semirrecta de origen C, transporta con el compás la longitud AB sobre la semirrecta.",
   "ideaClave": "Con la misma abertura del compás, un arco con centro en C corta a la semirrecta a la distancia AB: CD = AB.",

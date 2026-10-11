@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import type { Leccion } from '../src/esquema';
 import {
   MAX_CARACTERES_CONSEJO,
@@ -27,7 +27,7 @@ function temarioCon(...entradas: ReturnType<typeof entrada>[]): Temario {
 const TEMARIO = temarioCon(
   entrada('mediatriz-segmento', 1, [], ['equidistante', 'perpendicular']),
   entrada('bisectriz-angulo', 1, ['mediatriz-segmento']),
-  entrada('tangente-recta', 5, ['bisectriz-angulo']),
+  entrada('tangente-recta', 9, ['bisectriz-angulo']),
 );
 
 function leccion(id: string, bloque: number, cambios: Record<string, unknown> = {}): Leccion {
@@ -62,7 +62,7 @@ describe('temarioSchema', () => {
   });
 
   it('rechaza un temario desordenado por bloques', () => {
-    expect(errores([entrada('a', 5), entrada('b', 1)])).toEqual([
+    expect(errores([entrada('a', 9), entrada('b', 1)])).toEqual([
       'lecciones.1.bloque: el temario va ordenado por bloques',
     ]);
   });
@@ -127,7 +127,7 @@ describe('encargoDe', () => {
     const texto = encargoDe(TEMARIO.lecciones[1], ['mediatriz-segmento']);
     expect(texto.split('\n')).toEqual([
       'Genera la lección «Título de bisectriz-angulo».',
-      'id: bisectriz-angulo · bloque: 1 (Trazados fundamentales)',
+      'id: bisectriz-angulo · bloque: 1 (Elementos fundamentales y lugar geométrico)',
       'requisitos: mediatriz-segmento',
       '',
       ENCARGO,
@@ -154,7 +154,7 @@ describe('agruparPorBloque y vecinas', () => {
     expect(agruparPorBloque(TEMARIO, publicadas)).toEqual([
       {
         bloque: 1,
-        nombre: 'Trazados fundamentales',
+        nombre: 'Elementos fundamentales y lugar geométrico',
         lecciones: [
           { id: 'mediatriz-segmento', titulo: 'Título de mediatriz-segmento', publicada: true, requisitos: [] },
           {
@@ -166,8 +166,8 @@ describe('agruparPorBloque y vecinas', () => {
         ],
       },
       {
-        bloque: 5,
-        nombre: 'Tangencias y enlaces',
+        bloque: 9,
+        nombre: 'Tangencias',
         lecciones: [
           {
             id: 'tangente-recta',
@@ -202,12 +202,12 @@ describe('comprobarRevision', () => {
       leccion('a', 1, { meta: REVISADA }),
       leccion('b', 1),
       leccion('c', 2),
-      leccion('d', 5),
-      leccion('e', 7, { meta: REVISADA }),
+      leccion('d', 9),
+      leccion('e', 8, { meta: REVISADA }),
     ];
     expect(comprobarRevision(lecciones)).toEqual({
       ok: false,
-      faltan: ['d: bloque 5, prioritaria y sin revisar'],
+      faltan: ['d: bloque 9, prioritaria y sin revisar'],
     });
   });
 
@@ -220,7 +220,7 @@ describe('comprobarRevision', () => {
   });
 
   it('da por buena una revisión completa', () => {
-    const lecciones = [leccion('a', 1, { meta: REVISADA }), leccion('b', 1), leccion('c', 5, { meta: REVISADA })];
+    const lecciones = [leccion('a', 1, { meta: REVISADA }), leccion('b', 1), leccion('c', 9, { meta: REVISADA })];
     expect(comprobarRevision(lecciones)).toEqual({ ok: true, faltan: [] });
   });
 });
@@ -231,11 +231,11 @@ describe('formatearTemario', () => {
     expect(formatearTemario(TEMARIO, cobertura).split('\n')).toEqual([
       'Temario: 1 de 3 lecciones generadas',
       '',
-      'Bloque 1 · Trazados fundamentales',
+      'Bloque 1 · Elementos fundamentales y lugar geométrico',
       '  ✔ mediatriz-segmento',
       '  · bisectriz-angulo (pendiente)',
       '',
-      'Bloque 5 · Tangencias y enlaces',
+      'Bloque 9 · Tangencias',
       '  · tangente-recta (pendiente)',
       '',
       'Errores:',

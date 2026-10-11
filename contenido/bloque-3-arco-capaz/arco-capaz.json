@@ -1,6 +1,6 @@
 {
   "id": "arco-capaz",
-  "bloque": 1,
+  "bloque": 3,
   "titulo": "Arco capaz de un ángulo",
   "enunciado": "Dado el ángulo PVQ y el segmento AB, traza el arco capaz: el lugar de los puntos desde los que AB se ve bajo ese mismo ángulo.",
   "ideaClave": "Todos los puntos del arco capaz ven AB bajo el mismo ángulo. Su centro está en la mediatriz de AB y en la perpendicular al lado trasladado por A.",

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { distancia } from '@traze/geometria';
-import dividir from '../../../contenido/bloque-1-trazados/dividir-segmento-dos-partes.json';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import dividir from '../../../contenido/bloque-1-fundamentos/dividir-segmento-dos-partes.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import type { Leccion } from '../src/esquema';
 import { interpretarLeccion } from '../src/interpretar';
 import { validarLeccion } from '../src/validar';

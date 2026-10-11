@@ -1,6 +1,6 @@
 {
   "id": "division-segmento-thales",
-  "bloque": 1,
+  "bloque": 7,
   "titulo": "División de un segmento con el teorema de Thales",
   "enunciado": "Divide el segmento AB en tres partes iguales con regla y compás, usando una semirrecta auxiliar desde A.",
   "ideaClave": "Tres paralelas que cortan a dos secantes determinan segmentos proporcionales: si en la auxiliar las partes son iguales, también lo son en AB.",

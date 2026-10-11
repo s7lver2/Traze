@@ -1,6 +1,6 @@
 {
   "id": "tangentes-desde-punto-exterior",
-  "bloque": 5,
+  "bloque": 9,
   "titulo": "Tangentes desde un punto exterior",
   "enunciado": "Dada una circunferencia de centro C que pasa por D, traza las dos tangentes a ella desde un punto exterior P.",
   "ideaClave": "El ángulo que forma cada radio con su tangente es recto: el arco capaz de diámetro PC da los puntos de tangencia.",

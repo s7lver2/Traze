@@ -1,6 +1,6 @@
 {
   "id": "pentagono-regular",
-  "bloque": 2,
+  "bloque": 6,
   "titulo": "Pentágono regular inscrito",
   "enunciado": "Dada una circunferencia de centro O y el diámetro horizontal OB, traza el pentágono regular inscrito con vértice en C, el extremo superior del radio vertical.",
   "ideaClave": "Con el método clásico, la distancia CN (de un vértice al corte del diámetro) es el lado del pentágono: basta con llevarla cinco veces sobre la circunferencia.",

@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import { construirPrompt, construirSkill } from '../src/prompt';
 import { COMPROBACIONES, DERIVADOS, MARCA_VOCABULARIO, PRIMITIVAS } from '../src/vocabulario';
 

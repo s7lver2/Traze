@@ -1,6 +1,6 @@
 {
   "id": "cuarta-proporcional",
-  "bloque": 3,
+  "bloque": 7,
   "titulo": "Cuarta proporcional",
   "enunciado": "Dados tres segmentos a, b y c, halla la cuarta proporcional x, de modo que a/b = c/x.",
   "ideaClave": "El teorema de Thales: una paralela a un lado de un triángulo corta a los otros dos en segmentos proporcionales.",

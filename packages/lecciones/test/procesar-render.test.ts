@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import { procesarLeccion } from '../src/procesar';
 
 describe('procesarLeccion con el chequeo de render', () => {

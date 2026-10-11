@@ -1,6 +1,6 @@
 {
   "id": "simetria-axial",
-  "bloque": 4,
+  "bloque": 8,
   "titulo": "Simetría axial de un triángulo",
   "enunciado": "Dibuja el simétrico del triángulo ABC respecto del eje e, que queda definido por los puntos E1 y E2.",
   "ideaClave": "El eje es la mediatriz de cada segmento que une un punto con su simétrico: cada punto se refleja a la misma distancia del eje.",

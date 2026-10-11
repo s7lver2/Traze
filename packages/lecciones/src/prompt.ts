@@ -65,7 +65,7 @@ function cuerpo(ejemplo: unknown): string {
     '',
     'Bloques del temario:',
     '',
-    ...BLOQUES_TEMARIO.map((nombre, i) => `- ${i}: ${nombre}`),
+    ...BLOQUES_TEMARIO.map((nombre, i) => `- ${i + 1}: ${nombre}`),
     '',
     '## Vocabulario',
     '',

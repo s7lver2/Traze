@@ -342,7 +342,7 @@ export const metaSchema = z
 export const leccionSchema = z
   .object({
     id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'el id de lección va en minúsculas y con guiones'),
-    bloque: z.number().int().min(0).max(9),
+    bloque: z.number().int().min(1).max(10),
     titulo: z.string().min(1),
     enunciado: z.string().min(1),
     ideaClave: z.string().min(1),

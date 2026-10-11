@@ -5,7 +5,7 @@ import { construirPrompt, construirSkill } from './prompt';
 
 const raiz = fileURLToPath(new URL('../../../', import.meta.url));
 const piloto: unknown = JSON.parse(
-  readFileSync(join(raiz, 'contenido', 'bloque-1-trazados', 'mediatriz-segmento.json'), 'utf-8'),
+  readFileSync(join(raiz, 'contenido', 'bloque-1-fundamentos', 'mediatriz-segmento.json'), 'utf-8'),
 );
 
 const salidas = [

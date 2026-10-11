@@ -1,6 +1,6 @@
 {
   "id": "circuncentro-triangulo",
-  "bloque": 2,
+  "bloque": 4,
   "titulo": "Circuncentro y circunferencia circunscrita",
   "enunciado": "Dado el triángulo acutángulo ABC, halla su circuncentro y dibuja la circunferencia que pasa por sus tres vértices.",
   "ideaClave": "El circuncentro es el corte de las mediatrices de los lados: equidista de los tres vértices y es el centro de la circunferencia circunscrita.",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import { marcarRevisada } from '../src/revisar';
 import { validarLeccion } from '../src/validar';
 

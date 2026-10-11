@@ -1,6 +1,6 @@
 {
   "id": "enlace-dos-rectas",
-  "bloque": 5,
+  "bloque": 9,
   "titulo": "Enlace de dos rectas con un arco",
   "enunciado": "Enlaza dos rectas que se cortan en V con un arco de radio R, de modo que el arco toque a las dos rectas.",
   "ideaClave": "El centro del enlace está a distancia R de las dos rectas: es el corte de sus paralelas, y los puntos de tangencia son los pies de las perpendiculares desde ese centro.",

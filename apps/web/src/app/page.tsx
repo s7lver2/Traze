@@ -1,3 +1,4 @@
+import { nombreDeBloque } from '@traze/lecciones';
 import Link from 'next/link';
 import { cargarLecciones } from '../contenido';
 import { agruparPorBloque, textoPasos } from '../portada';
@@ -20,7 +21,9 @@ export default function Portada() {
               className="bloque"
               aria-labelledby={`bloque-${grupo.bloque}`}
             >
-              <h2 id={`bloque-${grupo.bloque}`}>Bloque {grupo.bloque}</h2>
+              <h2 id={`bloque-${grupo.bloque}`}>
+                {grupo.bloque}. {nombreDeBloque(grupo.bloque)}
+              </h2>
               <ul className="fichas">
                 {grupo.items.map(({ leccion, resuelta }) => (
                   <li key={leccion.id}>

@@ -5,13 +5,50 @@
   "enunciado": "Dado el segmento AB, traza su mediatriz con regla y compás.",
   "ideaClave": "La mediatriz es el lugar geométrico de los puntos que equidistan de A y de B.",
   "requisitos": [],
-  "datos": { "A": [60, 70], "B": [140, 60] },
+  "datos": {
+    "A": [
+      60,
+      70
+    ],
+    "B": [
+      140,
+      60
+    ]
+  },
   "radios": {
-    "r": { "entre": ["A", "B"], "factor": 0.75, "deslizador": { "min": 0.55, "max": 0.85 } }
+    "r": {
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 0.75,
+      "deslizador": {
+        "min": 0.55,
+        "max": 0.85
+      }
+    }
   },
   "derivados": [
-    { "tipo": "interseccionArcos", "ids": ["M", "N"], "centros": ["A", "B"], "radio": "r" },
-    { "tipo": "puntoMedio", "id": "O", "entre": ["A", "B"] }
+    {
+      "tipo": "interseccionArcos",
+      "ids": [
+        "M",
+        "N"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "A",
+        "B"
+      ]
+    }
   ],
   "pasos": [
     {
@@ -20,9 +57,20 @@
       "porque": "La mediatriz es la recta perpendicular a AB que pasa por su punto medio.",
       "consejo": "Marca A y B con un punto fino y rotúlalos en mayúscula.",
       "dibujo": [
-        { "tipo": "segmento", "desde": "A", "hasta": "B", "estilo": "dato" },
-        { "tipo": "punto", "id": "A" },
-        { "tipo": "punto", "id": "B" }
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
       ]
     },
     {
@@ -31,8 +79,18 @@
       "porque": "Todos los puntos de un arco están a la misma distancia de su centro: el radio.",
       "consejo": "Gira el compás desde la cabeza, con una sola mano y sin apretar el lápiz.",
       "dibujo": [
-        { "tipo": "arco", "centro": "A", "radio": "r", "hacia": "M" },
-        { "tipo": "arco", "centro": "A", "radio": "r", "hacia": "N" }
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "r",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "r",
+          "hacia": "N"
+        }
       ]
     },
     {
@@ -41,8 +99,18 @@
       "porque": "Con el mismo radio desde A y desde B, los cortes están a igual distancia de los dos extremos.",
       "consejo": "Comprueba que la abertura no se ha movido antes de pinchar en B.",
       "dibujo": [
-        { "tipo": "arco", "centro": "B", "radio": "r", "hacia": "M" },
-        { "tipo": "arco", "centro": "B", "radio": "r", "hacia": "N" }
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "r",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "r",
+          "hacia": "N"
+        }
       ]
     },
     {
@@ -51,8 +119,16 @@
       "porque": "M y N equidistan de A y de B, así que los dos pertenecen a la mediatriz.",
       "consejo": "Cuanto más abierto es el ángulo con que se cortan los arcos, más preciso sale el punto.",
       "dibujo": [
-        { "tipo": "punto", "id": "M", "estilo": "construccion" },
-        { "tipo": "punto", "id": "N", "estilo": "construccion" }
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "N",
+          "estilo": "construccion"
+        }
       ]
     },
     {
@@ -61,7 +137,15 @@
       "porque": "Dos puntos determinan una recta. Esa recta es la mediatriz.",
       "consejo": "Dibuja el resultado en trazo grueso y la construcción en trazo fino.",
       "dibujo": [
-        { "tipo": "recta", "por": ["M", "N"], "extension": 8, "estilo": "resultado" }
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "N"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        }
       ]
     },
     {
@@ -70,10 +154,31 @@
       "porque": "Por eso la mediatriz sirve también para dividir un segmento en dos partes iguales.",
       "consejo": "Si dudas, mide AO y OB con la regla: deben coincidir.",
       "dibujo": [
-        { "tipo": "punto", "id": "O", "estilo": "resultado" },
-        { "tipo": "marcaAnguloRecto", "vertice": "O", "hacia1": "B", "hacia2": "M" },
-        { "tipo": "marcaIgualdad", "segmento": ["A", "O"] },
-        { "tipo": "marcaIgualdad", "segmento": ["O", "B"] }
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "B",
+          "hacia2": "M"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B"
+          ]
+        }
       ]
     }
   ],
@@ -82,9 +187,39 @@
     "Cambiar la abertura al pasar de A a B: M y N dejan de estar en la mediatriz."
   ],
   "comprobaciones": [
-    { "tipo": "equidistante", "punto": "M", "a": "A", "b": "B" },
-    { "tipo": "equidistante", "punto": "N", "a": "A", "b": "B" },
-    { "tipo": "perpendicular", "recta": ["M", "N"], "segmento": ["A", "B"] },
-    { "tipo": "pasaPorPuntoMedio", "recta": ["M", "N"], "segmento": ["A", "B"] }
+    {
+      "tipo": "equidistante",
+      "punto": "M",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "N",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "M",
+        "N"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "M",
+        "N"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    }
   ]
 }

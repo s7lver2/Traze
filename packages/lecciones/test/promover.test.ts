@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import { comprobarBorrador } from '../src/borrador';
 import { carpetaDeBloque, describirExistente, prepararPromocion } from '../src/promover';
 
-const RUTA = 'bloque-1-trazados/mediatriz-segmento.json';
+const RUTA = 'bloque-1-fundamentos/mediatriz-segmento.json';
 
 function informe(datos: unknown = piloto) {
   return comprobarBorrador(JSON.stringify(datos), { idsExistentes: [] });
@@ -63,9 +63,9 @@ describe('prepararPromocion', () => {
 
 describe('carpetaDeBloque', () => {
   it('nombra la carpeta con el número y el nombre del bloque', () => {
-    expect(carpetaDeBloque(0)).toBe('bloque-0-primeros-pasos');
-    expect(carpetaDeBloque(5)).toBe('bloque-5-tangencias');
-    expect(carpetaDeBloque(7)).toBe('bloque-7-diedrico');
+    expect(carpetaDeBloque(1)).toBe('bloque-1-fundamentos');
+    expect(carpetaDeBloque(9)).toBe('bloque-9-tangencias');
+    expect(carpetaDeBloque(10)).toBe('bloque-10-curvas');
   });
 });
 

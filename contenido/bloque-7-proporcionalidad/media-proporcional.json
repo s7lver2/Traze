@@ -1,6 +1,6 @@
 {
   "id": "media-proporcional",
-  "bloque": 3,
+  "bloque": 7,
   "titulo": "Media proporcional",
   "enunciado": "Dados dos segmentos consecutivos AJ y JB sobre una recta, halla su media proporcional: el segmento h tal que AJ/h = h/JB.",
   "ideaClave": "En un triángulo rectángulo, la altura sobre la hipotenusa es media proporcional entre las dos partes de la hipotenusa: el arco de diámetro AB lo garantiza.",

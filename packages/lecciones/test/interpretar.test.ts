@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { distancia } from '@traze/geometria';
-import piloto from '../../../contenido/bloque-1-trazados/mediatriz-segmento.json';
+import piloto from '../../../contenido/bloque-1-fundamentos/mediatriz-segmento.json';
 import type { Leccion } from '../src/esquema';
 import {
   ConstruccionImposible,

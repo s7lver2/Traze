@@ -1,6 +1,6 @@
 {
   "id": "hexagono-regular",
-  "bloque": 2,
+  "bloque": 6,
   "titulo": "Hexágono regular inscrito",
   "enunciado": "Dada una circunferencia de centro O y un punto A sobre ella, traza el hexágono regular inscrito con el compás.",
   "ideaClave": "El lado del hexágono regular inscrito es igual al radio: seis arcos de radio R, con centro en los vértices, reparten la circunferencia.",

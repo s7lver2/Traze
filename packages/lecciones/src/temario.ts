@@ -11,7 +11,7 @@ export const TIPOS_COMPROBACION: readonly string[] = (
 
 export const entradaTemarioSchema = z.object({
   id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'el id va en minúsculas y con guiones'),
-  bloque: z.number().int().min(0).max(9),
+  bloque: z.number().int().min(1).max(10),
   titulo: z.string().min(1),
   requisitos: z.array(z.string()),
   encargo: z.string().min(40, 'el encargo debe explicar el trazado con detalle'),
@@ -121,7 +121,7 @@ export function comprobarCobertura(temario: Temario, lecciones: readonly Leccion
 }
 
 export function nombreDeBloque(bloque: number): string {
-  return BLOQUES_TEMARIO[bloque];
+  return BLOQUES_TEMARIO[bloque - 1];
 }
 
 export function encargoDe(entrada: EntradaTemario, publicadas: readonly string[]): string {
