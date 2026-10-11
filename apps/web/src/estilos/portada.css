@@ -1,0 +1,60 @@
+.portada .lema {
+  margin: 0 0 var(--e6);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--tinta-suave);
+}
+
+.bloque {
+  margin-top: var(--e5);
+}
+
+.bloque h2 {
+  margin: 0 0 var(--e3);
+}
+
+.fichas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--e3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e1);
+  min-height: 44px;
+  padding: var(--e3) var(--e4);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-boton);
+  color: var(--tinta);
+  text-decoration: none;
+  transition:
+    transform var(--t-control) var(--curva),
+    box-shadow var(--t-control) var(--curva),
+    border-color var(--t-control) var(--curva);
+}
+
+.ficha:hover {
+  border-color: var(--azul-correccion);
+  box-shadow: var(--sombra-suave);
+  transform: translateY(-2px);
+}
+
+.ficha-titulo {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.ficha-meta {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}

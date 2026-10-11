@@ -1,21 +1,36 @@
 import Link from 'next/link';
 import { cargarLecciones } from '../contenido';
+import { agruparPorBloque, textoPasos } from '../portada';
 
 export default function Portada() {
-  const lecciones = cargarLecciones();
+  const grupos = agruparPorBloque(cargarLecciones());
 
   return (
     <section className="portada">
       <h1>Traze</h1>
       <p className="lema">Dibujo Técnico de 1º de Bachillerato, trazo a trazo.</p>
-      <ul className="indice">
-        {lecciones.map(({ leccion }) => (
-          <li key={leccion.id}>
-            <Link href={`/leccion/${leccion.id}`}>{leccion.titulo}</Link>
-            <span>Bloque {leccion.bloque}</span>
-          </li>
-        ))}
-      </ul>
+
+      {grupos.length === 0 && <p>Todavía no hay lecciones publicadas.</p>}
+
+      {grupos.map((grupo) => (
+        <section
+          key={grupo.bloque}
+          className="bloque"
+          aria-labelledby={`bloque-${grupo.bloque}`}
+        >
+          <h2 id={`bloque-${grupo.bloque}`}>Bloque {grupo.bloque}</h2>
+          <ul className="fichas">
+            {grupo.items.map(({ leccion, resuelta }) => (
+              <li key={leccion.id}>
+                <Link className="ficha" href={`/leccion/${leccion.id}`}>
+                  <span className="ficha-titulo">{leccion.titulo}</span>
+                  <span className="ficha-meta">{textoPasos(resuelta.pasos.length)}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
     </section>
   );
 }
