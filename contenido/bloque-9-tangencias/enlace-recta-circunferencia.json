@@ -1,0 +1,276 @@
+{
+  "id": "enlace-recta-circunferencia",
+  "bloque": 9,
+  "titulo": "Enlace de una recta y una circunferencia",
+  "enunciado": "Enlaza la recta r con la circunferencia de centro C y radio 25 mm mediante un arco de radio R = 20 mm, tangente a ambas.",
+  "ideaClave": "El centro de un enlace tangente a una recta y a una circunferencia está a distancia R de la recta y a distancia rC + R del centro C.",
+  "requisitos": [
+    "enlace-dos-rectas"
+  ],
+  "datos": {
+    "T": [
+      40,
+      110
+    ],
+    "Rr": [
+      180,
+      110
+    ],
+    "C": [
+      120,
+      60
+    ],
+    "Q": [
+      120,
+      35
+    ]
+  },
+  "radios": {
+    "rc": {
+      "mm": 25
+    },
+    "rr": {
+      "mm": 20
+    },
+    "rce": {
+      "mm": 45
+    },
+    "s": {
+      "mm": 40
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "K",
+      "origen": "T",
+      "direccion": [
+        "T",
+        "Rr"
+      ],
+      "radio": "rr",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "K2",
+      "origen": "K",
+      "direccion": [
+        "T",
+        "Rr"
+      ],
+      "radio": "s"
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "E",
+        "Ez"
+      ],
+      "recta": [
+        "K",
+        "K2"
+      ],
+      "centro": "C",
+      "radio": "rce"
+    },
+    {
+      "tipo": "pie",
+      "id": "F",
+      "punto": "E",
+      "recta": [
+        "T",
+        "Rr"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "G",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "E"
+      ],
+      "radio": "rc"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La recta y la circunferencia",
+      "texto": "Tenemos la recta r y la circunferencia de centro C y radio 25 mm, por encima de r. Hay que enlazarlas con un arco de 20 mm.",
+      "porque": "Un enlace es un arco que toca a la recta y a la circunferencia sin cortarlas: en el punto de contacto, los radios son perpendiculares.",
+      "consejo": "Marca C con una cruz fina y traza la circunferencia en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "T",
+            "Rr"
+          ],
+          "extension": 6,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rc",
+          "hacia": "Q",
+          "amplitud": 2.9,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a r a 20 mm",
+      "texto": "Levanta desde T una perpendicular de 20 mm y traza por su extremo K la paralela a r. El centro del enlace estará sobre esa paralela.",
+      "porque": "El centro de un arco de radio R tangente a r está a distancia R de la recta, sobre la paralela.",
+      "consejo": "Traza la paralela con la escuadra apoyada en r y marca K con una cruz.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "T",
+          "hasta": "K",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T",
+          "hacia1": "Rr",
+          "hacia2": "K"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "K",
+            "K2"
+          ],
+          "extension": 4,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Circunferencia auxiliar de radio 45 mm",
+      "texto": "Con centro C y radio 45 mm (25 + 20) traza un arco que corte la paralela en dos puntos. Llama E al de la izquierda: ese es el centro del enlace.",
+      "porque": "El enlace es exterior: la distancia de E a C es rC + R = 25 + 20 = 45 mm.",
+      "consejo": "Pincha en C con 45 mm y marca el corte de la izquierda; el de la derecha también sirve, pero el enlace queda en el otro lado.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rce",
+          "hacia": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Punto de tangencia F sobre r",
+      "texto": "Baja desde E la perpendicular a r y marca F, el pie. Ese es el punto donde el enlace toca a la recta.",
+      "porque": "El radio EF es perpendicular a r, y mide 20 mm: F es el punto de tangencia.",
+      "consejo": "Usa la escuadra apoyada en r y marca el ángulo recto en F.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "F",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "F",
+          "hacia1": "E",
+          "hacia2": "T"
+        }
+      ]
+    },
+    {
+      "titulo": "Punto de tangencia G sobre la circunferencia",
+      "texto": "Une C con E y marca G en el segmento CE, a 25 mm de C. Ese es el punto donde el enlace toca a la circunferencia.",
+      "porque": "C, G y E están alineados, así que el radio CG de la circunferencia pasa por el centro del enlace: son tangentes.",
+      "consejo": "Marca G con el compás pinchando en C con 25 mm, sobre la línea CE.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El arco de enlace",
+      "texto": "Pincha en E con la abertura de 20 mm y traza el arco de F a G. Une las dos tangencias: el enlace queda hecho.",
+      "porque": "El arco FG tiene centro E y radio 20 mm, y toca a la recta en F y a la circunferencia en G.",
+      "consejo": "Traza el arco de F a G en un solo movimiento para que quede liso en los puntos de unión.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "E",
+          "desde": "F",
+          "hasta": "G",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar rC − R en lugar de rC + R para la distancia a C: el arco se mete dentro de la circunferencia en lugar de enlazarla por fuera.",
+    "Confundir los dos cortes de la auxiliar: cada uno da un enlace distinto, y hay que usar siempre el mismo con su G y su F.",
+    "No marcar la perpendicular en F: el arco toca a la recta en un punto que no es tangente."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "T",
+        "Rr"
+      ],
+      "centro": "E",
+      "punto": "F"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "F",
+      "centro": "E",
+      "radio": "rr"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "G",
+      "centro": "C",
+      "radio": "rc"
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "E",
+        "G",
+        "C"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
