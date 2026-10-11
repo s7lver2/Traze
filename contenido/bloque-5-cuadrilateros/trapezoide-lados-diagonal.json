@@ -1,0 +1,305 @@
+{
+  "id": "trapezoide-lados-diagonal",
+  "bloque": 5,
+  "titulo": "Trapezoide dados los lados y una diagonal",
+  "enunciado": "Construye el cuadrilátero ABCD conocidos sus cuatro lados AB = 60 mm, BC = 70 mm, CD = 60 mm, DA = 50 mm y la diagonal AC = 100 mm.",
+  "ideaClave": "La diagonal divide el cuadrilátero en dos triángulos, y cada uno se construye con sus tres lados.",
+  "requisitos": [
+    "triangulo-tres-lados"
+  ],
+  "datos": {
+    "A": [
+      50,
+      90
+    ],
+    "C": [
+      150,
+      90
+    ]
+  },
+  "radios": {
+    "rab": {
+      "mm": 60
+    },
+    "rbc": {
+      "mm": 70
+    },
+    "rad": {
+      "mm": 50
+    },
+    "rcd": {
+      "mm": 60
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "B",
+        "Bb"
+      ],
+      "centros": [
+        "A",
+        "C"
+      ],
+      "radios": [
+        "rab",
+        "rbc"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Dup",
+        "D"
+      ],
+      "centros": [
+        "A",
+        "C"
+      ],
+      "radios": [
+        "rad",
+        "rcd"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rab"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E2",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "A"
+      ],
+      "radio": "rbc"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E3",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "A"
+      ],
+      "radio": "rcd"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E4",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rad"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La diagonal AC",
+      "texto": "Traza la diagonal AC de 100 mm. Divide el cuadrilátero en dos triángulos: uno por encima y otro por debajo de AC.",
+      "porque": "Una diagonal parte un cuadrilátero en dos triángulos, y cada triángulo se construye con sus tres lados.",
+      "consejo": "Marca A y C con una cruz fina antes de trazar la diagonal.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos para el vértice B",
+      "texto": "Desde A, con abertura de 60 mm, traza un arco por encima de AC. Desde C, con abertura de 70 mm, traza otro arco que lo corte.",
+      "porque": "B está a 60 mm de A y a 70 mm de C: es el corte de esos dos arcos.",
+      "consejo": "Cambia la abertura del compás entre A y C, pero no durante el arco de cada vértice.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rab",
+          "hacia": "B"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rbc",
+          "hacia": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice B",
+      "texto": "Los dos arcos se cortan por encima de AC. Llama B a ese punto y une A con B y B con C.",
+      "porque": "AB y BC son los lados del triángulo ABC, con las medidas de 60 y 70 mm.",
+      "consejo": "Marca B con una cruz fina y repasa los lados AB y BC en trazo grueso.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos para el vértice D",
+      "texto": "Ahora por debajo de AC: desde A con 50 mm y desde C con 60 mm, traza dos arcos que se corten en D.",
+      "porque": "D está a 50 mm de A y a 60 mm de C: es el otro vértice, en el triángulo de debajo de AC.",
+      "consejo": "Usa la misma abertura en todo el arco de cada vértice; si cambia, el lado sale mal.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rad",
+          "hacia": "D"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rcd",
+          "hacia": "D"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice D",
+      "texto": "Llama D al corte de los dos arcos de debajo de AC. Une A con D y C con D.",
+      "porque": "AD y CD son los lados del triángulo ACD, con las medidas de 50 y 60 mm.",
+      "consejo": "Traza AD y CD en trazo grueso, sin cruzar la diagonal más allá de A y de C.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los cuatro lados",
+      "texto": "Los cuatro lados del cuadrilátero miden AB = 60, BC = 70, CD = 60 y DA = 50 mm. La diagonal AC mide 100 mm.",
+      "porque": "Cada lado es un radio de uno de los arcos, así que mide exactamente lo dado.",
+      "consejo": "Compara cada lado con su abertura de compás: debe caer justo en el arco que lo originó.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "D"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Intercambiar las aberturas en A y en C: el vértice B sale a otra distancia de los extremos de la diagonal.",
+    "Trazar los arcos de D por encima de AC: el vértice cae en el triángulo de arriba y no se forma el cuadrilátero.",
+    "Olvidar que la diagonal AC es un lado de los dos triángulos: si no se traza en el mismo sitio, los vértices no encajan."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A",
+          "E1"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "B",
+          "C"
+        ],
+        [
+          "C",
+          "E2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "C",
+          "E3"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "D",
+          "A"
+        ],
+        [
+          "A",
+          "E4"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
