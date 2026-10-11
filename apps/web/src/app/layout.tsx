@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import './globals.css';
 import '../estilos/tokens.css';
 import '../estilos/base.css';
+import '../estilos/hoja.css';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],
@@ -29,7 +30,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             Traze
           </Link>
         </header>
-        <main>{children}</main>
+        <main>
+          <div className="hoja">{children}</div>
+        </main>
       </body>
     </html>
   );

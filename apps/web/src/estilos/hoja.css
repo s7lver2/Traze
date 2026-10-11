@@ -1,0 +1,51 @@
+main {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--e4) clamp(var(--e4), 4vw, 2.5rem) calc(var(--e6) * 2);
+}
+
+/* Hoja: papel con sombra en capas, línea de margen y regla graduada superior (solo CSS) */
+.hoja {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--e6) + var(--e5)) clamp(var(--e4), 4vw, 2.5rem) var(--e6)
+    clamp(2.25rem, 6vw, 4rem);
+  border-radius: var(--radio-hoja);
+  background: var(--papel);
+  box-shadow: var(--sombra-hoja);
+  animation: entrada var(--t-entrada) var(--curva) both;
+}
+
+.hoja > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hoja::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(1.5rem, 4.5vw, 3rem);
+  width: 1px;
+  background: var(--margen);
+  pointer-events: none;
+}
+
+.hoja::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 14px;
+  border-bottom: 1px solid var(--papel-sombra);
+  background-image:
+    repeating-linear-gradient(90deg, var(--regla) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg, var(--regla) 0 1px, transparent 1px 40px);
+  background-size:
+    100% 6px,
+    100% 12px;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
