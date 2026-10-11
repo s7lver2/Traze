@@ -1,0 +1,194 @@
+{
+  "id": "angulo-central-e-inscrito",
+  "bloque": 2,
+  "titulo": "Ángulo central e inscrito",
+  "enunciado": "En una circunferencia de centro O, toma dos puntos A y B y un punto P de la circunferencia. Compara el ángulo central AOB con el inscrito APB que abarca el mismo arco.",
+  "ideaClave": "El ángulo inscrito mide la mitad del ángulo central que abarca el mismo arco.",
+  "requisitos": [
+    "bisectriz-angulo",
+    "centro-de-circunferencia"
+  ],
+  "datos": {
+    "O": [
+      80,
+      70
+    ],
+    "A": [
+      120,
+      70
+    ],
+    "B": [
+      80,
+      110
+    ],
+    "P": [
+      80,
+      30
+    ]
+  },
+  "radios": {
+    "r": {
+      "mm": 40
+    }
+  },
+  "pasos": [
+    {
+      "titulo": "Circunferencia y puntos",
+      "texto": "Tenemos la circunferencia de centro O, con los puntos A y B sobre ella, y otro punto P sobre el arco de arriba.",
+      "porque": "Todos los puntos de la circunferencia están a la misma distancia r de O, y eso fija el tamaño de los ángulos.",
+      "consejo": "Traza la circunferencia de una sola vez, con el compás bien apoyado en O.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "B",
+          "pasaPor": "P",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "B",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "El ángulo central AOB",
+      "texto": "Une O con A y O con B. El ángulo AOB, de vértice O, es el ángulo central.",
+      "porque": "Su vértice está en el centro, así que sus lados son dos radios.",
+      "consejo": "Une los puntos con la regla apoyada en O para que el vértice quede limpio.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El ángulo inscrito APB",
+      "texto": "Une P con A y P con B. El ángulo APB, de vértice P sobre la circunferencia, es el ángulo inscrito.",
+      "porque": "Su vértice está sobre la circunferencia, y sus lados cortan la circunferencia en A y en B.",
+      "consejo": "Traza los lados desde P con cuidado: un error de un milímetro cambia mucho el ángulo.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "P",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El arco que abarcan",
+      "texto": "Repasa en trazo grueso el arco AB que no contiene a P. Es el arco que abarcan los dos ángulos.",
+      "porque": "El ángulo central y el inscrito abarcan el mismo arco AB, y por eso están relacionados.",
+      "consejo": "Marca el arco con un color distinto, para no confundirlo con el resto de la circunferencia.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Compara los dos ángulos",
+      "texto": "El ángulo AOB mide 90° y el ángulo APB mide 45°: el central es el doble del inscrito.",
+      "porque": "El inscrito abarca el mismo arco que el central, pero se mide desde un punto de la circunferencia: la mitad del ángulo.",
+      "consejo": "Mide primero con el transportador el central y después el inscrito: el resultado debe ser doble.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "A",
+          "hacia2": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Desde P, el mismo ángulo",
+      "texto": "P está en el arco grande, el opuesto al arco AB que hemos repasado. Desde cualquier punto de ese arco grande, el ángulo que forman A y B vale 45°.",
+      "porque": "Todos los puntos del mismo arco ven el segmento AB bajo el mismo ángulo inscrito.",
+      "consejo": "No vale un punto del arco pequeño AB: el inscrito sale distinto desde el lado contrario.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "P",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Medir el inscrito desde un punto del arco AB: el ángulo sale de 135° en lugar de 45°.",
+    "Confundir el vértice del central con el de la circunferencia: el central tiene el vértice en O, el inscrito en P.",
+    "Creer que el inscrito es igual al central: siempre mide la mitad."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "A",
+      "centro": "O",
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P",
+      "centro": "O",
+      "radio": "r"
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "O",
+      "a": "A",
+      "b": "B",
+      "grados": 90
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "P",
+      "a": "A",
+      "b": "B",
+      "grados": 45
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
