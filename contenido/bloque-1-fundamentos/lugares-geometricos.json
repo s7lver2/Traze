@@ -1,0 +1,494 @@
+{
+  "id": "lugares-geometricos",
+  "bloque": 1,
+  "titulo": "Lugares geométricos básicos",
+  "enunciado": "Dibuja cuatro lugares geométricos básicos y toma un punto de cada uno para comprobar su propiedad: la circunferencia, la mediatriz, la bisectriz y la paralela media.",
+  "ideaClave": "Un lugar geométrico es el conjunto de todos los puntos que cumplen una misma condición.",
+  "requisitos": [
+    "mediatriz-segmento",
+    "bisectriz-angulo",
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "C": [
+      35,
+      40
+    ],
+    "T": [
+      60,
+      20
+    ],
+    "A": [
+      115,
+      40
+    ],
+    "B": [
+      155,
+      40
+    ],
+    "V": [
+      40,
+      110
+    ],
+    "S": [
+      95,
+      110
+    ],
+    "Q": [
+      82.14,
+      74.65
+    ],
+    "A1": [
+      120,
+      95
+    ],
+    "B1": [
+      190,
+      95
+    ],
+    "A2": [
+      140,
+      125
+    ],
+    "B2": [
+      190,
+      125
+    ]
+  },
+  "radios": {
+    "rc": {
+      "mm": 20
+    },
+    "rm": {
+      "mm": 30
+    },
+    "ra": {
+      "mm": 25
+    },
+    "rb": {
+      "mm": 20
+    },
+    "s": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "T"
+      ],
+      "radio": "rc"
+    },
+    {
+      "tipo": "interseccionArcos",
+      "ids": [
+        "M",
+        "N"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radio": "rm"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "S"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "Q"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Z",
+        "Z2"
+      ],
+      "centros": [
+        "X",
+        "Y"
+      ],
+      "radios": [
+        "rb",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "F1",
+      "punto": "O",
+      "recta": [
+        "A1",
+        "B1"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "F2",
+      "punto": "O",
+      "recta": [
+        "A2",
+        "B2"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "W",
+      "origen": "O",
+      "direccion": [
+        "A1",
+        "B1"
+      ],
+      "radio": "s"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Cuatro figuras, cuatro lugares",
+      "texto": "Tenemos un centro C con un punto T, un segmento AB, un ángulo de vértice V y dos rectas paralelas. Vamos a tomar un punto de cada lugar y comprobar su propiedad.",
+      "porque": "Un lugar geométrico es el conjunto de todos los puntos que cumplen una misma condición.",
+      "consejo": "Deja cada figura en su rincón del papel para que no se mezclen los trazos.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "T"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "S",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "Q",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A1",
+          "hasta": "B1",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A2",
+          "hasta": "B2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A1"
+        },
+        {
+          "tipo": "punto",
+          "id": "A2"
+        }
+      ]
+    },
+    {
+      "titulo": "Circunferencia: distancia fija",
+      "texto": "Pincha en C con la abertura r y traza un arco en la dirección de CT. El punto P de ese arco está a r de C.",
+      "porque": "Todos los puntos de una circunferencia están a la misma distancia r de su centro.",
+      "consejo": "Anota la abertura r en el borde del papel para no perderla al cambiar de trazado.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "T",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rc",
+          "hacia": "P",
+          "amplitud": 1,
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz: equidistante de A y B",
+      "texto": "Con la misma abertura, traza arcos desde A y desde B que se corten en M y N. Une M con N: es la mediatriz de AB.",
+      "porque": "M y N están a igual distancia de A y de B, así que la recta MN es la mediatriz.",
+      "consejo": "Abre el compás más de la mitad de AB para que los arcos se corten.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm",
+          "hacia": "N"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "N"
+        },
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "N",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "N"
+          ],
+          "extension": 4,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Bisectriz: equidistante de los lados",
+      "texto": "Con una abertura ra, traza un arco desde V que corte los lados en X e Y. Desde X y desde Y, con la abertura rb, traza arcos que se corten en Z. Une V con Z.",
+      "porque": "Z está a igual distancia de X y de Y, así que también equidista de los dos lados del ángulo.",
+      "consejo": "No cambies la abertura entre X e Y: si cambia, Z se desplaza.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "ra",
+          "hacia": "X"
+        },
+        {
+          "tipo": "punto",
+          "id": "X"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y"
+        },
+        {
+          "tipo": "arco",
+          "centro": "X",
+          "radio": "rb",
+          "hacia": "Z"
+        },
+        {
+          "tipo": "arco",
+          "centro": "Y",
+          "radio": "rb",
+          "hacia": "Z"
+        },
+        {
+          "tipo": "punto",
+          "id": "Z",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "V",
+            "Z"
+          ],
+          "extension": 4,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela media: a igual distancia",
+      "texto": "Une A1 con A2 y marca su punto medio O. Desde O baja las perpendiculares a las dos rectas y traza por O la paralela a ellas.",
+      "porque": "El punto medio de un segmento que une dos paralelas está a igual distancia de las dos, así que la paralela por O es la paralela media.",
+      "consejo": "Usa la escuadra apoyada en la regla para que las perpendiculares salgan rectas.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A1",
+          "hasta": "A2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "F1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "F2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "F1"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "F2"
+          ]
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "W"
+          ],
+          "extension": 4,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las cuatro propiedades",
+      "texto": "P está a r de C, M equidista de A y de B, Z equidista de X e Y, y O está a igual distancia de las dos rectas.",
+      "porque": "Cada punto cumple la condición de su lugar, y cualquier otro punto que la cumpla pertenece también a él.",
+      "consejo": "Si dudas, mide con la regla las distancias implicadas: deben coincidir dos a dos.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "P",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "Z",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Confundir la paralela media con una de las dos paralelas: la distancia a cada una no es la misma.",
+    "Cambiar la abertura entre X e Y en la bisectriz: el punto Z se desplaza fuera del lugar.",
+    "Tomar la mediatriz trazando arcos con una abertura menor que la mitad de AB: no se cortan."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P",
+      "centro": "C",
+      "radio": "rc"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "M",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "Z",
+      "a": "X",
+      "b": "Y"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "F1",
+      "b": "F2"
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "O",
+          "W"
+        ],
+        [
+          "A1",
+          "B1"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
