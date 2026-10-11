@@ -1,0 +1,317 @@
+{
+  "id": "triangulo-equilatero-inscrito",
+  "bloque": 6,
+  "titulo": "Triángulo equilátero inscrito",
+  "enunciado": "Inscribe un triángulo equilátero en la circunferencia de centro O y radio OA = 50 mm.",
+  "ideaClave": "El lado del triángulo equilátero inscrito es el radio por raíz de tres, y sus vértices dividen la circunferencia en tres partes iguales.",
+  "requisitos": [
+    "hexagono-regular"
+  ],
+  "datos": {
+    "O": [
+      105,
+      70
+    ],
+    "A": [
+      155,
+      70
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "B",
+        "F"
+      ],
+      "centros": [
+        "O",
+        "A"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K1",
+        "C"
+      ],
+      "centros": [
+        "B",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K2",
+        "D"
+      ],
+      "centros": [
+        "C",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K3",
+        "E"
+      ],
+      "centros": [
+        "D",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La circunferencia y el vértice A",
+      "texto": "Tenemos la circunferencia de centro O y radio 50 mm, con el punto A sobre ella.",
+      "porque": "Todos los puntos de la circunferencia están a 50 mm de O.",
+      "consejo": "Pincha en O con firmeza y traza la circunferencia de una sola vez.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "F",
+          "pasaPor": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "F",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "Seis partes con el radio",
+      "texto": "Con la abertura del radio, pincha en A y marca B y F sobre la circunferencia. Están a 60° de A.",
+      "porque": "El triángulo OAB tiene sus tres lados iguales al radio: es equilátero y el ángulo en O vale 60°.",
+      "consejo": "Pincha en A con el mismo radio de 50 mm y no cambies la abertura en todo el proceso.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "B"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "F"
+        },
+        {
+          "tipo": "punto",
+          "id": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Otro vértice a 60°",
+      "texto": "Pincha en B con el radio y corta la circunferencia en C. Está a 60° de B, es decir, a 120° de A.",
+      "porque": "C está a 120° de A: los arcos AB y BC miden lo mismo, y de ahí sale el triángulo.",
+      "consejo": "Marca C con una cruz fina, sin confundirlo con los puntos B y F del paso anterior.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rR",
+          "hacia": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Un vértice más",
+      "texto": "Pincha en C con el radio y corta la circunferencia en D, a 180° de A. Sigue con el mismo radio para hallar E, a 240°.",
+      "porque": "Cada vértice queda a 60° del anterior: son tres partes de 120° al tomar un vértice sí y otro no.",
+      "consejo": "Marca D y E con una cruz fina: uno de ellos no formará parte del triángulo.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rR",
+          "hacia": "D"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rR",
+          "hacia": "E"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo ACE",
+      "texto": "Une A con C, C con E y E con A. Los vértices A, C y E forman el triángulo equilátero.",
+      "porque": "Un vértice sí y otro no: A, C y E dividen la circunferencia en tres arcos de 120°.",
+      "consejo": "Repasa el triángulo en trazo grueso y borra los arcos auxiliares si te estorban.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los lados",
+      "texto": "Los tres lados AC, CE y EA miden lo mismo, y los tres vértices están sobre la circunferencia.",
+      "porque": "El lado de un triángulo equilátero inscrito es el radio por raíz de tres: l = r·√3.",
+      "consejo": "Compara los tres lados con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "E"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "E",
+            "A"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura al pasar de un vértice al siguiente: los lados salen distintos.",
+    "Confundir el triángulo con el hexágono: el hexágono usa todos los vértices, el triángulo uno sí y otro no.",
+    "Unir vértices consecutivos en lugar de uno sí y otro no: sale un hexágono, no un triángulo."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "C",
+          "E"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "C",
+          "E"
+        ],
+        [
+          "E",
+          "A"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "E",
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
