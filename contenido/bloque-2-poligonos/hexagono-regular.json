@@ -1,0 +1,312 @@
+{
+  "id": "hexagono-regular",
+  "bloque": 2,
+  "titulo": "Hexágono regular inscrito",
+  "enunciado": "Dada una circunferencia de centro O y un punto A sobre ella, traza el hexágono regular inscrito con el compás.",
+  "ideaClave": "El lado del hexágono regular inscrito es igual al radio: seis arcos de radio R, con centro en los vértices, reparten la circunferencia.",
+  "requisitos": [
+    "compas-basico"
+  ],
+  "datos": {
+    "O": [
+      105,
+      70
+    ],
+    "A": [
+      155,
+      70
+    ]
+  },
+  "radios": {},
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "B",
+        "F"
+      ],
+      "centros": [
+        "O",
+        "A"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K1",
+        "C"
+      ],
+      "centros": [
+        "B",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K2",
+        "D"
+      ],
+      "centros": [
+        "C",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K3",
+        "E"
+      ],
+      "centros": [
+        "D",
+        "O"
+      ],
+      "radios": [
+        "rR",
+        "rR"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la circunferencia de centro O y el punto A sobre ella. Hay que dividirla en seis partes iguales.",
+      "porque": "El radio cabe seis veces en la circunferencia: por eso el hexágono regular se construye solo con el compás.",
+      "consejo": "Pincha el compás en O y en A para comprobar que la abertura es el radio antes de empezar.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rR",
+          "hacia": "A",
+          "amplitud": 3.14159,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "Primeros vértices desde A",
+      "texto": "Sin cambiar la abertura, pincha en A y traza arcos que corten la circunferencia: obtienes B y F.",
+      "porque": "B y F están a distancia R de A y de O: forman con O un triángulo equilátero.",
+      "consejo": "Marca los cortes con cruces finas y no repases el arco auxiliar.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rR",
+          "hacia": "F",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice C desde B",
+      "texto": "Pincha en B con la misma abertura y traza un arco que corte la circunferencia: obtienes C.",
+      "porque": "BC mide R, así que el ángulo BOC mide 60°.",
+      "consejo": "Antes de pinchar en B, comprueba que la abertura sigue siendo el radio.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rR",
+          "hacia": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice D desde C",
+      "texto": "Pincha en C y traza el arco que corta la circunferencia: obtienes D.",
+      "porque": "Cada vértice se obtiene desde el anterior, siempre a distancia R sobre la circunferencia.",
+      "consejo": "Gira el compás despacio y sin mover la cabeza.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rR",
+          "hacia": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice E desde D",
+      "texto": "Pincha en D y traza el arco que corta la circunferencia: obtienes E. Así quedan los seis vértices A, B, C, D, E y F.",
+      "porque": "Seis arcos iguales reparten la circunferencia en seis partes iguales de 60° cada una.",
+      "consejo": "Si el último vértice no cae justo en F, revisa la abertura: debe ser siempre la misma.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rR",
+          "hacia": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Une los vértices",
+      "texto": "Une A con B, B con C, C con D, D con E, E con F y F con A. Obtienes el hexágono regular.",
+      "porque": "Los seis lados son iguales al radio, y los seis ángulos interiores miden 120°.",
+      "consejo": "Dibuja el hexágono en trazo grueso; la circunferencia queda en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "F",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el ángulo",
+      "texto": "El ángulo ABC del hexágono mide 120°: cada ángulo interior mide lo mismo.",
+      "porque": "El triángulo OAB es equilátero, y así cada ángulo interior es 120°.",
+      "consejo": "Si dudas, mide el ángulo con el transportador: debe salir 120°.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "C"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura al pasar de un vértice a otro: los lados dejan de ser iguales.",
+    "Empezar sin usar el radio como abertura: el hexágono no cierra en F."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "E",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "B",
+      "a": "A",
+      "b": "C",
+      "grados": 120
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

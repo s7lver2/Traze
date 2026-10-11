@@ -1,0 +1,229 @@
+{
+  "id": "cuarta-proporcional",
+  "bloque": 3,
+  "titulo": "Cuarta proporcional",
+  "enunciado": "Dados tres segmentos a, b y c, halla la cuarta proporcional x, de modo que a/b = c/x.",
+  "ideaClave": "El teorema de Thales: una paralela a un lado de un triángulo corta a los otros dos en segmentos proporcionales.",
+  "requisitos": [
+    "division-segmento-thales"
+  ],
+  "datos": {
+    "O": [
+      30,
+      110
+    ],
+    "A": [
+      90,
+      110
+    ],
+    "B": [
+      70,
+      110
+    ],
+    "C": [
+      30,
+      65
+    ]
+  },
+  "radios": {
+    "rq": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rq"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "X",
+      "rectas": [
+        [
+          "B",
+          "Q"
+        ],
+        [
+          "O",
+          "C"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos dos semirrectas que salen de O: en una están A y B, con OA = a y OB = b; en la otra está C, con OC = c. Hay que hallar x, con a/b = c/x.",
+      "porque": "La cuarta proporcional es el cuarto término de una proporción: si conocemos tres, el cuarto se obtiene con Thales.",
+      "consejo": "Antes de empezar, traza OA y OC con la regla en trazo fino: son las dos semirrectas.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Une A con C",
+      "texto": "Une A con C. Este segmento es el lado sobre el que vamos a trazar la paralela.",
+      "porque": "La paralela a AC por B cortará a la semirrecta OC en el punto que buscamos.",
+      "consejo": "Traza AC en trazo fino: es construcción.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a AC por B",
+      "texto": "Por B traza la paralela a AC. Para llevar la dirección con el compás, marca un punto Q a 30 mm de B en la dirección de AC.",
+      "porque": "Dos rectas con la misma dirección son paralelas: BQ ∥ AC.",
+      "consejo": "Con la escuadra apoyada en AC, desliza hasta B; comprueba con el compás que la dirección coincide.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Q",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "B",
+            "Q"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca el corte X",
+      "texto": "La paralela corta a la semirrecta OC en X.",
+      "porque": "Por el teorema de Thales, OB/OA = OX/OC (o su equivalente en la proporción de partida).",
+      "consejo": "Marca X con una cruz fina sobre OC, sin confundirlo con C.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "X",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El segmento x",
+      "texto": "El segmento OX es la cuarta proporcional x. Márcalo en trazo grueso.",
+      "porque": "Así se cumple a/b = c/x: OA/OB = OC/OX.",
+      "consejo": "Lleva OX al lugar donde lo necesites con el compás, sin medir con la regla.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "X",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la proporción",
+      "texto": "OA/OB es igual a OC/OX: 60/40 = 45/30.",
+      "porque": "Las paralelas que cortan a dos semirrectas determinan segmentos proporcionales.",
+      "consejo": "Si dudas, mide los cuatro segmentos y compara las dos razones.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "X",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "X",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar la paralela por A en lugar de por B: el corte X queda en otro sitio y la proporción no se cumple.",
+    "Escribir la proporción con los segmentos cambiados de sitio (por ejemplo OA/OC = OB/OX): la razón no coincide con la de Thales."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "O",
+        "A"
+      ],
+      "b": [
+        "O",
+        "B"
+      ],
+      "c": [
+        "O",
+        "C"
+      ],
+      "d": [
+        "O",
+        "X"
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "B",
+          "X"
+        ]
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "O",
+        "X",
+        "C"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

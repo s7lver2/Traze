@@ -1,0 +1,334 @@
+{
+  "id": "circuncentro-triangulo",
+  "bloque": 2,
+  "titulo": "Circuncentro y circunferencia circunscrita",
+  "enunciado": "Dado el triángulo acutángulo ABC, halla su circuncentro y dibuja la circunferencia que pasa por sus tres vértices.",
+  "ideaClave": "El circuncentro es el corte de las mediatrices de los lados: equidista de los tres vértices y es el centro de la circunferencia circunscrita.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "A": [
+      40,
+      90
+    ],
+    "B": [
+      160,
+      90
+    ],
+    "C": [
+      100,
+      10
+    ]
+  },
+  "radios": {
+    "rm": {
+      "mm": 65
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "M1",
+        "M2"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radios": [
+        "rm",
+        "rm"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "N1",
+        "N2"
+      ],
+      "centros": [
+        "B",
+        "C"
+      ],
+      "radios": [
+        "rm",
+        "rm"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "O",
+      "rectas": [
+        [
+          "M1",
+          "M2"
+        ],
+        [
+          "N1",
+          "N2"
+        ]
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el triángulo ABC, con los tres lados y los tres vértices. Hay que hallar el punto que equidista de A, B y C.",
+      "porque": "Un punto que equidista de dos vértices está en la mediatriz del lado que los une.",
+      "consejo": "Rotula los vértices A, B y C en mayúscula, siempre en el mismo sentido.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de AB",
+      "texto": "Con la misma abertura, mayor que la mitad de AB, pincha en A y traza un arco a cada lado del segmento; repite desde B. Los arcos se cortan en M1 y M2.",
+      "porque": "Todos los puntos de la mediatriz de AB están a igual distancia de A y de B.",
+      "consejo": "Sin mover la abertura, pasa de A a B: un cambio de abertura descoloca los cortes.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm",
+          "hacia": "M1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "M1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm",
+          "hacia": "M2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "M2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "M1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "M2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Recta M1M2",
+      "texto": "Une M1 con M2. Esa recta es la mediatriz de AB.",
+      "porque": "Dos puntos equidistantes de A y de B determinan la mediatriz de AB.",
+      "consejo": "Traza la mediatriz en trazo fino: todavía es una ayuda.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "M1",
+            "M2"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de BC",
+      "texto": "Repite el proceso con el lado BC: arcos con la misma abertura desde B y desde C. Sus cortes son N1 y N2.",
+      "porque": "Así obtenemos la mediatriz de BC, que también pasa por el centro buscado.",
+      "consejo": "Cuando los arcos se crucen, marca los cortes con un trazo ligero antes de repasarlos.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "N1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rm",
+          "hacia": "N1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm",
+          "hacia": "N2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rm",
+          "hacia": "N2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "N2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Centro O",
+      "texto": "Une N1 con N2 y marca O, donde esta recta corta a la mediatriz de AB. Ese es el circuncentro.",
+      "porque": "O está en las dos mediatrices, así que OA = OB y OB = OC.",
+      "consejo": "Marca O con una cruz bien visible: es el centro de la circunferencia.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "N1",
+            "N2"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La circunferencia",
+      "texto": "Con centro en O y abertura OA, traza la circunferencia completa. Pasa por A, B y C.",
+      "porque": "Como OA = OB = OC, los tres vértices están a la misma distancia de O: están sobre la circunferencia.",
+      "consejo": "Pincha en O sin mover la abertura y gira el compás despacio, con el trazo continuo.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rR",
+          "hacia": "A",
+          "amplitud": 3.14159,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los radios",
+      "texto": "Los segmentos OA, OB y OC tienen la misma longitud: son el radio de la circunferencia circunscrita.",
+      "porque": "Eso confirma que el triángulo está inscrito en la circunferencia con centro O.",
+      "consejo": "Si dudas, mide OA, OB y OC: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "A"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Abrir el compás en las mediatrices con una abertura menor que la mitad del lado: los arcos no se cortan.",
+    "Confundir el circuncentro con el baricentro: el punto de corte de las medianas no equidista de los vértices."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "A",
+      "b": "B"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "B",
+      "b": "C"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

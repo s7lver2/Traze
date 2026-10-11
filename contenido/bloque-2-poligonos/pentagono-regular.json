@@ -1,0 +1,343 @@
+{
+  "id": "pentagono-regular",
+  "bloque": 2,
+  "titulo": "Pentágono regular inscrito",
+  "enunciado": "Dada una circunferencia de centro O y el diámetro horizontal OB, traza el pentágono regular inscrito con vértice en C, el extremo superior del radio vertical.",
+  "ideaClave": "Con el método clásico, la distancia CN (de un vértice al corte del diámetro) es el lado del pentágono: basta con llevarla cinco veces sobre la circunferencia.",
+  "requisitos": [
+    "mediatriz-segmento",
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "O": [
+      105,
+      70
+    ],
+    "B": [
+      155,
+      70
+    ],
+    "C": [
+      105,
+      20
+    ]
+  },
+  "radios": {},
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "O",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rMC",
+      "entre": [
+        "M",
+        "C"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "Nl",
+        "Nr"
+      ],
+      "recta": [
+        "O",
+        "B"
+      ],
+      "centro": "M",
+      "radio": "rMC"
+    },
+    {
+      "tipo": "radio",
+      "id": "rs",
+      "entre": [
+        "C",
+        "Nl"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "D",
+        "G"
+      ],
+      "centros": [
+        "C",
+        "O"
+      ],
+      "radios": [
+        "rs",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "E",
+        "K1"
+      ],
+      "centros": [
+        "D",
+        "O"
+      ],
+      "radios": [
+        "rs",
+        "rR"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "F",
+        "K2"
+      ],
+      "centros": [
+        "E",
+        "O"
+      ],
+      "radios": [
+        "rs",
+        "rR"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la circunferencia de centro O, con el radio OB horizontal y el radio OC vertical. C es el primer vértice del pentágono.",
+      "porque": "El pentágono regular tiene cinco vértices iguales sobre la circunferencia, separados 72° entre sí.",
+      "consejo": "Marca O, B y C con cruces finas y traza la circunferencia en trazo fino antes de empezar.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rR",
+          "hacia": "B",
+          "amplitud": 3.14159,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Punto medio de OB",
+      "texto": "Halla el punto medio M de OB. Con centro en M y abertura MC, traza un arco que corte al diámetro por la izquierda de O: ese corte es N.",
+      "porque": "La distancia CN es exactamente el lado del pentágono regular inscrito.",
+      "consejo": "Hazlo con la mediatriz de OB o llevando dos veces OB con el compás: el punto M debe quedar exacto.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "M",
+          "radio": "rMC",
+          "hacia": "Nl",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Nl",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El lado CN",
+      "texto": "Une C con N. Esa distancia es el lado del pentágono: sin cambiar la abertura, la llevaremos sobre la circunferencia.",
+      "porque": "CN mide 2R·sen 36°, que es el lado del pentágono regular inscrito.",
+      "consejo": "Tomar la abertura CN con cuidado: un error aquí se repite en los cinco lados.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "Nl",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértices D y G desde C",
+      "texto": "Pincha en C con la abertura CN y traza dos arcos que corten la circunferencia: obtienes D a la derecha y G a la izquierda.",
+      "porque": "CD y CG miden lo mismo que el lado, y ya tenemos dos vértices del pentágono.",
+      "consejo": "Marca D y G con cruces finas y comprueba que los dos cortes caen sobre la circunferencia.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rs",
+          "hacia": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rs",
+          "hacia": "G",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice E desde D",
+      "texto": "Pincha en D con la misma abertura y traza un arco que corte la circunferencia en E, por debajo de D.",
+      "porque": "Cada vértice se obtiene desde el anterior a distancia del lado.",
+      "consejo": "Antes de pinchar en D, asegúrate de que la abertura no ha cambiado.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rs",
+          "hacia": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice F desde E",
+      "texto": "Pincha en E y traza el arco que corta la circunferencia en F, el vértice de abajo a la izquierda.",
+      "porque": "F es el vértice que cierra el pentágono junto con G: también está a distancia del lado CN desde E.",
+      "consejo": "Si F no cae justo sobre el arco desde G, revisa la abertura: debe ser CN en todos los traslados.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "E",
+          "radio": "rs",
+          "hacia": "F",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Une los vértices",
+      "texto": "Une C con D, D con E, E con F, F con G y G con C. Obtienes el pentágono regular.",
+      "porque": "Los cinco lados son iguales y los cinco ángulos interiores miden 108°.",
+      "consejo": "Dibuja el pentágono en trazo grueso y borra los arcos auxiliares con cuidado.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "F",
+          "hasta": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "G",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Tomar el lado CN con la abertura de OC en lugar de CN: el pentágono sale con lados desiguales.",
+    "Cambiar la abertura entre dos vértices consecutivos: el último lado no cierra."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "D",
+          "E"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "G",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "C",
+      "a": "D",
+      "b": "G",
+      "grados": 108
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "id": "media-proporcional",
+  "bloque": 3,
+  "titulo": "Media proporcional",
+  "enunciado": "Dados dos segmentos consecutivos AJ y JB sobre una recta, halla su media proporcional: el segmento h tal que AJ/h = h/JB.",
+  "ideaClave": "En un triángulo rectángulo, la altura sobre la hipotenusa es media proporcional entre las dos partes de la hipotenusa: el arco de diámetro AB lo garantiza.",
+  "requisitos": [
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "A": [
+      40,
+      110
+    ],
+    "J": [
+      90,
+      110
+    ],
+    "B": [
+      130,
+      110
+    ]
+  },
+  "radios": {
+    "rv": {
+      "mm": 60
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "J",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "rv",
+      "perpendicular": true
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "H2",
+        "H"
+      ],
+      "recta": [
+        "J",
+        "P1"
+      ],
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos los segmentos consecutivos AJ y JB sobre la misma recta. Hay que hallar h, la media proporcional entre AJ y JB.",
+      "porque": "La media proporcional aparece al proyectar un cateto o la altura de un triángulo rectángulo sobre su hipotenusa.",
+      "consejo": "Rotula A, J y B en mayúscula y marca J con una cruz fina, porque separa los dos tramos.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "J"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Semicircunferencia de diámetro AB",
+      "texto": "Halla el punto medio de AB y traza la semicircunferencia de diámetro AB, por encima de la recta.",
+      "porque": "Todo punto de una semicircunferencia de diámetro AB ve AB bajo un ángulo recto: forma triángulo rectángulo con A y B.",
+      "consejo": "Usa la abertura de la mitad de AB, y no cambies el compás al pinchar en el punto medio.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "B",
+          "pasaPor": "H",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular a AB por J",
+      "texto": "Por J traza la perpendicular a AB, hacia arriba.",
+      "porque": "Sobre esta perpendicular está la altura JH del triángulo rectángulo AHB, que es la media proporcional buscada.",
+      "consejo": "Con la escuadra apoyada en AB, marca el ángulo recto en J antes de trazar la recta.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "J",
+            "P1"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Corte H con la semicircunferencia",
+      "texto": "La perpendicular corta a la semicircunferencia en H. Marca H.",
+      "porque": "H está en la semicircunferencia, así que forma triángulo rectángulo con A y B.",
+      "consejo": "Marca H con una cruz fina, justo donde la perpendicular toca el arco.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El segmento JH",
+      "texto": "El segmento JH es la media proporcional h. Márcalo en trazo grueso.",
+      "porque": "Así se cumple AJ/JH = JH/JB: JH es media proporcional entre AJ y JB.",
+      "consejo": "Lleva JH con el compás a donde lo necesites, sin medir con la regla.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "J",
+          "hasta": "H",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "J",
+          "hacia1": "A",
+          "hacia2": "H"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la proporción",
+      "texto": "AJ/JH = JH/JB: el segmento JH cumple la proporción de la media proporcional.",
+      "porque": "En el triángulo rectángulo AHB, la altura JH cumple JH² = AJ·JB.",
+      "consejo": "Si dudas, compara JH con el compás: debe caber entre AJ y JB como medio geométrico.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "H",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "H",
+          "hasta": "B",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Elegir el corte de la perpendicular que cae fuera de la semicircunferencia: H no está en el arco.",
+    "Confundir la media proporcional con la cuarta: JH no es un cuarto término sino el medio geométrico de AJ y JB."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "A",
+        "J"
+      ],
+      "b": [
+        "J",
+        "H"
+      ],
+      "c": [
+        "J",
+        "H"
+      ],
+      "d": [
+        "J",
+        "B"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "H",
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

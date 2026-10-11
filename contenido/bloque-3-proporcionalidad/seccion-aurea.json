@@ -1,0 +1,251 @@
+{
+  "id": "seccion-aurea",
+  "bloque": 3,
+  "titulo": "Sección áurea de un segmento",
+  "enunciado": "Divide el segmento AB en media y extrema razón: el punto C tal que AB/AC = AC/CB.",
+  "ideaClave": "El todo es a la parte mayor como la parte mayor es a la menor: AB/AC = AC/CB, con AB/AC igual al número áureo.",
+  "requisitos": [
+    "media-proporcional"
+  ],
+  "datos": {
+    "A": [
+      30,
+      95
+    ],
+    "B": [
+      170,
+      95
+    ]
+  },
+  "radios": {
+    "rh": {
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 0.5
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "rh",
+      "perpendicular": true
+    },
+    {
+      "tipo": "radio",
+      "id": "rDB",
+      "entre": [
+        "D",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "E",
+        "E2"
+      ],
+      "recta": [
+        "A",
+        "D"
+      ],
+      "centro": "D",
+      "radio": "rDB"
+    },
+    {
+      "tipo": "radio",
+      "id": "rAE",
+      "entre": [
+        "A",
+        "E"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "Cl",
+        "C"
+      ],
+      "recta": [
+        "A",
+        "B"
+      ],
+      "centro": "A",
+      "radio": "rAE"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el segmento AB. Hay que dividirlo en media y extrema razón: AB/AC = AC/CB.",
+      "porque": "Esa división produce el número áureo, que aparece en proporciones de muchas formas armónicas.",
+      "consejo": "Rotula A y B con cruces finas en los extremos, y deja espacio alrededor para los arcos.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular por B con BD = AB/2",
+      "texto": "Por B traza la perpendicular a AB y lleva sobre ella BD igual a la mitad de AB.",
+      "porque": "Con el cateto BD = AB/2, la hipotenusa AD permite calcular AE = AD − DB.",
+      "consejo": "Halla la mitad de AB con el compás, abriendo sobre AB y marcando el punto medio.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Une A con D",
+      "texto": "Une A con D. Este segmento es la hipotenusa del triángulo rectángulo ABD.",
+      "porque": "AD es la base del cálculo: quitamos DB para obtener AE.",
+      "consejo": "AD en trazo fino: es construcción.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco con centro en D",
+      "texto": "Pincha en D con la abertura DB y traza un arco que corte a AD. El corte más cercano a A es E.",
+      "porque": "DE = DB, así que AE = AD − DB.",
+      "consejo": "Antes de pinchar en D, compara la abertura con DB; no la cambies.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rDB",
+          "hacia": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco con centro en A",
+      "texto": "Pincha en A con la abertura AE y traza un arco que corte a AB a la derecha de A. Ese corte es C.",
+      "porque": "AC = AE, y el punto C divide a AB en la razón áurea.",
+      "consejo": "Marca C con una cruz fina sobre AB; el resultado es la división buscada.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rAE",
+          "hacia": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la proporción",
+      "texto": "Los segmentos cumplen AB/AC = AC/CB: el todo es a la parte mayor como la parte mayor es a la menor.",
+      "porque": "Es la definición de la división en media y extrema razón.",
+      "consejo": "Si dudas, mide AC y CB con el compás: AC debe caber en AB un número de veces igual a la razón áurea.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Tomar E en el otro corte del arco con centro D (más allá de D): AE sale mal y C cae fuera de AB.",
+    "Medir AC desde B en lugar de desde A: la proporción se invierte."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "A",
+        "B"
+      ],
+      "b": [
+        "A",
+        "C"
+      ],
+      "c": [
+        "A",
+        "C"
+      ],
+      "d": [
+        "C",
+        "B"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "E",
+      "centro": "D",
+      "radio": "rDB"
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "E"
+        ],
+        [
+          "A",
+          "C"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
