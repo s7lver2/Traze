@@ -4,8 +4,12 @@ import { ENLACES, enlacesVisibles, esActivo } from '../src/navegacion';
 const lecciones = ENLACES.find((enlace) => enlace.texto === 'Lecciones')!;
 
 describe('enlacesVisibles', () => {
-  it('muestra Temario y Lecciones (Consejos y Mi carpeta aún no existen)', () => {
-    expect(enlacesVisibles().map((enlace) => enlace.texto)).toEqual(['Temario', 'Lecciones']);
+  it('muestra Temario, Lecciones y Consejos (Mi carpeta aún no existe)', () => {
+    expect(enlacesVisibles().map((enlace) => enlace.texto)).toEqual([
+      'Temario',
+      'Lecciones',
+      'Consejos',
+    ]);
   });
 
   it('los enlaces están en el orden del spec', () => {
@@ -45,5 +49,13 @@ describe('esActivo', () => {
     expect(esActivo(temario, '/temario/')).toBe(true);
     expect(esActivo(temario, '/temarioviejo')).toBe(false);
     expect(esActivo(temario, '/leccion/mediatriz-segmento')).toBe(false);
+  });
+
+  it('Consejos está activo en /consejos y no en otras secciones', () => {
+    const consejos = ENLACES.find((enlace) => enlace.texto === 'Consejos')!;
+    expect(esActivo(consejos, '/consejos')).toBe(true);
+    expect(esActivo(consejos, '/consejos/')).toBe(true);
+    expect(esActivo(consejos, '/consejosviejos')).toBe(false);
+    expect(esActivo(consejos, '/temario')).toBe(false);
   });
 });

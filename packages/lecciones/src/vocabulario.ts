@@ -1,17 +1,6 @@
 export const MARCA_VOCABULARIO = 'VOCABULARIO_INSUFICIENTE';
 
-export const BLOQUES_TEMARIO = [
-  'Elementos fundamentales y lugar geométrico',
-  'Circunferencia',
-  'Arco capaz',
-  'Triángulos',
-  'Cuadriláteros',
-  'Polígonos regulares',
-  'Proporcionalidad',
-  'Transformaciones',
-  'Tangencias',
-  'Curvas técnicas',
-] as const;
+export { BLOQUES_TEMARIO } from './bloques';
 
 export interface EntradaVocabulario {
   tipo: string;

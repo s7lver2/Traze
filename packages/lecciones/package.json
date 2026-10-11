@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./interpretar": "./src/interpretar.ts",
     "./rotulos": "./src/rotulos.ts",
-    "./busqueda": "./src/consejos-busqueda.ts"
+    "./busqueda": "./src/consejos-busqueda.ts",
+    "./bloques": "./src/bloques.ts"
   },
   "scripts": {
     "test": "vitest run --passWithNoTests",

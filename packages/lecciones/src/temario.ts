@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { comprobacionSchema, type Leccion } from './esquema';
 import { BLOQUES_PRIORITARIOS } from './estado';
-import { BLOQUES_TEMARIO } from './vocabulario';
+import { nombreDelBloque } from './bloques';
 
 export const MAX_CARACTERES_CONSEJO = 160;
 
@@ -121,7 +121,7 @@ export function comprobarCobertura(temario: Temario, lecciones: readonly Leccion
 }
 
 export function nombreDeBloque(bloque: number): string {
-  return BLOQUES_TEMARIO[bloque - 1];
+  return nombreDelBloque(bloque);
 }
 
 export function encargoDe(entrada: EntradaTemario, publicadas: readonly string[]): string {

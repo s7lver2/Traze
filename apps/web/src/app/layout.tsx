@@ -14,6 +14,7 @@ import '../estilos/deslizador.css';
 import '../estilos/leccion.css';
 import '../estilos/portada.css';
 import '../estilos/temario.css';
+import '../estilos/consejos.css';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],

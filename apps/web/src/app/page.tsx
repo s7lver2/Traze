@@ -25,6 +25,9 @@ export default function Portada() {
             <Link className="boton" href="/temario">
               Ver el temario
             </Link>
+            <Link className="boton" href="/consejos">
+              Consejos para hacerlo perfecto
+            </Link>
           </div>
 
           {grupos.length === 0 && <p>Todavía no hay lecciones publicadas.</p>}

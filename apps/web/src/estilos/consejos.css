@@ -1,0 +1,62 @@
+.consejos-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e4);
+  margin: 0 0 var(--e4);
+}
+
+.consejos-filtros .campo {
+  flex-wrap: wrap;
+}
+
+.campo-texto {
+  min-width: min(100%, 18rem);
+  min-height: 44px;
+  padding: 0 var(--e3);
+  border: 1px solid var(--tinta);
+  border-radius: var(--radio-pildora);
+  background: var(--papel-claro);
+  color: var(--tinta);
+  font: inherit;
+}
+
+.consejos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--e4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Notas adhesivas rectas: en una lista larga el giro del escenario estorba */
+.consejo {
+  --giro: 0deg;
+  margin: 0;
+}
+
+.consejo-leccion {
+  background: var(--postit-azul);
+}
+
+.consejo-origen a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.lista-lamina {
+  margin-top: var(--e6);
+  padding: var(--e4);
+  border: 2px solid var(--tinta);
+  border-radius: var(--radio-chico);
+  background: var(--papel-claro);
+}
+
+.lista-lamina h2 {
+  margin-top: 0;
+}
+
+.lista-lamina li {
+  margin-bottom: var(--e2);
+}
