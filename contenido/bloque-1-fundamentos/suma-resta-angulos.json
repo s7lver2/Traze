@@ -1,0 +1,484 @@
+{
+  "id": "suma-resta-angulos",
+  "bloque": 1,
+  "titulo": "Suma y resta de ángulos",
+  "enunciado": "Dados dos ángulos de vértices V y W, y una semirrecta de origen O, construye con regla y compás su suma y su diferencia.",
+  "ideaClave": "Dos ángulos trazados con el mismo radio son iguales si sus cuerdas miden lo mismo.",
+  "requisitos": [
+    "compas-basico",
+    "bisectriz-angulo"
+  ],
+  "datos": {
+    "V": [
+      120,
+      50
+    ],
+    "P": [
+      170,
+      50
+    ],
+    "Q": [
+      150,
+      20
+    ],
+    "W": [
+      120,
+      120
+    ],
+    "R": [
+      170,
+      120
+    ],
+    "S": [
+      165.32,
+      98.87
+    ],
+    "O": [
+      20,
+      105
+    ],
+    "E": [
+      70,
+      105
+    ]
+  },
+  "radios": {
+    "r": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X1",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "P"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X2",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "Q"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "radio",
+      "id": "ca",
+      "entre": [
+        "X1",
+        "X2"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E1",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "E"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Fb",
+        "F"
+      ],
+      "centros": [
+        "E1",
+        "O"
+      ],
+      "radios": [
+        "ca",
+        "r"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "W",
+      "direccion": [
+        "W",
+        "R"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y2",
+      "origen": "W",
+      "direccion": [
+        "W",
+        "S"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "radio",
+      "id": "cb",
+      "entre": [
+        "Y1",
+        "Y2"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "K",
+        "G"
+      ],
+      "centros": [
+        "F",
+        "O"
+      ],
+      "radios": [
+        "cb",
+        "r"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos dos ángulos, uno de vértice V y otro de vértice W, y una semirrecta OE con origen en O. Hay que construir su suma y su diferencia.",
+      "porque": "Para sumar ángulos hay que llevarlos a un mismo origen, con la misma abertura de compás.",
+      "consejo": "Marca cada vértice con una cruz fina antes de trazar los lados.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "P",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "Q",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "W",
+          "hasta": "R",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "W",
+          "hasta": "S",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "E",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q"
+        },
+        {
+          "tipo": "punto",
+          "id": "W"
+        },
+        {
+          "tipo": "punto",
+          "id": "R"
+        },
+        {
+          "tipo": "punto",
+          "id": "S"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "E"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco en el vértice V",
+      "texto": "Pincha en V con el compás abierto y traza un arco que corte los dos lados: X1 en VP y X2 en VQ.",
+      "porque": "Todos los puntos de un arco están a la misma distancia del centro: VX1 = VX2 = r.",
+      "consejo": "Usa una abertura de unos tres centímetros, cómoda para medir después la cuerda.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "r",
+          "hacia": "X1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "r",
+          "hacia": "X2"
+        },
+        {
+          "tipo": "punto",
+          "id": "X1"
+        },
+        {
+          "tipo": "punto",
+          "id": "X2"
+        }
+      ]
+    },
+    {
+      "titulo": "Mide la cuerda",
+      "texto": "Sin tocar la abertura, apoya la punta en X1 y mide hasta X2. Esa distancia es la cuerda del primer ángulo.",
+      "porque": "La cuerda X1X2 es la que determina el ángulo: dos ángulos con la misma cuerda para el mismo radio son iguales.",
+      "consejo": "No cambies la abertura al medir: cualquier movimiento falsea la cuerda.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "X1",
+          "hasta": "X2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Lleva el primer ángulo a O",
+      "texto": "Pincha en O con la abertura r y corta la semirrecta en E1. Después pincha en E1 con la cuerda y corta el primer arco en F.",
+      "porque": "Con el mismo radio y la misma cuerda, el ángulo EOF mide lo mismo que el ángulo de V.",
+      "consejo": "Marca F en la intersección de los dos arcos y no borres ninguno.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "r",
+          "hacia": "E1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "E1",
+          "radio": "ca",
+          "hacia": "F"
+        },
+        {
+          "tipo": "punto",
+          "id": "E1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "F",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Mide el segundo ángulo",
+      "texto": "Repite lo mismo en W: un arco de radio r que corta los lados en Y1 e Y2. Mide la cuerda Y1Y2.",
+      "porque": "El procedimiento es el mismo que con V: solo cambia el vértice, el radio es el mismo.",
+      "consejo": "Cuanto menor es la cuerda, más cuidado con la abertura al medirla.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "W",
+          "radio": "r",
+          "hacia": "Y1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "W",
+          "radio": "r",
+          "hacia": "Y2"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y1"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y2"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "Y1",
+          "hasta": "Y2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Suma: ángulo a continuación",
+      "texto": "Pincha en F con la cuerda Y1Y2 y corta el arco de O en G. El ángulo EOG es la suma de los dos.",
+      "porque": "La cuerda FG mide lo mismo que Y1Y2, así que el ángulo FOG vale lo mismo que el segundo ángulo y EOG = α + β.",
+      "consejo": "Traza el arco de F por el lado que queda alejado de E, sin cruzar la semirrecta.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "F",
+          "radio": "cb",
+          "hacia": "G"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "G",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Resta: ángulo dentro",
+      "texto": "Con la misma cuerda, pincha en F y corta el arco en K, entre E y F. El ángulo EOK es la diferencia.",
+      "porque": "El ángulo FOK vale β, así que lo que queda entre E y K es α − β.",
+      "consejo": "La resta solo cabe si el segundo ángulo es menor que el primero: si no, el corte cae fuera.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "F",
+          "radio": "cb",
+          "hacia": "K"
+        },
+        {
+          "tipo": "punto",
+          "id": "K",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "K",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los resultados",
+      "texto": "Mide con el transportador los ángulos EOG y EOK: el primero es la suma de los dos ángulos y el segundo su diferencia.",
+      "porque": "Las cuerdas iguales garantizan que cada ángulo se copia sin cambiar su medida.",
+      "consejo": "Si dudas, mide primero los ángulos originales y después los resultados: deben cuadrar.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "K",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura al medir la cuerda: el ángulo copiado sale distinto del original.",
+    "Tomar el corte de F al otro lado de la semirrecta: el ángulo resultante no es la suma.",
+    "Usar una abertura distinta en V y en W: las cuerdas dejan de ser comparables."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "P",
+          "V",
+          "Q"
+        ],
+        [
+          "E",
+          "O",
+          "F"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "R",
+          "W",
+          "S"
+        ],
+        [
+          "F",
+          "O",
+          "G"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "R",
+          "W",
+          "S"
+        ],
+        [
+          "F",
+          "O",
+          "K"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "X1",
+          "X2"
+        ],
+        [
+          "E1",
+          "F"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "Y1",
+          "Y2"
+        ],
+        [
+          "F",
+          "G"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
