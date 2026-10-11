@@ -12,6 +12,7 @@ import {
   crearReto,
   elegirInstrumento,
   fijarAbertura,
+  guiaDeAbertura,
   instruccion,
   instrumentoDe,
   pedirPista,
@@ -113,7 +114,7 @@ describe('reglas del reto (lección piloto)', () => {
     expect(resaltados(guiado, reto).length).toBeGreaterThan(0);
 
     const memoria = crearEstado(reto, 'memoria');
-    expect(memoria.instrumento).toBeNull();
+    expect(memoria.instrumento).toBe(instrumentoDe(accionActual(reto, memoria)!));
     expect(resaltados(memoria, reto)).toEqual([]);
   });
 
@@ -130,8 +131,8 @@ describe('reglas del reto (lección piloto)', () => {
     expect(accionActual(reto, resultado.estado)).toBe(accion);
   });
 
-  it('sin instrumento elegido avisa sin contar error', () => {
-    const estado = crearEstado(reto, 'memoria');
+  it('sin instrumento en la mano avisa sin contar error', () => {
+    const estado = { ...crearEstado(reto, 'memoria'), instrumento: null };
     const resultado = clic(estado, reto, { x: 0, y: 0 });
     expect(resultado.evento).toBe('nada');
     expect(resultado.estado.errores).toBe(0);
@@ -175,9 +176,51 @@ describe('reglas del reto (lección piloto)', () => {
         const mala = trazarArco(estado, retoCompas);
         expect(mala.evento).toBe('error');
         expect(mala.estado.errores).toBe(1);
-        expect(mala.estado.mensaje?.texto).toContain('demasiado grande');
+        expect(mala.estado.mensaje?.texto).toContain('demasiado abierto');
         const buena = trazarArco(fijarAbertura(mala.estado, accion.abertura), retoCompas);
         expect(['completada', 'paso', 'fin']).toContain(buena.evento);
+        return;
+      }
+      estado = jugarAccion(estado, retoCompas, accion);
+    }
+    throw new Error('no se encontró ningún arco');
+  });
+
+  it('el compás se abre pinchando a la distancia: bien avanza, mal es un error', () => {
+    const conCompas = lecciones.find((leccion) =>
+      leccion.pasos.some((paso) => paso.dibujo.some((primitiva) => primitiva.tipo === 'arco')),
+    )!;
+    const retoCompas = retoDe(conCompas);
+    let estado = crearEstado(retoCompas, 'guiado');
+    for (let vuelta = 0; vuelta < 500 && !estado.terminado; vuelta++) {
+      const accion = accionActual(retoCompas, estado)!;
+      if (accion.tipo === 'compas') {
+        estado = clic(estado, retoCompas, accion.centro).estado;
+        expect(guiaDeAbertura(estado, retoCompas)).toEqual({ centro: accion.centro, radio: accion.abertura });
+        const corto = clic(estado, retoCompas, { x: accion.centro.x + accion.abertura * 0.5, y: accion.centro.y });
+        expect(corto.evento).toBe('error');
+        expect(corto.estado.mensaje?.texto).toContain('demasiado cerrado');
+        const bueno = clic(corto.estado, retoCompas, { x: accion.centro.x, y: accion.centro.y + accion.abertura });
+        expect(['completada', 'paso', 'fin']).toContain(bueno.evento);
+        return;
+      }
+      estado = jugarAccion(estado, retoCompas, accion);
+    }
+    throw new Error('no se encontró ningún arco');
+  });
+
+  it('la guía de abertura solo se ve en guiado o con pista', () => {
+    const conCompas = lecciones.find((leccion) =>
+      leccion.pasos.some((paso) => paso.dibujo.some((primitiva) => primitiva.tipo === 'arco')),
+    )!;
+    const retoCompas = retoDe(conCompas);
+    let estado = crearEstado(retoCompas, 'memoria');
+    for (let vuelta = 0; vuelta < 500; vuelta++) {
+      const accion = accionActual(retoCompas, estado)!;
+      if (accion.tipo === 'compas') {
+        estado = clic(estado, retoCompas, accion.centro).estado;
+        expect(guiaDeAbertura(estado, retoCompas)).toBeNull();
+        expect(guiaDeAbertura(pedirPista(estado), retoCompas)).not.toBeNull();
         return;
       }
       estado = jugarAccion(estado, retoCompas, accion);

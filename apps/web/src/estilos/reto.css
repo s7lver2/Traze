@@ -29,14 +29,18 @@
   color: var(--tinta-suave);
 }
 
-/* El instrumento elegido */
-.boton[aria-pressed='true'] {
-  background: var(--tinta);
-  color: var(--papel);
+/* El instrumento que la app pone en cada acción */
+.instrumento-actual {
+  margin: var(--e1) 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
 }
 
 /* El color no es lo único que distingue el mensaje: lleva borde y texto propio */
 .mensaje {
+  animation: aparecer var(--t-panel) var(--curva) backwards;
   margin: var(--e3) 0 0;
   padding: var(--e2) var(--e3);
   border-left: 4px solid var(--tinta-suave);
@@ -76,5 +80,16 @@
   .escenario-reto .barra {
     position: static;
     border-radius: var(--radio-medio);
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }

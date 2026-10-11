@@ -142,6 +142,45 @@
   font-size: 0.9rem;
   line-height: 1.45;
   transform: rotate(var(--giro, 0deg));
+  /* Se pega al aparecer y se levanta un poco al pasar el ratón */
+  position: relative;
+  animation: pegar var(--t-panel) var(--curva) backwards;
+  transition:
+    transform var(--t-control) var(--curva),
+    box-shadow var(--t-control) var(--curva);
+}
+
+.postit:hover {
+  transform: rotate(0deg) translateY(-2px);
+  box-shadow: var(--sombra-hoja);
+}
+
+/* La esquina doblada de la nota */
+.postit::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  border-bottom-right-radius: var(--radio-postit);
+  background: linear-gradient(
+    135deg,
+    transparent 50%,
+    color-mix(in srgb, var(--tinta) 14%, transparent) 50%
+  );
+  pointer-events: none;
+}
+
+@keyframes pegar {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) rotate(calc(var(--giro, 0deg) - 4deg)) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(var(--giro, 0deg));
+  }
 }
 
 .postit h2,
@@ -250,4 +289,26 @@
     bottom: var(--e3);
     z-index: 5;
   }
+}
+
+/* Los nombres de los puntos en los textos: enlaces que señalan el punto en el dibujo */
+.punto-enlace {
+  display: inline;
+  min-width: 0;
+  min-height: 0;
+  padding: 0 0.12em;
+  border: 0;
+  border-bottom: 2px dotted var(--azul-correccion);
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: 600;
+  cursor: help;
+  transition: background var(--t-control) var(--curva);
+}
+
+.punto-enlace:hover,
+.punto-enlace:focus-visible {
+  background: color-mix(in srgb, var(--azul-correccion) 20%, transparent);
 }

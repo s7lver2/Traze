@@ -19,6 +19,10 @@ export interface Interaccion {
   alPulsar: (posicion: { x: number; y: number }) => void;
   /** Puntos que se señalan al alumno (pista). */
   resaltados: readonly { x: number; y: number }[];
+  /** El ratón se mueve sobre el dibujo (para que el compás siga al puntero). */
+  alMover?: (posicion: { x: number; y: number } | null) => void;
+  /** Circunferencia guía de la abertura del compás. */
+  guia?: { x: number; y: number; radio: number } | null;
   /** Puntos ya pinchados en la acción en curso. */
   elegidos: readonly { x: number; y: number }[];
   /** El instrumento que el alumno tiene en la mano (sustituye al que se deduce del dibujo). */
@@ -34,6 +38,8 @@ interface Propiedades {
   ocultarConstruccion: boolean;
   descripcion: string;
   interaccion?: Interaccion;
+  /** Puntos que se enseñan resaltados (por ejemplo, al pasar el ratón por su nombre en un texto). */
+  destacados?: readonly { x: number; y: number }[];
 }
 
 function Trazo({ animada }: { animada: PrimitivaAnimada }) {
@@ -97,6 +103,7 @@ export function Lienzo({
   ocultarConstruccion,
   descripcion,
   interaccion,
+  destacados,
 }: Propiedades) {
   const visibles = primitivasVisibles(dibujos, paso, progreso).filter(
     ({ primitiva }) => !(ocultarConstruccion && esConstruccion(primitiva)),
@@ -105,15 +112,24 @@ export function Lienzo({
   const activa = interaccion ? interaccion.herramienta : herramientaActiva(visibles);
   const referencia = useRef<SVGSVGElement>(null);
 
-  function pulsar(evento: PointerEvent<SVGSVGElement>) {
+  function aLienzo(evento: PointerEvent<SVGSVGElement>): { x: number; y: number } | null {
     const svg = referencia.current;
     const matriz = svg?.getScreenCTM();
-    if (!interaccion || !svg || !matriz) return;
+    if (!svg || !matriz) return null;
     const punto = svg.createSVGPoint();
     punto.x = evento.clientX;
     punto.y = evento.clientY;
     const enLienzo = punto.matrixTransform(matriz.inverse());
-    interaccion.alPulsar({ x: enLienzo.x, y: enLienzo.y });
+    return { x: enLienzo.x, y: enLienzo.y };
+  }
+
+  function pulsar(evento: PointerEvent<SVGSVGElement>) {
+    const posicion = aLienzo(evento);
+    if (interaccion && posicion) interaccion.alPulsar(posicion);
+  }
+
+  function mover(evento: PointerEvent<SVGSVGElement>) {
+    interaccion?.alMover?.(aLienzo(evento));
   }
 
   return (
@@ -121,6 +137,8 @@ export function Lienzo({
       ref={referencia}
       className={interaccion ? 'lienzo lienzo-interactivo' : 'lienzo'}
       onPointerDown={interaccion ? pulsar : undefined}
+      onPointerMove={interaccion?.alMover ? mover : undefined}
+      onPointerLeave={interaccion?.alMover ? () => interaccion.alMover?.(null) : undefined}
       viewBox={`0 0 ${ancho} ${alto}`}
       preserveAspectRatio="xMidYMid meet"
       role="img"
@@ -153,8 +171,19 @@ export function Lienzo({
 
       {activa && <Herramienta activa={activa} />}
 
+      {interaccion?.guia && (
+        <circle
+          className="guia-abertura"
+          cx={interaccion.guia.x}
+          cy={interaccion.guia.y}
+          r={interaccion.guia.radio}
+        />
+      )}
       {interaccion?.elegidos.map((punto, i) => (
         <circle key={`e${i}`} className="elegido" cx={punto.x} cy={punto.y} r={2.2} />
+      ))}
+      {destacados?.map((punto, i) => (
+        <circle key={`d${i}`} className="destacado" cx={punto.x} cy={punto.y} r={4.2} />
       ))}
       {interaccion?.resaltados.map((punto, i) => (
         <circle key={`r${i}`} className="resalte" cx={punto.x} cy={punto.y} r={3.6} />

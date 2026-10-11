@@ -8,9 +8,11 @@ import { crearEstado, reductor, VELOCIDADES } from '../reproductor/estado';
 import { decimal } from '../reproductor/formato';
 import { derivarBanda } from '../reproductor/instrumentos';
 import { registrarVista } from '../progreso-navegador';
-import { duracionPaso } from '../reproductor/tiempos';
+import { duracionPaso, primitivasVisibles } from '../reproductor/tiempos';
+import { clavesDeLosPuntos, useDestacados } from '../reproductor/useDestacados';
 import { BandaInstrumentos } from './BandaInstrumentos';
 import { Lienzo } from './Lienzo';
+import { TextoConPuntos } from './TextoConPuntos';
 
 const MAX_SALTO_MS = 100;
 
@@ -41,6 +43,20 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   const pasoActual = vista.pasos[estado.paso];
   const duracion = duracionPaso(dibujos[estado.paso]);
   const terminado = estado.progreso >= 1 && !estado.reproduciendo;
+  const claves = useMemo(() => clavesDeLosPuntos(dibujos.flat()), [dibujos]);
+  const visibles = useMemo(
+    () =>
+      new Set(
+        primitivasVisibles(dibujos, estado.paso, estado.progreso).flatMap(({ primitiva }) =>
+          primitiva.tipo === 'punto' ? [primitiva.id] : [],
+        ),
+      ),
+    [dibujos, estado.paso, estado.progreso],
+  );
+  const { destacados, alResaltar } = useDestacados(vista.puntos, claves, visibles);
+  const conPuntos = (texto: string) => (
+    <TextoConPuntos texto={texto} claves={Object.keys(claves)} alResaltar={alResaltar} />
+  );
   const banda = useMemo(
     () => derivarBanda(dibujos[estado.paso], vista.radios, leccion.radios, factores),
     [dibujos, estado.paso, vista.radios, leccion.radios, factores],
@@ -103,6 +119,7 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
           progreso={estado.progreso}
           ocultarConstruccion={estado.ocultarConstruccion}
           descripcion={`Paso ${estado.paso + 1} de ${total}: ${pasoActual.titulo}`}
+          destacados={destacados}
         />
 
         <button
@@ -134,12 +151,12 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
       </div>
 
       <div className="notas notas-izquierda">
-        <aside className="postit postit-paso">
+        <aside key={`paso-${estado.paso}`} className="postit postit-paso">
           <p className="etiqueta" aria-live="polite">
             Paso {estado.paso + 1} de {total}
           </p>
-          <h2>{pasoActual.titulo}</h2>
-          <p className="texto-paso">{pasoActual.texto}</p>
+          <h2>{conPuntos(pasoActual.titulo)}</h2>
+          <p className="texto-paso">{conPuntos(pasoActual.texto)}</p>
           {banda && <BandaInstrumentos banda={banda} />}
         </aside>
 
@@ -171,15 +188,15 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
       </div>
 
       <div className="notas notas-derecha">
-        <aside className="postit postit-porque">
+        <aside key={`porque-${estado.paso}`} className="postit postit-porque">
           <p className="etiqueta">Por qué</p>
-          <p className="porque">{pasoActual.porque}</p>
+          <p className="porque">{conPuntos(pasoActual.porque)}</p>
         </aside>
 
         {pasoActual.consejo && (
-          <aside className="postit postit-consejo">
+          <aside key={`consejo-${estado.paso}`} className="postit postit-consejo">
             <p className="etiqueta">Consejo del profe</p>
-            <p>{pasoActual.consejo}</p>
+            <p>{conPuntos(pasoActual.consejo)}</p>
           </aside>
         )}
 

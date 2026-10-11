@@ -158,7 +158,7 @@ function accionesDe(
         abertura: resuelta.radios[primitiva.radio],
         descripcionAbertura: descripcion,
         primitiva: indice,
-        texto: `Pincha el compás en ${primitiva.centro}, ábrelo ${descripcion} y traza un arco hacia ${primitiva.hacia}.`,
+        texto: `Pincha el compás en ${primitiva.centro} y ábrelo ${descripcion}: pincha a esa distancia para trazar el arco hacia ${primitiva.hacia}.`,
       };
     }
     case 'arcoEntre':
@@ -270,12 +270,11 @@ export function crearEstado(reto: Reto, nivel: NivelReto): EstadoReto {
   return alEmpezarAccion(reto, saltarPasosSinAcciones(reto, inicial));
 }
 
-/** En el nivel guiado la app pone el instrumento que toca; en los demás lo elige el alumno. */
+/** La app pone el instrumento que toca en cada acción: el alumno solo tiene que pinchar. */
 function alEmpezarAccion(reto: Reto, estado: EstadoReto): EstadoReto {
   if (estado.terminado) return estado;
   const accion = accionActual(reto, estado);
-  if (estado.nivel === 'guiado' && accion) return { ...estado, instrumento: instrumentoDe(accion) };
-  return estado;
+  return accion ? { ...estado, instrumento: instrumentoDe(accion) } : estado;
 }
 
 export function accionActual(reto: Reto, estado: EstadoReto): AccionReto | null {
@@ -294,7 +293,7 @@ export function fijarAbertura(estado: EstadoReto, mm: number): EstadoReto {
 }
 
 export function toleranciaAbertura(objetivo: number): number {
-  return Math.max(1.5, objetivo * 0.06);
+  return Math.max(2.5, objetivo * 0.07);
 }
 
 const distanciaEntre = (a: { x: number; y: number }, b: { x: number; y: number }): number =>
@@ -372,6 +371,11 @@ export function clic(estado: EstadoReto, reto: Reto, posicion: { x: number; y: n
   const accion = accionActual(reto, estado);
   if (!accion) return { estado, evento: 'nada' };
 
+  // Con el compás ya pinchado, el siguiente clic abre el compás: vale la distancia al centro.
+  if (accion.tipo === 'compas' && estado.instrumento === 'compas' && estado.clics.length === 1) {
+    return comprobarAbertura(estado, reto, accion, distanciaEntre(accion.centro, posicion));
+  }
+
   if (estado.instrumento === null) {
     return conInfo(estado, 'Elige primero el instrumento con el que vas a trabajar.');
   }
@@ -434,12 +438,12 @@ export function clic(estado: EstadoReto, reto: Reto, posicion: { x: number; y: n
             ...estado,
             clics: [pinchado],
             pista: false,
-            mensaje: { tipo: 'info', texto: 'Ajusta la abertura del compás y pulsa «Trazar arco».' },
+            mensaje: { tipo: 'info', texto: 'Ahora pincha a la distancia a la que hay que abrir el compás.' },
           },
           evento: 'acierto',
         };
       }
-      return conInfo(estado, 'El compás ya está pinchado: ajusta la abertura y pulsa «Trazar arco».');
+      return conInfo(estado, 'El compás ya está pinchado: pincha a la distancia que quieras abrirlo.');
     }
     case 'compasEntre': {
       const esperado = [accion.centro, accion.desde, accion.hasta][estado.clics.length];
@@ -456,22 +460,44 @@ export function clic(estado: EstadoReto, reto: Reto, posicion: { x: number; y: n
   }
 }
 
-/** El botón «Trazar arco»: comprueba la abertura del compás que el alumno ha fijado. */
+function comprobarAbertura(
+  estado: EstadoReto,
+  reto: Reto,
+  accion: Extract<AccionReto, { tipo: 'compas' }>,
+  abertura: number,
+): ResultadoClic {
+  if (Math.abs(abertura - accion.abertura) > toleranciaAbertura(accion.abertura)) {
+    const sobra = abertura > accion.abertura;
+    const orientacion =
+      estado.nivel === 'guiado'
+        ? ` Debe ser ${accion.descripcionAbertura} (unos ${decimal(accion.abertura, 1)} mm).`
+        : '';
+    return conError(
+      estado,
+      `El compás está ${sobra ? 'demasiado abierto' : 'demasiado cerrado'}.${orientacion}`,
+    );
+  }
+  return completar(reto, estado, accion);
+}
+
+/** Compás abierto con la abertura fijada con el deslizador (alternativa al clic para quien no use ratón). */
 export function trazarArco(estado: EstadoReto, reto: Reto): ResultadoClic {
   const accion = accionActual(reto, estado);
   if (!accion || accion.tipo !== 'compas') return { estado, evento: 'nada' };
   if (estado.instrumento !== 'compas') return conError(estado, 'Ahora hace falta el compás.');
   if (estado.clics.length === 0) return conInfo(estado, `Primero pincha el compás en ${accion.centro.id}.`);
-  const diferencia = Math.abs(estado.abertura - accion.abertura);
-  if (diferencia > toleranciaAbertura(accion.abertura)) {
-    const sobra = estado.abertura > accion.abertura;
-    const orientacion =
-      estado.nivel === 'guiado'
-        ? ` Debe ser ${accion.descripcionAbertura} (unos ${decimal(accion.abertura, 1)} mm).`
-        : '';
-    return conError(estado, `La abertura del compás es ${sobra ? 'demasiado grande' : 'demasiado pequeña'}.${orientacion}`);
-  }
-  return completar(reto, estado, accion);
+  return comprobarAbertura(estado, reto, accion, estado.abertura);
+}
+
+/** La circunferencia que se enseña como guía de la abertura: en guiado, o con pista. */
+export function guiaDeAbertura(
+  estado: EstadoReto,
+  reto: Reto,
+): { centro: PuntoReto; radio: number } | null {
+  const accion = accionActual(reto, estado);
+  if (!accion || accion.tipo !== 'compas' || estado.clics.length !== 1) return null;
+  if (!(estado.nivel === 'guiado' || estado.pista)) return null;
+  return { centro: accion.centro, radio: accion.abertura };
 }
 
 export function pedirPista(estado: EstadoReto): EstadoReto {
