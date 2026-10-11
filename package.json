@@ -12,6 +12,7 @@
     "promover": "pnpm --filter @traze/lecciones promover",
     "revisar": "pnpm --filter @traze/lecciones revisar",
     "estado": "pnpm --filter @traze/lecciones estado",
+    "temario": "pnpm --filter @traze/lecciones temario",
     "web": "pnpm --filter @traze/web dev"
   }
 }

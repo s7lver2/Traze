@@ -18,7 +18,8 @@
     "comprobar": "tsx src/comprobar-cli.ts",
     "promover": "tsx src/promover-cli.ts",
     "revisar": "tsx src/revisar-cli.ts",
-    "estado": "tsx src/estado-cli.ts"
+    "estado": "tsx src/estado-cli.ts",
+    "temario": "tsx src/temario-cli.ts"
   },
   "dependencies": {
     "@traze/geometria": "workspace:*",

@@ -46,3 +46,26 @@ Cuando una lección necesita algo nuevo (por ejemplo, la bisectriz o una tangent
 - Los borradores nunca se escriben a mano en `contenido/`.
 - La clave `meta` solo la escriben `promover` y `revisar`.
 - Si una comprobación falla, se corrige la construcción; nunca se quita ni se debilita la comprobación.
+
+## Generar con el temario
+
+El temario (`temario/temario.json`) fija las lecciones, su orden y las comprobaciones que cada una debe llevar.
+
+- `pnpm temario`: estado del temario, por bloques, con errores y avisos. Falla si una lección de `contenido/` no cumple su entrada.
+- `pnpm temario encargo <id>`: imprime el texto de encargo para generar esa lección (se pega en Claude en el Modo B, o lo lee el agente en el Modo A).
+- `pnpm temario --completo`: falla si falta alguna lección.
+- `pnpm temario --publicable`: además, falla si la revisión humana no llega al mínimo (todas las de los bloques 5 y 7, y una de cada tres de las demás).
+
+Se generan en el orden del temario: una lección solo puede pedir como requisito otra que ya exista. Si una lección necesita más de 10 pasos, se divide en dos: se añade la segunda al temario, justo después, con la primera como requisito.
+
+## Qué mirar al revisar una lección (bloques 5 y 7 primero)
+
+La revisión humana comprueba lo que los tests numéricos no pueden:
+
+1. Que la construcción es la que se enseña en clase y no otra que da el mismo resultado de forma rara.
+2. Que el corte elegido entre dos posibles es el correcto (por ejemplo, el centro del enlace dentro del ángulo; el corte de la mediatriz del lado que corresponde).
+3. Que los puntos de tangencia y los ángulos rectos están marcados.
+4. Que el porqué de cada paso es cierto y no una frase hueca.
+5. Que ningún paso afirma algo que el dibujo no muestra.
+
+Cuando una lección está revisada, la persona revisora ejecuta `pnpm revisar <id> --por "<nombre>"`. Un agente nunca ejecuta ese comando por ella.

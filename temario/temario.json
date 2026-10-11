@@ -1,0 +1,180 @@
+{
+  "lecciones": [
+    {
+      "id": "compas-basico",
+      "bloque": 0,
+      "titulo": "Uso del compás: transportar un segmento",
+      "requisitos": [],
+      "encargo": "Transporta con el compás un segmento dado AB sobre una semirrecta de origen C. Datos: A, B y los puntos C y E, que fijan la semirrecta CE. Define un radio igual a AB (entre A y B, factor 1) y sitúa con un derivado el punto D de la semirrecta a esa distancia de C. Explica cómo se pincha el compás en C, cómo se copia la abertura sin cambiarla y por qué el arco corta a la semirrecta en D con CD = AB. Insiste en los consejos de material (mina afilada, compás firme) y de técnica del compás.",
+      "exige": ["igualLongitud", "colineales"]
+    },
+    {
+      "id": "mediatriz-segmento",
+      "bloque": 1,
+      "titulo": "Mediatriz de un segmento",
+      "requisitos": [],
+      "encargo": "Lección piloto ya publicada: la mediatriz de un segmento AB con regla y compás. No se regenera salvo que cambie el vocabulario.",
+      "exige": ["equidistante", "perpendicular", "pasaPorPuntoMedio"]
+    },
+    {
+      "id": "dividir-segmento-dos-partes",
+      "bloque": 1,
+      "titulo": "Dividir un segmento en dos partes iguales",
+      "requisitos": [],
+      "encargo": "Lección ya publicada (resultado de la prueba real del Plan 2): dividir un segmento AB en dos partes iguales hallando su punto medio O con la mediatriz. No se regenera salvo que cambie el vocabulario.",
+      "exige": ["equidistante", "perpendicular", "pasaPorPuntoMedio"]
+    },
+    {
+      "id": "bisectriz-angulo",
+      "bloque": 1,
+      "titulo": "Bisectriz de un ángulo",
+      "requisitos": ["compas-basico"],
+      "encargo": "Traza la bisectriz de un ángulo de vértice V y lados VP y VQ. Un arco con centro en V corta los lados en X e Y (puntoEnDireccion con un radio fijo en mm, en las direcciones VP y VQ). Dos arcos del mismo radio con centros en X e Y, mayor que la mitad de XY, se cortan en Z (cortesCirculos; elige el corte que queda dentro del ángulo). La bisectriz es la recta VZ. Idea clave: los puntos de la bisectriz equidistan de los dos lados. Comprueba que los ángulos XVZ y ZVY son iguales.",
+      "exige": ["igualAngulo"]
+    },
+    {
+      "id": "perpendicular-por-punto",
+      "bloque": 1,
+      "titulo": "Perpendicular a una recta por un punto exterior",
+      "requisitos": ["mediatriz-segmento"],
+      "encargo": "Traza la perpendicular a una recta r (datos A y B) por un punto exterior P. Un arco con centro en P y radio mayor que la distancia de P a r la corta en X e Y (interseccionRectaArco). Desde X e Y, dos arcos del mismo radio se cortan en M y N (cortesCirculos). La recta MN pasa por P y es la perpendicular. Idea clave: P está a igual distancia de X e Y, luego está en la mediatriz de XY, que es perpendicular a r. Marca el ángulo recto. Comprueba que MN es perpendicular a AB y que M, N y P están alineados.",
+      "exige": ["perpendicular", "colineales"]
+    },
+    {
+      "id": "paralela-por-punto",
+      "bloque": 1,
+      "titulo": "Paralela a una recta por un punto",
+      "requisitos": ["compas-basico"],
+      "encargo": "Traza la paralela a una recta AB por un punto P exterior con regla y compás completando el paralelogramo ABQP. Q es un corte de un arco con centro en P y radio AB y de un arco con centro en B y radio AP (cortesCirculos con dos radios definidos con «entre»; elige el corte que deja el paralelogramo sin cruzarse). La paralela es PQ. Idea clave: los lados opuestos de un paralelogramo son iguales y paralelos. Comprueba que PQ es paralela a AB y que PQ = AB.",
+      "exige": ["paralelas", "igualLongitud"]
+    },
+    {
+      "id": "division-segmento-thales",
+      "bloque": 1,
+      "titulo": "División de un segmento con el teorema de Thales",
+      "requisitos": ["paralela-por-punto"],
+      "encargo": "Divide un segmento AB en tres partes iguales con el teorema de Thales. Desde A traza una semirrecta auxiliar AC (dato C). Con una abertura fija del compás (radio en mm) lleva tres veces la misma medida sobre ella con puntoEnDireccion encadenado y obtén P1, P2 y P3. Une P3 con B. Las paralelas a P3B por P2 y P1 (puntoEnDireccion con la dirección [P3, B] e interseccionRectas con AB) cortan a AB en D2 y D1. Idea clave: tres paralelas cortan a dos secantes en segmentos proporcionales. Comprueba que AD1, D1D2 y D2B son iguales y que AD1/AB = AP1/AP3.",
+      "exige": ["proporcion", "igualLongitud"]
+    },
+    {
+      "id": "arco-capaz",
+      "bloque": 1,
+      "titulo": "Arco capaz de un ángulo",
+      "requisitos": ["mediatriz-segmento", "perpendicular-por-punto", "bisectriz-angulo"],
+      "encargo": "Traza el arco capaz de un ángulo α sobre un segmento AB: el lugar de los puntos desde los que AB se ve bajo el ángulo α. El ángulo viene dado por tres datos V, P y Q. Traslada α a A: arcos del mismo radio con centros en V y en A y cortesCirculos dan el segundo lado AY. Traza la perpendicular a AY por A y la mediatriz de AB: su corte es el centro O. El arco capaz es el arco de centro O entre A y B por el lado de un punto X, corte de la mediatriz con la circunferencia (arcoEntre con pasaPor). Idea clave: ángulo central doble que el inscrito. Comprueba que el ángulo AXB es igual al ángulo PVQ y que X está en la circunferencia. Si no cabe en 10 pasos, divide la lección en dos y actualiza el temario.",
+      "exige": ["igualAngulo", "puntoEnCircunferencia"]
+    },
+    {
+      "id": "circuncentro-triangulo",
+      "bloque": 2,
+      "titulo": "Circuncentro y circunferencia circunscrita",
+      "requisitos": ["mediatriz-segmento"],
+      "encargo": "Halla el circuncentro de un triángulo acutángulo ABC y dibuja su circunferencia circunscrita. Traza las mediatrices de AB y BC (cortesCirculos con radio mayor que la mitad del lado); su corte O (interseccionRectas) equidista de los tres vértices. Define el radio entre O y A y dibuja la circunferencia como un arco con centro O hacia A y amplitud 3.14159. Idea clave: el circuncentro es el centro de la circunferencia que pasa por los tres vértices. Comprueba que OA = OB = OC y que A, B y C están en la circunferencia.",
+      "exige": ["equidistante", "puntoEnCircunferencia"]
+    },
+    {
+      "id": "hexagono-regular",
+      "bloque": 2,
+      "titulo": "Hexágono regular inscrito",
+      "requisitos": ["compas-basico"],
+      "encargo": "Traza un hexágono regular inscrito en una circunferencia de centro O y radio R (datos O y A, con A en la circunferencia; define el radio entre O y A, factor 1). El lado del hexágono es igual al radio: con el mismo radio y centros en O y en cada vértice se obtienen B, C, D, E y F (cortesCirculos con dos radios iguales a R; en cada corte, uno de los dos puntos es el vértice anterior). Une los vértices con segmentos de resultado. Idea clave: el triángulo OAB es equilátero. Comprueba que los seis lados son iguales, que los vértices están en la circunferencia y que el ángulo interior mide 120°.",
+      "exige": ["igualLongitud", "puntoEnCircunferencia", "angulo"]
+    },
+    {
+      "id": "pentagono-regular",
+      "bloque": 2,
+      "titulo": "Pentágono regular inscrito",
+      "requisitos": ["mediatriz-segmento", "perpendicular-por-punto"],
+      "encargo": "Traza un pentágono regular inscrito en una circunferencia de centro O. Datos: O, B (extremo derecho de un diámetro horizontal) y C (extremo superior del diámetro vertical), con OB = OC = R. Método clásico: M es el punto medio de OB; el arco con centro M y radio MC corta al diámetro por el lado izquierdo en N (interseccionRectaArco); el lado del pentágono es CN. Lleva el lado con el compás sobre la circunferencia a partir de C (cortesCirculos con centros C y O y radios CN y R; repite desde cada vértice). Idea clave: CN es el lado del pentágono inscrito. Comprueba que los cinco lados son iguales, que los vértices están en la circunferencia y que el ángulo interior mide 108°. Si no cabe en 10 pasos, agrupa varios arcos por paso.",
+      "exige": ["igualLongitud", "puntoEnCircunferencia", "angulo"]
+    },
+    {
+      "id": "cuarta-proporcional",
+      "bloque": 3,
+      "titulo": "Cuarta proporcional",
+      "requisitos": ["division-segmento-thales"],
+      "encargo": "Halla la cuarta proporcional x de tres segmentos a, b y c: a/b = c/x. Datos: O y los puntos A y B sobre una semirrecta (OA = a, OB = b) y C sobre otra semirrecta de origen O (OC = c). Une A con C. La paralela a AC por B (puntoEnDireccion con la dirección [A, C] e interseccionRectas con la semirrecta OC) corta a esta en X, y OX es x. Idea clave: el teorema de Thales. Comprueba que OA/OB = OC/OX y que BX es paralela a AC.",
+      "exige": ["proporcion", "paralelas"]
+    },
+    {
+      "id": "media-proporcional",
+      "bloque": 3,
+      "titulo": "Media proporcional",
+      "requisitos": ["perpendicular-por-punto"],
+      "encargo": "Halla la media proporcional h de dos segmentos m y n: m/h = h/n. Sobre una recta lleva los segmentos consecutivos AJ = m y JB = n (datos A, J y B). O es el punto medio de AB (puntoMedio). Dibuja la semicircunferencia de diámetro AB (arcoEntre con pasaPor). La perpendicular a AB por J (puntoEnDireccion con perpendicular) corta a la semicircunferencia en H (interseccionRectaArco; elige el corte del lado de la semicircunferencia). JH es la media proporcional. Idea clave: en un triángulo rectángulo, la altura es media proporcional entre las proyecciones de los catetos. Comprueba que AJ/JH = JH/JB y que H está en la circunferencia.",
+      "exige": ["proporcion", "puntoEnCircunferencia"]
+    },
+    {
+      "id": "seccion-aurea",
+      "bloque": 3,
+      "titulo": "Sección áurea de un segmento",
+      "requisitos": ["media-proporcional"],
+      "encargo": "Divide un segmento AB en media y extrema razón (sección áurea): AB/AC = AC/CB. Método clásico: por B traza la perpendicular a AB y lleva sobre ella BD = AB/2 (puntoEnDireccion con perpendicular y un radio entre A y B con factor 0.5). Une A con D. El arco con centro D y radio DB corta a AD en E, el corte más próximo a A (interseccionRectaArco). El arco con centro A y radio AE corta a AB en C, el corte de la derecha de A (interseccionRectaArco con la recta AB). Idea clave: C divide AB de modo que el todo es a la parte mayor como la parte mayor es a la menor. Comprueba que AB/AC = AC/CB.",
+      "exige": ["proporcion"]
+    },
+    {
+      "id": "simetria-axial",
+      "bloque": 4,
+      "titulo": "Simetría axial de un triángulo",
+      "requisitos": ["perpendicular-por-punto"],
+      "encargo": "Dibuja el simétrico de un triángulo ABC respecto de un eje e (datos E1 y E2, que fijan la recta). Para cada vértice, traza la perpendicular al eje (derivado pie) y lleva con el compás la misma distancia al otro lado (derivado simetrico, ids A', B' y C'). Une los simétricos. Idea clave: el eje es la mediatriz de cada segmento que une un punto con su simétrico. Comprueba que AA' es perpendicular al eje, que el eje pasa por el punto medio de AA' y que los lados correspondientes son iguales (AB = A'B').",
+      "exige": ["perpendicular", "pasaPorPuntoMedio", "igualLongitud"]
+    },
+    {
+      "id": "homotecia",
+      "bloque": 4,
+      "titulo": "Homotecia de un triángulo",
+      "requisitos": ["paralela-por-punto"],
+      "encargo": "Aplica a un triángulo ABC una homotecia de centro O y razón 2 (derivado homotetico, ids A', B' y C'). Traza las rectas OA, OB y OC y lleva con el compás cada distancia desde el vértice (puntoEnDireccion con un radio entre O y el vértice). Une A', B' y C'. Elige los datos para que el triángulo ampliado quepa en el lienzo. Idea clave: la homotecia conserva los ángulos, multiplica las longitudes por la razón y da lados paralelos. Comprueba que O, A y A' están alineados, que OA'/OA = OB'/OB y que A'B' es paralela a AB.",
+      "exige": ["colineales", "proporcion", "paralelas"]
+    },
+    {
+      "id": "tangente-en-punto",
+      "bloque": 5,
+      "titulo": "Tangente a una circunferencia en uno de sus puntos",
+      "requisitos": ["perpendicular-por-punto"],
+      "encargo": "Traza la tangente a una circunferencia de centro C en uno de sus puntos T (datos C y T; define el radio entre C y T). La tangente es perpendicular al radio CT en T: dibuja la circunferencia (arco con amplitud 3.14159) y el radio y, por T, la perpendicular con puntoEnDireccion (direccion [C, T], perpendicular: true, un radio en mm y sentido 1 y -1 para los dos extremos). Marca el ángulo recto y el punto de tangencia. Idea clave: la tangente es perpendicular al radio en el punto de tangencia. Comprueba que la recta es tangente en T y que T está en la circunferencia.",
+      "exige": ["tangente", "puntoEnCircunferencia"]
+    },
+    {
+      "id": "tangentes-desde-punto-exterior",
+      "bloque": 5,
+      "titulo": "Tangentes desde un punto exterior",
+      "requisitos": ["tangente-en-punto", "mediatriz-segmento"],
+      "encargo": "Traza las tangentes a una circunferencia de centro C (que pasa por D) desde un punto exterior P. M es el punto medio de PC (puntoMedio). El arco con centro M y radio MC (radio entre M y C) corta a la circunferencia en T1 y T2 (cortesCirculos con centros C y M y los radios CD y MC). Las rectas PT1 y PT2 son las tangentes. Idea clave: el ángulo C T1 P está inscrito en una semicircunferencia de diámetro PC, luego mide 90°. Marca los puntos de tangencia y los ángulos rectos. Comprueba que las dos rectas son tangentes en T1 y T2, que T1 y T2 están en la circunferencia y que el ángulo CT1P mide 90°.",
+      "exige": ["tangente", "puntoEnCircunferencia", "angulo"]
+    },
+    {
+      "id": "enlace-dos-rectas",
+      "bloque": 5,
+      "titulo": "Enlace de dos rectas con un arco",
+      "requisitos": ["tangente-en-punto", "paralela-por-punto"],
+      "encargo": "Enlaza dos rectas que se cortan en V (datos V, A en una y B en la otra) con un arco de radio R dado (radio fijo en mm). El centro O está a distancia R de las dos rectas: traza la paralela a cada recta a distancia R (puntoEnDireccion con perpendicular: true y el radio R, y un segundo puntoEnDireccion para tener dos puntos de cada paralela) y su corte es O (interseccionRectas). Elige el lado para que O quede dentro del ángulo AVB. Los puntos de tangencia T1 y T2 son los pies de las perpendiculares desde O a las rectas (pie). Dibuja el arco de centro O entre T1 y T2 (arcoEntre, estilo resultado). Marca T1 y T2. Idea clave: el centro del enlace equidista R de las dos rectas y los puntos de tangencia son los pies de las perpendiculares. Comprueba que las dos rectas son tangentes al arco en T1 y T2 y que OT1 = OT2.",
+      "exige": ["tangente", "igualLongitud"]
+    },
+    {
+      "id": "ovalo-eje-mayor",
+      "bloque": 6,
+      "titulo": "Óvalo dado el eje mayor",
+      "requisitos": ["compas-basico", "tangente-en-punto"],
+      "encargo": "Traza un óvalo dado su eje mayor AB con cuatro centros. Divide AB en tres partes iguales (homotetico con centro A y razones 1/3 y 2/3 sobre B, ids C y D). Las circunferencias de radio AC con centros en C y en D se cortan en O1 y O2 (cortesCirculos). Las rectas O1C, O1D, O2C y O2D, prolongadas, cortan a esas circunferencias en los puntos de enlace E, F, G y H (puntoEnDireccion desde C o D en la dirección opuesta a O1 o a O2). Dibuja con arcoEntre: arcos con centro C (de A a E y de A a G), con centro D (de B a F y de B a H) y con centros O1 y O2 (de E a F y de G a H). Agrupa los arcos para no pasar de 10 pasos. Idea clave: en cada punto de enlace los dos centros y el punto están alineados, así que los arcos son tangentes. Comprueba que esas ternas están alineadas y que los puntos de enlace están en sus circunferencias.",
+      "exige": ["colineales", "puntoEnCircunferencia"]
+    },
+    {
+      "id": "diedrico-punto",
+      "bloque": 7,
+      "titulo": "Punto en el sistema diédrico",
+      "requisitos": ["perpendicular-por-punto"],
+      "encargo": "Representa en diédrico un punto A del primer diedro con alejamiento 30 mm y cota 20 mm. Datos: la línea de tierra (L1 y L2, horizontal) y un punto X de ella. La línea de referencia es la perpendicular a la línea de tierra por X (puntoEnDireccion con direccion [L1, L2] y perpendicular: true). Hacia arriba (sentido 1) se lleva la cota: alzado A2 con etiqueta «A''». Hacia abajo (sentido -1) se lleva el alejamiento: planta A1 con etiqueta «A'». Usa dos radios fijos en mm. Dibuja la línea de tierra con el estilo de dato, la línea de referencia y las dos proyecciones. Idea clave: las dos proyecciones de un punto están siempre en la misma perpendicular a la línea de tierra. Comprueba que A1A2 es perpendicular a la línea de tierra y que A1, A2 y X están alineados.",
+      "exige": ["perpendicular", "colineales"]
+    },
+    {
+      "id": "diedrico-trazas-recta",
+      "bloque": 7,
+      "titulo": "Trazas de una recta en el sistema diédrico",
+      "requisitos": ["diedrico-punto"],
+      "encargo": "Halla las trazas de una recta r del primer diedro dada por sus proyecciones: r' = A1B1 (planta) y r'' = A2B2 (alzado), con la línea de tierra horizontal (datos L1 y L2). Traza vertical V: r' corta a la línea de tierra en V' (interseccionRectas) y V'' está en r'' sobre la perpendicular a la línea de tierra por V' (puntoEnDireccion con perpendicular e interseccionRectas con r''). Traza horizontal H: r'' corta a la línea de tierra en H'' (interseccionRectas) y H' está en r' sobre la perpendicular por H''. Elige los datos para que las cuatro trazas queden dentro del lienzo. Idea clave: una traza es el punto donde la recta corta a un plano de proyección; su otra proyección está en la línea de tierra. Comprueba que H'' y V' están en la línea de tierra, que H' está en r', que V'' está en r'' y que las líneas de referencia son perpendiculares a la línea de tierra.",
+      "exige": ["colineales", "perpendicular"]
+    }
+  ]
+}
