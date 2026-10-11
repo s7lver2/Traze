@@ -1,0 +1,275 @@
+{
+  "id": "rectangulo-lado-diagonal",
+  "bloque": 5,
+  "titulo": "Rectángulo dados un lado y la diagonal",
+  "enunciado": "Construye el rectángulo ABCD conocidos el lado AB = 80 mm y la diagonal AC = 100 mm.",
+  "ideaClave": "El triángulo ABC es rectángulo en B, con la diagonal como hipotenusa: el vértice C está en el arco de radio d centrado en A y en la perpendicular a AB por B.",
+  "requisitos": [
+    "arco-capaz-90"
+  ],
+  "datos": {
+    "A": [
+      50,
+      110
+    ],
+    "B": [
+      130,
+      110
+    ]
+  },
+  "radios": {
+    "d": {
+      "mm": 100
+    },
+    "s": {
+      "mm": 20
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "h",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 0.75
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B2",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "C",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "h",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "h",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El lado AB",
+      "texto": "Traza el lado AB de 80 mm. La diagonal AC mide 100 mm.",
+      "porque": "En un rectángulo, la diagonal y los lados forman un triángulo rectángulo, así que la diagonal es la hipotenusa.",
+      "consejo": "Marca A y B con una cruz fina antes de trazar la diagonal.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular en B",
+      "texto": "Levanta en B la perpendicular a AB. El vértice C estará sobre ella.",
+      "porque": "El ángulo en B de un rectángulo es recto: por eso el lado BC es perpendicular a AB.",
+      "consejo": "Apoya la escuadra en AB y traza la perpendicular de B hacia arriba, con trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "B2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "B",
+          "hacia1": "A",
+          "hacia2": "B2"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco de radio 100 desde A",
+      "texto": "Pincha en A con abertura de 100 mm y corta la perpendicular. Llama C al punto de corte.",
+      "porque": "Todo punto de este arco está a 100 mm de A, así que la diagonal AC mide 100 mm.",
+      "consejo": "Abre el compás con la regla: 100 mm son casi 10 cm, cuidado al apoyar la punta.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "d",
+          "hacia": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Lado BC y diagonal AC",
+      "texto": "Une B con C: es el segundo lado del rectángulo. Une A con C: es la diagonal.",
+      "porque": "El triángulo ABC tiene el ángulo recto en B, porque BC es perpendicular a AB.",
+      "consejo": "Traza BC en trazo grueso y la diagonal en trazo fino, para distinguirlas.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice D",
+      "texto": "Desde A levanta la perpendicular de la misma altura que BC y llama D a su extremo. Une D con C.",
+      "porque": "DC es paralelo a AB y mide lo mismo, porque AD y BC son lados opuestos de un rectángulo.",
+      "consejo": "Lleva la misma abertura de BC para medir la altura de D: así el lado DC queda paralelo a AB.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los ángulos",
+      "texto": "El ángulo en C es recto y los lados opuestos AB y DC, y AD y BC, miden lo mismo.",
+      "porque": "Un rectángulo tiene cuatro ángulos rectos y los lados opuestos iguales.",
+      "consejo": "Compara la diagonal con AC: si la abertura de 100 mm coincide, el rectángulo está bien.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "C",
+          "hacia1": "B",
+          "hacia2": "D"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D",
+            "C"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar 80 mm para la diagonal y 100 mm para el lado: el rectángulo sale con la diagonal demasiado corta.",
+    "Levantar la perpendicular en A en lugar de en B: el vértice C queda en el lado equivocado.",
+    "Trazar la diagonal sin comprobar que sus extremos son A y C: se confunde con el lado BC."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "B",
+        "C"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "A",
+      "radio": "d"
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "D",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "B",
+          "C"
+        ],
+        [
+          "A",
+          "D"
+        ]
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "D",
+          "C"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
