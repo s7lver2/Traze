@@ -1,0 +1,211 @@
+{
+  "id": "triangulo-tres-lados",
+  "bloque": 4,
+  "titulo": "Triángulo dados los tres lados",
+  "enunciado": "Construye el triángulo ABC conocidos sus lados a = 70 mm, b = 60 mm y c = 80 mm.",
+  "ideaClave": "Cada vértice queda en el corte de dos arcos cuyos radios son los lados que llegan a él.",
+  "requisitos": [
+    "compas-basico"
+  ],
+  "datos": {
+    "A": [
+      50,
+      100
+    ],
+    "B": [
+      130,
+      100
+    ]
+  },
+  "radios": {
+    "rb": {
+      "mm": 60
+    },
+    "ra": {
+      "mm": 70
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "C",
+        "C2"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radios": [
+        "rb",
+        "ra"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "rb"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "F",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "ra"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El lado c = AB",
+      "texto": "Traza el segmento AB de 80 mm: es el lado c. Los otros dos lados son b = 60 mm y a = 70 mm.",
+      "porque": "Un triángulo queda fijado por sus tres lados: basta con llevarlos al papel.",
+      "consejo": "Traza AB primero, en trazo fino, y comprueba la medida con la regla antes de seguir.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco de radio b desde A",
+      "texto": "Pincha en A con la abertura b = 60 mm y traza un arco por encima de AB.",
+      "porque": "Todos los puntos de este arco están a 60 mm de A, así que el vértice C estará a esa distancia.",
+      "consejo": "Pincha en A con la punta bien hincada y no cambies la abertura hasta el siguiente arco.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rb",
+          "hacia": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco de radio a desde B",
+      "texto": "Sin tocar la abertura del paso anterior, pincha en B con la abertura a = 70 mm y traza otro arco por encima de AB.",
+      "porque": "Los puntos de este arco están a 70 mm de B, y el vértice C también debe estarlo.",
+      "consejo": "Cuidado: la abertura para a es distinta de la de b. Cambia el compás al pasar de A a B.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "ra",
+          "hacia": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "Los dos arcos se cortan por encima de AB. Llama C a ese corte y une C con A y con B.",
+      "porque": "C está a 60 mm de A y a 70 mm de B: es el único punto de ese lado que cumple las dos distancias.",
+      "consejo": "Marca C con una cruz fina y repasa los lados del triángulo en trazo grueso.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los lados",
+      "texto": "Compara AC con el radio b y BC con el radio a: deben coincidir con los que hemos usado.",
+      "porque": "AC = b y BC = a por construcción, porque cada uno es un radio de los arcos.",
+      "consejo": "Si dudas, lleva la abertura del compás de A a C: debe caer justo en el arco de radio b.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "¿Existe el triángulo?",
+      "texto": "Cada lado debe ser menor que la suma de los otros dos: 80 < 60 + 70, 70 < 80 + 60 y 60 < 80 + 70.",
+      "porque": "Si un lado fuera mayor que la suma de los otros dos, los arcos no se cortarían y no habría vértice C.",
+      "consejo": "Antes de empezar, suma los dos lados menores: si no supera al tercero, el triángulo no existe.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar la misma abertura para a y para b: el vértice C sale a la distancia equivocada de A o de B.",
+    "Dar a los lados medidas que no cumplen la condición de existencia: los arcos no se cortan.",
+    "Intercambiar a y b al trazar los arcos: el triángulo sale reflejado y sus lados no coinciden."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "C"
+        ],
+        [
+          "A",
+          "E"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "B",
+          "C"
+        ],
+        [
+          "B",
+          "F"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "A",
+      "radio": "rb"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
