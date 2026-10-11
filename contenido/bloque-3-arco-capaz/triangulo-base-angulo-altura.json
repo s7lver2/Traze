@@ -1,0 +1,305 @@
+{
+  "id": "triangulo-base-angulo-altura",
+  "bloque": 3,
+  "titulo": "Triángulo dados la base, el ángulo opuesto y la altura",
+  "enunciado": "Construye el triángulo ABC conocidos la base AB = 90 mm, el ángulo γ = 60° en C y la altura h = 65 mm sobre AB.",
+  "ideaClave": "El vértice C está en la intersección de dos lugares geométricos: el arco capaz del ángulo sobre AB y la paralela a AB a la altura dada.",
+  "requisitos": [
+    "arco-capaz",
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "A": [
+      60,
+      100
+    ],
+    "B": [
+      150,
+      100
+    ]
+  },
+  "radios": {
+    "hh": {
+      "mm": 65
+    },
+    "s": {
+      "mm": 40
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rd",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 0.2886751345948129
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Oc",
+      "origen": "M",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "rd",
+      "perpendicular": true
+    },
+    {
+      "tipo": "radio",
+      "id": "R",
+      "entre": [
+        "Oc",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "H",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "hh",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "K",
+      "origen": "H",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "s"
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "Cizq",
+        "C"
+      ],
+      "recta": [
+        "H",
+        "K"
+      ],
+      "centro": "Oc",
+      "radio": "R"
+    },
+    {
+      "tipo": "pie",
+      "id": "Fc",
+      "punto": "C",
+      "recta": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La base AB",
+      "texto": "Traza la base AB de 90 mm. El ángulo en C mide 60° y la altura sobre AB, 65 mm.",
+      "porque": "Un triángulo queda fijado por su base, el ángulo opuesto y la altura correspondiente.",
+      "consejo": "Traza AB con la regla bien apoyada y marca A y B con una cruz fina.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "La paralela a 65 mm",
+      "texto": "Levanta desde A la perpendicular de 65 mm y llama H a su extremo. Por H traza la paralela a AB.",
+      "porque": "Todos los puntos de la paralela están a la misma altura, 65 mm, sobre la recta AB.",
+      "consejo": "Mide los 65 mm con la regla y marca H con una cruz; luego apoya la regla en H para la paralela.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "H",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "H",
+            "K"
+          ],
+          "extension": 8,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Centro del arco capaz",
+      "texto": "Halla el punto medio M de AB. Sobre la mediatriz, por encima de AB y a 26 mm de M, está el centro O del arco capaz de 60°.",
+      "porque": "La distancia de M al centro es AB·cot(60°)/2, y el radio del arco capaz es la distancia de O a A.",
+      "consejo": "Calcula la distancia antes de pinchar: 90 · 0,577 / 2 ≈ 26 mm.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Oc",
+          "etiqueta": "O",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "Oc",
+          "hasta": "A",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "M"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "M",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "El arco capaz de 60°",
+      "texto": "Pincha en O con la abertura OA y traza el arco por encima de AB, de A a B.",
+      "porque": "Todo punto de este arco ve AB bajo un ángulo de 60°, porque el arco es el lugar de los vértices con ese ángulo.",
+      "consejo": "Traza el arco de una sola pasada: si lo repasas, el radio cambia y el corte sale mal.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "Oc",
+          "desde": "A",
+          "hasta": "B",
+          "pasaPor": "C",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "La paralela corta al arco en dos puntos. Llama C al de la derecha: es el vértice del triángulo.",
+      "porque": "C está a 65 mm de AB porque está en la paralela, y ve AB bajo 60° porque está en el arco capaz.",
+      "consejo": "Si ninguno de los dos cortes te convence, revisa la distancia de 26 mm: un error ahí cambia todo el arco.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Cizq",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo ABC",
+      "texto": "Une C con A y con B: obtienes el triángulo ABC. Su altura sobre AB es el segmento CFc, que mide 65 mm.",
+      "porque": "La altura es la distancia de C a la recta AB, que es la de la paralela.",
+      "consejo": "Traza la altura desde C con la escuadra, perpendicular a AB, y marca el ángulo recto en el pie.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "Fc",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "Fc",
+          "hacia1": "C",
+          "hacia2": "B"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Poner el centro del arco capaz en el lado contrario de AB: el arco ve AB bajo 120° en lugar de 60°.",
+    "Calcular mal la distancia de M al centro: el arco no corta bien a la paralela.",
+    "Trazar la paralela a una altura distinta de 65 mm: el vértice C queda a otra altura."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "angulo",
+      "vertice": "C",
+      "a": "A",
+      "b": "B",
+      "grados": 60
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "H",
+          "K"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "Oc",
+      "radio": "R"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
