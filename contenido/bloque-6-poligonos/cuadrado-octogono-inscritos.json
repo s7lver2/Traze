@@ -1,0 +1,528 @@
+{
+  "id": "cuadrado-octogono-inscritos",
+  "bloque": 6,
+  "titulo": "Cuadrado y octógono inscritos",
+  "enunciado": "Inscribe un cuadrado en la circunferencia de centro O y radio 50 mm, y después un octógono regular bisecando sus ángulos centrales.",
+  "ideaClave": "Bisecar los ángulos centrales de un polígono regular duplica su número de lados.",
+  "requisitos": [
+    "perpendicular-por-punto",
+    "bisectriz-angulo"
+  ],
+  "datos": {
+    "O": [
+      105,
+      70
+    ],
+    "A": [
+      155,
+      70
+    ]
+  },
+  "radios": {
+    "ra": {
+      "mm": 30
+    },
+    "rb": {
+      "mm": 36
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P90",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "A"
+      ],
+      "radio": "rR",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P180",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "A"
+      ],
+      "radio": "rR",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P270",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "A"
+      ],
+      "radio": "rR",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X1",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "A"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "P90"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Z1",
+        "Z1b"
+      ],
+      "centros": [
+        "X1",
+        "Y1"
+      ],
+      "radios": [
+        "rb",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "M45",
+        "M225"
+      ],
+      "recta": [
+        "O",
+        "Z1"
+      ],
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X2",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "P90"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y2",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "P180"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Z2",
+        "Z2b"
+      ],
+      "centros": [
+        "X2",
+        "Y2"
+      ],
+      "radios": [
+        "rb",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "M135",
+        "M315"
+      ],
+      "recta": [
+        "O",
+        "Z2"
+      ],
+      "centro": "O",
+      "radio": "rR"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La circunferencia",
+      "texto": "Tenemos la circunferencia de centro O y radio 50 mm, con el punto A sobre ella.",
+      "porque": "Todos los puntos de la circunferencia están a 50 mm de O.",
+      "consejo": "Pincha en O con firmeza y traza la circunferencia de una sola vez.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "P180",
+          "pasaPor": "P90",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "P180",
+          "hasta": "A",
+          "pasaPor": "P270",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "Dos diámetros perpendiculares",
+      "texto": "Traza el diámetro AP180 horizontal y el diámetro P90P270 vertical. Se cortan en O con ángulo recto.",
+      "porque": "Dos diámetros perpendiculares dividen la circunferencia en cuatro cuartos iguales.",
+      "consejo": "Traza el segundo diámetro con la escuadra apoyada en el primero.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "P180",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P90",
+          "hasta": "P270",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P90",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P180",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P270",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "A",
+          "hacia2": "P90"
+        }
+      ]
+    },
+    {
+      "titulo": "El cuadrado",
+      "texto": "Une A con P90, P90 con P180, P180 con P270 y P270 con A. Ya tienes el cuadrado inscrito.",
+      "porque": "Los cuatro vértices están sobre la circunferencia y los cuatro arcos entre ellos miden 90°.",
+      "consejo": "Repasa el cuadrado en trazo grueso y deja los diámetros en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "P90",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P90",
+          "hasta": "P180",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P180",
+          "hasta": "P270",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P270",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Bisectriz del ángulo AOP90",
+      "texto": "Traza la bisectriz del ángulo central AOP90: con arcos de 30 mm desde O y de 36 mm desde los dos lados, halla su corte Z1.",
+      "porque": "La bisectriz del ángulo central de 90° es la recta que forma 45° con los dos radios.",
+      "consejo": "Usa la misma abertura en X1 y en Y1, y no cambies el radio de 36 mm al pasar de uno a otro.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "ra",
+          "hacia": "X1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "ra",
+          "hacia": "Y1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "X1",
+          "radio": "rb",
+          "hacia": "Z1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "Y1",
+          "radio": "rb",
+          "hacia": "Z1"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "Z1"
+          ],
+          "extension": 4,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Los vértices M45 y M225",
+      "texto": "La bisectriz corta la circunferencia en dos puntos: M45, entre A y P90, y M225, en el lado opuesto.",
+      "porque": "M45 está a 45° de A, porque la bisectriz divide en dos el ángulo central de 90°.",
+      "consejo": "Marca M45 con una cruz fina y repasa la bisectriz solo hasta la circunferencia.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M45",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "M225",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Bisectriz del ángulo P90OP180",
+      "texto": "Repite con el ángulo central P90OP180: arcos de 30 mm desde O y de 36 mm desde X2 e Y2. El corte Z2 define la bisectriz.",
+      "porque": "La bisectriz de este segundo ángulo de 90° corta la circunferencia en M135 y en M315.",
+      "consejo": "Antes de trazar la bisectriz, comprueba que el radio de 36 mm sigue igual que en el paso 4.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "ra",
+          "hacia": "X2"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "ra",
+          "hacia": "Y2"
+        },
+        {
+          "tipo": "arco",
+          "centro": "X2",
+          "radio": "rb",
+          "hacia": "Z2"
+        },
+        {
+          "tipo": "arco",
+          "centro": "Y2",
+          "radio": "rb",
+          "hacia": "Z2"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "Z2"
+          ],
+          "extension": 4,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Los vértices M135 y M315",
+      "texto": "La nueva bisectriz corta la circunferencia en M135, entre P90 y P180, y en M315, en el lado opuesto.",
+      "porque": "Ahora tenemos ocho arcos iguales de 45° alrededor de O.",
+      "consejo": "Marca M135 con una cruz fina y no confundas M135 con M315.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M135",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "M315",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El octógono",
+      "texto": "Une los ocho vértices en orden: A, M45, P90, M135, P180, M225, P270, M315 y de nuevo A.",
+      "porque": "Ocho vértices sobre la circunferencia separados por 45° forman un octógono regular.",
+      "consejo": "Repasa el octógono en trazo grueso; no lo cierres hasta haber unido los ocho.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "M45",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "M45",
+          "hasta": "P90",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P90",
+          "hasta": "M135",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "M135",
+          "hasta": "P180",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P180",
+          "hasta": "M225",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "M225",
+          "hasta": "P270",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P270",
+          "hasta": "M315",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "M315",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba y sigue duplicando",
+      "texto": "Los ocho lados del octógono miden lo mismo, y sus vértices están sobre la circunferencia. Si bisecas otra vez sus ángulos centrales, obtienes un polígono de 16 lados.",
+      "porque": "Cada bisección de los ángulos centrales duplica el número de lados: 4, 8, 16, 32...",
+      "consejo": "Para seguir duplicando, basta con repetir el mismo paso de bisectriz sobre cada arco.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "M45"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "M45",
+            "P90"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar un radio distinto de 36 mm para las dos bisectrices: el vértice Z sale desplazado y el octógono se deforma.",
+    "Tomar M225 en lugar de M45: el polígono queda cruzado y no es regular.",
+    "Olvidar que el octógono tiene ocho vértices y unir solo cuatro: sale otro cuadrado."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "M45",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "M45"
+        ],
+        [
+          "M45",
+          "P90"
+        ]
+      ]
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "P90",
+        "P270"
+      ],
+      "segmento": [
+        "A",
+        "P180"
+      ]
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "O",
+      "a": "A",
+      "b": "M45",
+      "grados": 45
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "O",
+      "a": "P90",
+      "b": "M135",
+      "grados": 45
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
