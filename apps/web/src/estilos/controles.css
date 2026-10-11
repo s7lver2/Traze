@@ -61,3 +61,10 @@
   height: 1.25rem;
   accent-color: var(--azul-correccion);
 }
+
+a.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}

@@ -8,7 +8,7 @@ export interface Enlace {
 const seccion = (base: string) => (ruta: string) => ruta === base || ruta.startsWith(`${base}/`);
 
 export const ENLACES: readonly Enlace[] = [
-  { texto: 'Temario', href: '/temario', disponible: false, coincide: seccion('/temario') },
+  { texto: 'Temario', href: '/temario', disponible: true, coincide: seccion('/temario') },
   {
     texto: 'Lecciones',
     href: '/',

@@ -1,0 +1,73 @@
+/* Mapa del temario: una fila por lección, con el aire de las fichas de la portada */
+.mapa-resumen {
+  margin: 0 0 var(--e5);
+  color: var(--tinta-suave);
+}
+
+.mapa-lista {
+  display: grid;
+  gap: var(--e2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mapa-fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e3);
+  min-height: 44px;
+  padding: 0 var(--e4);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-boton);
+}
+
+.mapa-enlace {
+  display: flex;
+  flex: 1 1 12rem;
+  align-items: center;
+  min-height: 44px;
+  color: var(--tinta);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a.mapa-enlace:hover {
+  color: var(--azul-correccion);
+  text-decoration: underline;
+}
+
+.mapa-proxima {
+  border-style: dashed;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mapa-proxima .mapa-enlace {
+  color: var(--tinta-suave);
+  font-weight: 400;
+}
+
+/* El estado se dice con texto además del color */
+.sello {
+  padding: var(--e1) var(--e3);
+  border: 1px solid var(--exito-texto);
+  border-radius: var(--radio-pildora);
+  background: var(--exito-suave);
+  color: var(--exito-texto);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.mapa-nota {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}

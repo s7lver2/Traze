@@ -1,4 +1,4 @@
-.portada .lema {
+.lema {
   margin: 0 0 var(--e6);
   font-family: var(--serif);
   font-size: 1.2rem;
@@ -57,4 +57,11 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--tinta-suave);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e3);
+  margin: 0 0 var(--e5);
 }

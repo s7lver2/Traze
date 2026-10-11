@@ -4,8 +4,8 @@ import { ENLACES, enlacesVisibles, esActivo } from '../src/navegacion';
 const lecciones = ENLACES.find((enlace) => enlace.texto === 'Lecciones')!;
 
 describe('enlacesVisibles', () => {
-  it('hoy solo muestra Lecciones (las páginas del Plan 3 aún no existen)', () => {
-    expect(enlacesVisibles().map((enlace) => enlace.texto)).toEqual(['Lecciones']);
+  it('muestra Temario y Lecciones (Consejos y Mi carpeta aún no existen)', () => {
+    expect(enlacesVisibles().map((enlace) => enlace.texto)).toEqual(['Temario', 'Lecciones']);
   });
 
   it('los enlaces están en el orden del spec', () => {
@@ -37,5 +37,13 @@ describe('esActivo', () => {
     expect(esActivo(lecciones, '/leccionfalsa')).toBe(false);
     expect(esActivo(lecciones, '/consejos')).toBe(false);
     expect(esActivo(lecciones, '/temario')).toBe(false);
+  });
+
+  it('Temario está activo en /temario (con o sin barra final) y no en las lecciones', () => {
+    const temario = ENLACES.find((enlace) => enlace.texto === 'Temario')!;
+    expect(esActivo(temario, '/temario')).toBe(true);
+    expect(esActivo(temario, '/temario/')).toBe(true);
+    expect(esActivo(temario, '/temarioviejo')).toBe(false);
+    expect(esActivo(temario, '/leccion/mediatriz-segmento')).toBe(false);
   });
 });

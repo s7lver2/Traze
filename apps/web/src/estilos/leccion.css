@@ -73,3 +73,85 @@
   cursor: pointer;
   color: var(--azul-correccion);
 }
+
+/* Si te atascas, repasa */
+.requisitos {
+  margin-top: var(--e4);
+}
+
+.requisitos ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e2);
+  margin: var(--e1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.requisitos li > a,
+.requisitos li > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--e3);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-pildora);
+  background: var(--papel-claro);
+}
+
+.requisitos li > span {
+  color: var(--tinta-suave);
+}
+
+/* Lección anterior y siguiente: bajo el escenario, al pie de la hoja */
+.nav-leccion {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: var(--e3);
+  margin-top: var(--e6);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--papel-sombra);
+}
+
+.nav-leccion-enlace {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--e1);
+  min-height: 44px;
+  padding: var(--e2) var(--e4);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-boton);
+  color: var(--tinta);
+  text-decoration: none;
+}
+
+.nav-leccion-enlace:hover {
+  border-color: var(--azul-correccion);
+}
+
+.nav-leccion-siguiente {
+  text-align: right;
+}
+
+.nav-leccion-titulo {
+  font-family: var(--serif);
+  font-weight: 600;
+}
+
+.nav-leccion > .boton {
+  align-self: center;
+}
+
+@media (max-width: 700px) {
+  .nav-leccion {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-leccion-siguiente {
+    text-align: left;
+  }
+}
