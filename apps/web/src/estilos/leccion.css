@@ -1,0 +1,95 @@
+.leccion-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--e5);
+  margin-bottom: var(--e5);
+}
+
+.leccion-titulo {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+/* Cajetín: lámina, escala y formato con líneas separadoras */
+.cajetin {
+  min-width: 14rem;
+  border: 2px solid var(--tinta);
+  border-radius: var(--radio-chico);
+  background: var(--velo);
+  font-family: var(--serif);
+  font-style: normal;
+}
+
+.cajetin dl {
+  margin: 0;
+}
+
+.cajetin dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--e4);
+  padding: var(--e1) var(--e3);
+  border-bottom: 1px solid var(--tinta);
+}
+
+.cajetin dl > div:last-child {
+  border-bottom: 0;
+}
+
+.cajetin dt {
+  align-self: center;
+  font-family: var(--interfaz);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.cajetin dd {
+  margin: 0;
+  font-style: italic;
+  text-align: right;
+}
+
+@media (max-width: 600px) {
+  .cajetin {
+    width: 100%;
+  }
+}
+
+.enunciado {
+  margin-bottom: var(--e5);
+}
+
+.enunciado h2 {
+  margin: 0 0 var(--e2);
+}
+
+.idea-clave {
+  padding: var(--e3) var(--e4);
+  border-left: 4px solid var(--azul-correccion);
+  border-radius: var(--radio-chico);
+  background: var(--nota-fondo);
+}
+
+.errores {
+  margin-top: var(--e6);
+}
+
+.errores ul {
+  padding-left: 1.25rem;
+}
+
+.pasos-escritos {
+  margin-top: var(--e5);
+}
+
+.pasos-escritos summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+  color: var(--azul-correccion);
+}

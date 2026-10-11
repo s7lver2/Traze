@@ -30,20 +30,25 @@ export default async function PaginaLeccion({ params }: Propiedades) {
   return (
     <article className="leccion">
       <header className="leccion-cabecera">
-        <h1>{leccion.titulo}</h1>
+        <div className="leccion-titulo">
+          <p className="etiqueta">Bloque {leccion.bloque}</p>
+          <h1>{leccion.titulo}</h1>
+        </div>
         <aside className="cajetin" aria-label="Cajetín de la lámina">
           <dl>
             <div>
-              <dt>Título</dt>
+              <dt>Lámina</dt>
               <dd>{leccion.titulo}</dd>
-            </div>
-            <div>
-              <dt>Tema</dt>
-              <dd>Bloque {leccion.bloque}</dd>
             </div>
             <div>
               <dt>Escala</dt>
               <dd>1:1</dd>
+            </div>
+            <div>
+              <dt>Formato</dt>
+              <dd>
+                {resuelta.lienzo.ancho} × {resuelta.lienzo.alto} mm
+              </dd>
             </div>
           </dl>
         </aside>

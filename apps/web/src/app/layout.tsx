@@ -11,6 +11,7 @@ import '../estilos/lienzo.css';
 import '../estilos/panel.css';
 import '../estilos/controles.css';
 import '../estilos/deslizador.css';
+import '../estilos/leccion.css';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],
