@@ -1,0 +1,445 @@
+{
+  "id": "incentro-triangulo",
+  "bloque": 4,
+  "titulo": "Incentro y circunferencia inscrita",
+  "enunciado": "Dado el triángulo ABC, halla su incentro I y traza la circunferencia inscrita, tangente a los tres lados.",
+  "ideaClave": "El incentro equidista de los tres lados del triángulo, y por eso es el centro de la circunferencia inscrita.",
+  "requisitos": [
+    "bisectriz-angulo",
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "A": [
+      40,
+      110
+    ],
+    "B": [
+      160,
+      110
+    ],
+    "C": [
+      90,
+      30
+    ]
+  },
+  "radios": {
+    "ra": {
+      "mm": 25
+    },
+    "rb": {
+      "mm": 35
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "XA",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "YA",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Za",
+        "Za2"
+      ],
+      "centros": [
+        "XA",
+        "YA"
+      ],
+      "radios": [
+        "rb",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "XB",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "YB",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "C"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Zb",
+        "Zb2"
+      ],
+      "centros": [
+        "XB",
+        "YB"
+      ],
+      "radios": [
+        "rb",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "I",
+      "rectas": [
+        [
+          "A",
+          "Za"
+        ],
+        [
+          "B",
+          "Zb"
+        ]
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "T",
+      "punto": "I",
+      "recta": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "ri",
+      "entre": [
+        "I",
+        "T"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "pie",
+      "id": "T2",
+      "punto": "I",
+      "recta": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "T3",
+      "punto": "I",
+      "recta": [
+        "C",
+        "A"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo ABC",
+      "texto": "Tenemos el triángulo ABC. Vamos a buscar el punto que está a la misma distancia de sus tres lados.",
+      "porque": "Ese punto es el incentro, y la circunferencia que lo tiene por centro toca a los tres lados.",
+      "consejo": "Marca los vértices con una cruz fina y repasa los lados en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Bisectriz del vértice A",
+      "texto": "Pincha en A con abertura de 25 mm y corta AB en XA y AC en YA. Desde XA y YA, con abertura de 35 mm, traza arcos que se corten en Za. La recta A-Za es la bisectriz de A.",
+      "porque": "Za está a igual distancia de XA y de YA, así que equidista de los dos lados del ángulo A.",
+      "consejo": "Usa la misma abertura desde XA y desde YA; cambiarla desplaza Za.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "ra",
+          "hacia": "XA"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "ra",
+          "hacia": "YA"
+        },
+        {
+          "tipo": "arco",
+          "centro": "XA",
+          "radio": "rb",
+          "hacia": "Za"
+        },
+        {
+          "tipo": "arco",
+          "centro": "YA",
+          "radio": "rb",
+          "hacia": "Za"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "A",
+            "Za"
+          ],
+          "extension": 4,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Bisectriz del vértice B",
+      "texto": "Repite con el vértice B: arcos de 25 mm desde B que corten BA en XB y BC en YB, y arcos de 35 mm desde XB y YB que se corten en Zb. Traza la recta B-Zb.",
+      "porque": "Igual que en A, Zb equidista de los dos lados del ángulo B.",
+      "consejo": "Antes de trazar la bisectriz de B, comprueba que la abertura de 35 mm sigue igual que en A.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "ra",
+          "hacia": "XB"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "ra",
+          "hacia": "YB"
+        },
+        {
+          "tipo": "arco",
+          "centro": "XB",
+          "radio": "rb",
+          "hacia": "Zb"
+        },
+        {
+          "tipo": "arco",
+          "centro": "YB",
+          "radio": "rb",
+          "hacia": "Zb"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "B",
+            "Zb"
+          ],
+          "extension": 4,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El incentro I",
+      "texto": "Las dos bisectrices se cortan en un punto. Márcalo con I: es el incentro del triángulo.",
+      "porque": "El incentro está en la bisectriz de A y en la de B, así que equidista de los tres lados.",
+      "consejo": "Marca I con una cruz fina y deja las bisectrices en trazo fino para no perder el resultado.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "I",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular desde I a AB",
+      "texto": "Desde I traza la perpendicular a AB y llama T al punto donde toca el lado. Une I con T.",
+      "porque": "El radio de la circunferencia inscrita es perpendicular al lado en el punto de tangencia.",
+      "consejo": "Usa la escuadra apoyada en AB; la perpendicular debe salir recta y pasar por I.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "I",
+          "hasta": "T",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T",
+          "hacia1": "I",
+          "hacia2": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "La circunferencia inscrita",
+      "texto": "Pincha en I con abertura IT y traza la circunferencia. Toca a AB en T.",
+      "porque": "Todos los puntos de la circunferencia están a la distancia IT de su centro I.",
+      "consejo": "Traza la circunferencia de una sola pasada, sin cambiar la abertura.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "I",
+          "radio": "ri",
+          "hacia": "T",
+          "amplitud": 2.9,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Los otros dos puntos de tangencia",
+      "texto": "Desde I baja las perpendiculares a BC y a CA. Llama T2 y T3 a los puntos donde tocan esos lados.",
+      "porque": "I está a la misma distancia de los tres lados, así que la circunferencia también toca a BC y a CA.",
+      "consejo": "Marca el ángulo recto en cada punto de tangencia: así se ve que el radio es perpendicular al lado.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "I",
+          "hasta": "T2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "I",
+          "hasta": "T3",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "T2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T3",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T2",
+          "hacia1": "I",
+          "hacia2": "B"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T3",
+          "hacia1": "I",
+          "hacia2": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la tangencia",
+      "texto": "La circunferencia toca a los tres lados en T, T2 y T3, y el radio IT es perpendicular a cada lado.",
+      "porque": "Una tangente es perpendicular al radio en el punto de contacto; por eso la circunferencia es inscrita.",
+      "consejo": "Si dudas, mide I con la regla hasta cada lado: las tres distancias deben ser iguales.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "I",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Confundir el incentro con el circuncentro: el incentro sale de las bisectrices, no de las mediatrices.",
+    "Cambiar la abertura entre XA e YA: Za se desplaza y la bisectriz sale mal.",
+    "Trazar la circunferencia con un radio distinto de IT: deja de tocar al lado."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "A",
+        "B"
+      ],
+      "centro": "I",
+      "punto": "T"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "B",
+        "C"
+      ],
+      "centro": "I",
+      "punto": "T2"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "C",
+        "A"
+      ],
+      "centro": "I",
+      "punto": "T3"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "T",
+      "centro": "I",
+      "radio": "ri"
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "B",
+          "A",
+          "I"
+        ],
+        [
+          "I",
+          "A",
+          "C"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
