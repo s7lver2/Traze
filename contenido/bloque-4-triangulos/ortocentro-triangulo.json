@@ -1,0 +1,260 @@
+{
+  "id": "ortocentro-triangulo",
+  "bloque": 4,
+  "titulo": "Ortocentro y alturas",
+  "enunciado": "Dado el triángulo acutángulo ABC, traza sus tres alturas y halla su punto de corte H, el ortocentro.",
+  "ideaClave": "Las tres alturas de un triángulo se cortan en un único punto, el ortocentro.",
+  "requisitos": [
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "A": [
+      40,
+      110
+    ],
+    "B": [
+      160,
+      110
+    ],
+    "C": [
+      90,
+      30
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "pie",
+      "id": "Fa",
+      "punto": "A",
+      "recta": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "Fb",
+      "punto": "B",
+      "recta": [
+        "C",
+        "A"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "Fc",
+      "punto": "C",
+      "recta": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "H",
+      "rectas": [
+        [
+          "A",
+          "Fa"
+        ],
+        [
+          "B",
+          "Fb"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo acutángulo",
+      "texto": "Tenemos el triángulo ABC, con los tres ángulos menores de 90°. Vamos a trazar sus alturas.",
+      "porque": "Una altura es la perpendicular trazada desde un vértice al lado opuesto, o a su prolongación.",
+      "consejo": "Marca los vértices con una cruz fina y repasa los lados en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Altura desde A",
+      "texto": "Desde A baja la perpendicular al lado BC y llama Fa al punto donde cae. Une A con Fa.",
+      "porque": "AFa es perpendicular a BC, así que forma un ángulo recto con el lado opuesto a A.",
+      "consejo": "Usa la escuadra apoyada en BC; la perpendicular debe pasar exactamente por A.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "Fa",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "Fa",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "Fa",
+          "hacia1": "A",
+          "hacia2": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Altura desde B",
+      "texto": "Desde B baja la perpendicular al lado CA y llama Fb al punto donde cae. Une B con Fb.",
+      "porque": "BFb es perpendicular a CA, y ese ángulo recto está en Fb.",
+      "consejo": "Si el pie cae fuera del lado, prolonga el lado con la regla antes de medir el ángulo.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "Fb",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "Fb",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "Fb",
+          "hacia1": "B",
+          "hacia2": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "Altura desde C",
+      "texto": "Desde C baja la perpendicular al lado AB y llama Fc al punto donde cae. Une C con Fc.",
+      "porque": "CFc es perpendicular a AB: es la tercera altura.",
+      "consejo": "Traza esta altura en trazo fino, por si luego hay que borrarla para ver el resultado.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "Fc",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "Fc",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "Fc",
+          "hacia1": "C",
+          "hacia2": "A"
+        }
+      ]
+    },
+    {
+      "titulo": "El ortocentro H",
+      "texto": "Las tres alturas se cortan en un único punto. Márcalo con H: es el ortocentro.",
+      "porque": "Dos alturas ya se cortan en un punto, y la tercera pasa por ese mismo punto.",
+      "consejo": "Marca H con una cruz fina y no borres las alturas: la tercera debe pasar exactamente por H.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Casos especiales",
+      "texto": "En un triángulo rectángulo, H coincide con el vértice del ángulo recto. En uno obtusángulo, H queda fuera del triángulo.",
+      "porque": "Las alturas son perpendiculares a los lados: cuando un ángulo es recto, dos de sus lados ya son alturas.",
+      "consejo": "Antes de trazar, mira si el triángulo tiene un ángulo mayor de 90°: sabrás qué esperar del ortocentro.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar la altura desde un vértice hasta el punto medio del lado opuesto: eso es una mediana, no una altura.",
+    "Olvidar prolongar el lado cuando el pie cae fuera de él: la perpendicular se traza sobre la recta del lado.",
+    "Confundir el ortocentro con el baricentro: H sale de las alturas, no de las medianas."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "A",
+        "Fa"
+      ],
+      "segmento": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "B",
+        "Fb"
+      ],
+      "segmento": [
+        "C",
+        "A"
+      ]
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "C",
+        "Fc"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "C",
+        "H",
+        "Fc"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
