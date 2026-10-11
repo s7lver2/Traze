@@ -1,0 +1,475 @@
+{
+  "id": "triangulo-lado-dos-angulos",
+  "bloque": 4,
+  "titulo": "Triángulo dados un lado y dos ángulos",
+  "enunciado": "Construye el triángulo ABC conocidos el lado AB = 90 mm y los ángulos α = 50° en A y β = 60° en B.",
+  "ideaClave": "Un ángulo se copia en otro sitio con arcos del mismo radio y la misma cuerda; la suma de los dos ángulos da menos de 180°.",
+  "requisitos": [
+    "compas-basico",
+    "suma-resta-angulos"
+  ],
+  "datos": {
+    "A": [
+      30,
+      118
+    ],
+    "B": [
+      120,
+      118
+    ],
+    "V1": [
+      135,
+      35
+    ],
+    "P1": [
+      160,
+      35
+    ],
+    "Q1": [
+      154.28,
+      12.02
+    ],
+    "V2": [
+      175,
+      100
+    ],
+    "P2": [
+      200,
+      100
+    ],
+    "Q2": [
+      187.5,
+      78.35
+    ]
+  },
+  "radios": {
+    "r": {
+      "mm": 20
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X1",
+      "origen": "V1",
+      "direccion": [
+        "V1",
+        "P1"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X2",
+      "origen": "V1",
+      "direccion": [
+        "V1",
+        "Q1"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "radio",
+      "id": "ca",
+      "entre": [
+        "X1",
+        "X2"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Fb",
+        "F"
+      ],
+      "centros": [
+        "E1",
+        "A"
+      ],
+      "radios": [
+        "ca",
+        "r"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "V2",
+      "direccion": [
+        "V2",
+        "P2"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y2",
+      "origen": "V2",
+      "direccion": [
+        "V2",
+        "Q2"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "radio",
+      "id": "cb",
+      "entre": [
+        "Y1",
+        "Y2"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E2",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "r"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "G",
+        "Gb"
+      ],
+      "centros": [
+        "E2",
+        "B"
+      ],
+      "radios": [
+        "cb",
+        "r"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "C",
+      "rectas": [
+        [
+          "A",
+          "F"
+        ],
+        [
+          "B",
+          "G"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El lado y los dos ángulos",
+      "texto": "Traza el lado AB de 90 mm. Tenemos además dos ángulos sueltos: α = 50°, de vértice V1, y β = 60°, de vértice V2.",
+      "porque": "Un ángulo no se puede medir en otro sitio con la regla, pero sí copiarlo con el compás.",
+      "consejo": "Traza AB con la regla bien apoyada y marca A y B con una cruz fina.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V1",
+          "hasta": "P1",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V1",
+          "hasta": "Q1",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V2",
+          "hasta": "P2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V2",
+          "hasta": "Q2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V1"
+        },
+        {
+          "tipo": "punto",
+          "id": "V2"
+        }
+      ]
+    },
+    {
+      "titulo": "La cuerda de α",
+      "texto": "Pincha en V1 con abertura de 20 mm y corta sus dos lados: X1 y X2. Une X1 con X2: esa cuerda mide lo que tiene que medir el ángulo copiado.",
+      "porque": "Dos ángulos del mismo radio son iguales si sus cuerdas miden lo mismo.",
+      "consejo": "Usa la misma abertura que vas a usar en A: si cambia, la copia sale mal.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V1",
+          "radio": "r",
+          "hacia": "X1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V1",
+          "radio": "r",
+          "hacia": "X2"
+        },
+        {
+          "tipo": "punto",
+          "id": "X1"
+        },
+        {
+          "tipo": "punto",
+          "id": "X2"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "X1",
+          "hasta": "X2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Copia α en A",
+      "texto": "Pincha en A con abertura de 20 mm y corta AB en E1. Desde E1, con la cuerda X1X2, corta el arco en F. La semirrecta AF forma con AB el ángulo α.",
+      "porque": "AE1 y AF son radios, y E1F mide lo mismo que X1X2: los triángulos son iguales y los ángulos también.",
+      "consejo": "Corta el arco con E1 por el lado de arriba de AB, para que F quede encima.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "r",
+          "hacia": "E1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "E1",
+          "radio": "ca",
+          "hacia": "F"
+        },
+        {
+          "tipo": "punto",
+          "id": "E1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "F",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La cuerda de β",
+      "texto": "Pincha en V2 con abertura de 20 mm y corta sus dos lados: Y1 y Y2. Une Y1 con Y2 para tener la cuerda de β.",
+      "porque": "La cuerda Y1Y2 es la que determina el ángulo β: copiarla con el mismo radio copia el ángulo.",
+      "consejo": "No cambies la abertura al pasar de V1 a V2: el radio de los arcos debe ser el mismo.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V2",
+          "radio": "r",
+          "hacia": "Y1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V2",
+          "radio": "r",
+          "hacia": "Y2"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y1"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y2"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "Y1",
+          "hasta": "Y2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Copia β en B",
+      "texto": "Pincha en B con abertura de 20 mm y corta BA en E2. Desde E2, con la cuerda Y1Y2, corta el arco en G. La semirrecta BG forma con BA el ángulo β.",
+      "porque": "BE2 y BG son radios, y E2G mide lo mismo que Y1Y2: el ángulo GBA vale β.",
+      "consejo": "Corta el arco por el lado de arriba de AB, el mismo lado en el que está F.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "r",
+          "hacia": "E2"
+        },
+        {
+          "tipo": "arco",
+          "centro": "E2",
+          "radio": "cb",
+          "hacia": "G"
+        },
+        {
+          "tipo": "punto",
+          "id": "E2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "G",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "Prolonga las semirrectas AF y BG hasta que se corten en C. Une C con A y con B: el triángulo ABC ya está.",
+      "porque": "C está sobre las dos semirrectas, así que el ángulo en A es α y el ángulo en B es β.",
+      "consejo": "Corta las dos semirrectas en un ángulo bien abierto: el vértice sale más preciso.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "¿Por qué suman menos de 180°?",
+      "texto": "α + β = 50° + 60° = 110°, menos de 180°. Por eso las dos semirrectas se cortan por encima de AB.",
+      "porque": "En un triángulo, la suma de los tres ángulos es 180°: los dos de la base suman menos que eso.",
+      "consejo": "Si los dos ángulos sumaran 180° o más, las semirrectas no se cortarían: revisa la suma antes de trazar.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura entre V1 y A: la cuerda copiada no coincide con la original y el ángulo sale distinto.",
+    "Copiar el ángulo β al lado de AB que no toca al triángulo: la semirrecta BG queda por debajo y no corta a AF.",
+    "Medir α y β con el transportador en lugar de copiarlos: pierdes la precisión del compás."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "B",
+          "A",
+          "F"
+        ],
+        [
+          "P1",
+          "V1",
+          "Q1"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "A",
+          "B",
+          "G"
+        ],
+        [
+          "P2",
+          "V2",
+          "Q2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "X1",
+          "X2"
+        ],
+        [
+          "E1",
+          "F"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "Y1",
+          "Y2"
+        ],
+        [
+          "E2",
+          "G"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
