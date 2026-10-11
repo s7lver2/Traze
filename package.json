@@ -7,6 +7,7 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "validar": "pnpm --filter @traze/lecciones validar",
+    "prompt": "pnpm --filter @traze/lecciones prompt",
     "web": "pnpm --filter @traze/web dev"
   }
 }

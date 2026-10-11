@@ -13,7 +13,8 @@
   "scripts": {
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "validar": "tsx src/validar-cli.ts"
+    "validar": "tsx src/validar-cli.ts",
+    "prompt": "tsx src/prompt-cli.ts"
   },
   "dependencies": {
     "@traze/geometria": "workspace:*",
