@@ -144,7 +144,6 @@ main {
 
 .rotulo {
   font-family: var(--rotulacion);
-  font-size: 5px;
   font-style: italic;
   fill: var(--grafito-resultado);
 }

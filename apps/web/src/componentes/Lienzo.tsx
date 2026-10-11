@@ -1,4 +1,5 @@
 import type { PrimitivaResuelta } from '@traze/lecciones';
+import { ROTULO } from '@traze/lecciones/rotulos';
 import { primitivasVisibles, type PrimitivaAnimada } from '../reproductor/tiempos';
 import {
   descripcionAnguloRecto,
@@ -127,7 +128,13 @@ export function Lienzo({
       <g className="rotulos">
         {visibles.map(({ clave, primitiva }) =>
           primitiva.tipo === 'punto' ? (
-            <text key={clave} className="rotulo" x={primitiva.x + 2} y={primitiva.y - 2.5}>
+            <text
+              key={clave}
+              className="rotulo"
+              x={primitiva.x + ROTULO.dx}
+              y={primitiva.y + ROTULO.dy}
+              fontSize={ROTULO.tamano}
+            >
               {primitiva.etiqueta}
             </text>
           ) : null,

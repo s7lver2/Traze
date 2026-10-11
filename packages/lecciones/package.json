@@ -7,7 +7,8 @@
   "types": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./interpretar": "./src/interpretar.ts"
+    "./interpretar": "./src/interpretar.ts",
+    "./rotulos": "./src/rotulos.ts"
   },
   "scripts": {
     "test": "vitest run --passWithNoTests",

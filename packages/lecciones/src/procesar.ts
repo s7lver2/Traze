@@ -6,6 +6,7 @@ import {
   type LeccionResuelta,
   type ResultadoComprobacion,
 } from './interpretar';
+import { comprobarRender } from './render';
 import { validarLeccion } from './validar';
 
 export type ResultadoProceso =
@@ -28,6 +29,10 @@ export function procesarLeccion(datos: unknown): ResultadoProceso {
       .filter((comprobacion) => !comprobacion.ok)
       .map((comprobacion) => `comprobaciones: ${comprobacion.descripcion} (${comprobacion.detalle})`);
     if (fallos.length > 0) return { ok: false, errores: fallos };
+
+    const problemas = comprobarRender(resuelta).map((problema) => `render: ${problema.mensaje}`);
+    if (problemas.length > 0) return { ok: false, errores: problemas };
+
     return { ok: true, leccion: validada.leccion, resuelta, comprobaciones };
   } catch (error) {
     if (error instanceof ConstruccionImposible) {
