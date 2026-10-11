@@ -5,6 +5,9 @@ import {
   escala,
   escalar,
   interseccionCircunferencias,
+  interseccionRectaCircunferencia,
+  interseccionRectas,
+  normalIzquierda,
   punto,
   puntoMedio,
   resta,
@@ -213,6 +216,10 @@ function resolverPrimitiva(
   }
 }
 
+function pieDe(p: Punto, a: Punto, u: Punto): Punto {
+  return suma(a, escala(u, escalar(resta(p, a), u)));
+}
+
 function resolverDerivado(
   derivado: Derivado,
   puntos: Record<string, Punto>,
@@ -250,6 +257,85 @@ function resolverDerivado(
         throw new ConstruccionImposible(`El radio «${derivado.id}» no es positivo`);
       }
       radios[derivado.id] = radio;
+      return;
+    }
+    case 'puntoEnDireccion': {
+      const [nombreA, nombreB] = derivado.direccion;
+      const sentido = exigirDireccion(
+        obtener(puntos, nombreA),
+        obtener(puntos, nombreB),
+        nombreA,
+        nombreB,
+      );
+      const u = derivado.perpendicular ? normalIzquierda(sentido) : sentido;
+      const largo = derivado.sentido * obtenerRadio(radios, derivado.radio);
+      puntos[derivado.id] = suma(obtener(puntos, derivado.origen), escala(u, largo));
+      return;
+    }
+    case 'pie': {
+      const [nombreA, nombreB] = derivado.recta;
+      const a = obtener(puntos, nombreA);
+      const u = exigirDireccion(a, obtener(puntos, nombreB), nombreA, nombreB);
+      puntos[derivado.id] = pieDe(obtener(puntos, derivado.punto), a, u);
+      return;
+    }
+    case 'simetrico': {
+      const [nombreA, nombreB] = derivado.eje;
+      const a = obtener(puntos, nombreA);
+      const u = exigirDireccion(a, obtener(puntos, nombreB), nombreA, nombreB);
+      const p = obtener(puntos, derivado.punto);
+      const pie = pieDe(p, a, u);
+      puntos[derivado.id] = punto(2 * pie.x - p.x, 2 * pie.y - p.y);
+      return;
+    }
+    case 'homotetico': {
+      const centro = obtener(puntos, derivado.centro);
+      const p = obtener(puntos, derivado.punto);
+      puntos[derivado.id] = suma(centro, escala(resta(p, centro), derivado.razon));
+      return;
+    }
+    case 'interseccionRectas': {
+      const [[nombreP, nombreQ], [nombreR, nombreS]] = derivado.rectas;
+      const corte = interseccionRectas(
+        { p: obtener(puntos, nombreP), q: obtener(puntos, nombreQ) },
+        { p: obtener(puntos, nombreR), q: obtener(puntos, nombreS) },
+      );
+      if (!corte) {
+        throw new ConstruccionImposible(
+          `Las rectas «${nombreP}${nombreQ}» y «${nombreR}${nombreS}» no se cortan en un punto (son paralelas, coinciden o les falta una dirección)`,
+        );
+      }
+      puntos[derivado.id] = corte;
+      return;
+    }
+    case 'interseccionRectaArco': {
+      const [nombreP, nombreQ] = derivado.recta;
+      const cortes = interseccionRectaCircunferencia(
+        { p: obtener(puntos, nombreP), q: obtener(puntos, nombreQ) },
+        { centro: obtener(puntos, derivado.centro), radio: obtenerRadio(radios, derivado.radio) },
+      );
+      if (cortes.length !== 2) {
+        throw new ConstruccionImposible(
+          `La recta «${nombreP}${nombreQ}» no corta en dos puntos al arco con centro «${derivado.centro}» y radio «${derivado.radio}»`,
+        );
+      }
+      puntos[derivado.ids[0]] = cortes[0];
+      puntos[derivado.ids[1]] = cortes[1];
+      return;
+    }
+    case 'cortesCirculos': {
+      const [nombreA, nombreB] = derivado.centros;
+      const cortes = interseccionCircunferencias(
+        { centro: obtener(puntos, nombreA), radio: obtenerRadio(radios, derivado.radios[0]) },
+        { centro: obtener(puntos, nombreB), radio: obtenerRadio(radios, derivado.radios[1]) },
+      );
+      const mensaje =
+        `Los arcos con centro en «${nombreA}» y «${nombreB}» y radios «${derivado.radios[0]}» y «${derivado.radios[1]}» no se cortan en dos puntos`;
+      if (!cortes) throw new ConstruccionImposible(mensaje);
+      const [primero, segundo] = cortes;
+      if (distancia(primero, segundo) < EPS) throw new ConstruccionImposible(mensaje);
+      puntos[derivado.ids[0]] = primero;
+      puntos[derivado.ids[1]] = segundo;
       return;
     }
   }

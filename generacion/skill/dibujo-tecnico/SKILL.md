@@ -116,6 +116,48 @@ Campos: id, entre [P, Q], factor.
 {"tipo":"radio","id":"t","entre":["M","N"],"factor":0.5}
 ```
 
+**puntoEnDireccion**: Crea el punto que está a la distancia del radio desde el origen, en la dirección de P a Q (con sentido -1, al revés). Con perpendicular: true, en la dirección perpendicular, hacia la izquierda de P→Q en pantalla (arriba si P→Q va hacia la derecha). Sirve para llevar la abertura del compás sobre una recta, para trazar paralelas (otra dirección, otro origen) y perpendiculares.
+Campos: id, origen, direccion [P, Q], radio (id de un radio), perpendicular (opcional; por defecto false), sentido (opcional; 1 o -1; por defecto 1).
+```json
+{"tipo":"puntoEnDireccion","id":"D","origen":"C","direccion":["C","E"],"radio":"r","perpendicular":false,"sentido":1}
+```
+
+**pie**: Crea el pie de la perpendicular trazada desde «punto» a la recta PQ.
+Campos: id, punto, recta [P, Q].
+```json
+{"tipo":"pie","id":"F","punto":"C","recta":["A","B"]}
+```
+
+**simetrico**: Crea el simétrico de «punto» respecto del eje PQ.
+Campos: id, punto, eje [P, Q].
+```json
+{"tipo":"simetrico","id":"C'","punto":"C","eje":["A","B"]}
+```
+
+**homotetico**: Crea el homotético de «punto» con el centro y la razón dados.
+Campos: id, punto, centro, razon (número distinto de 0; negativo invierte).
+```json
+{"tipo":"homotetico","id":"A'","punto":"A","centro":"O","razon":2}
+```
+
+**interseccionRectas**: Crea el punto donde se cortan las rectas PQ y RS. Si son paralelas o coinciden, la construcción es imposible.
+Campos: id, rectas [[P, Q], [R, S]].
+```json
+{"tipo":"interseccionRectas","id":"X","rectas":[["A","B"],["C","D"]]}
+```
+
+**interseccionRectaArco**: Crea los dos puntos donde la recta PQ corta a la circunferencia con ese centro y ese radio. X es el que se encuentra primero al recorrer la recta de P a Q. Si no la corta en dos puntos (o la toca en uno), la construcción es imposible.
+Campos: ids [X, Y], recta [P, Q], centro, radio (id de un radio).
+```json
+{"tipo":"interseccionRectaArco","ids":["X","Y"],"recta":["A","B"],"centro":"C","radio":"r"}
+```
+
+**cortesCirculos**: Crea los dos puntos donde se cortan las circunferencias de centro P y radio r1 y de centro Q y radio r2 (pueden ser radios distintos). X queda a la izquierda al mirar de P a Q en pantalla e Y a la derecha. Si no se cortan en dos puntos (o son tangentes), la construcción es imposible.
+Campos: ids [X, Y], centros [P, Q], radios [r1, r2] (ids de radios).
+```json
+{"tipo":"cortesCirculos","ids":["X","Y"],"centros":["A","B"],"radios":["r","r"]}
+```
+
 ### Comprobaciones
 
 El programa las ejecuta con una tolerancia de 1e-6: si alguna falla, la lección se rechaza.

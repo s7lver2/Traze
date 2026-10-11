@@ -63,6 +63,42 @@ export const derivadoSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('puntoMedio'), id, entre: parDeIds }),
   z.object({ tipo: z.literal('interseccionArcos'), ids: parDeIds, centros: parDeIds, radio: id }),
   z.object({ tipo: z.literal('radio'), id, entre: parDeIds, factor: z.number().positive() }),
+  z.object({
+    tipo: z.literal('puntoEnDireccion'),
+    id,
+    origen: id,
+    direccion: parDeIds,
+    radio: id,
+    perpendicular: z.boolean().default(false),
+    sentido: z.union([z.literal(1), z.literal(-1)]).default(1),
+  }),
+  z.object({ tipo: z.literal('pie'), id, punto: id, recta: parDeIds }),
+  z.object({ tipo: z.literal('simetrico'), id, punto: id, eje: parDeIds }),
+  z.object({
+    tipo: z.literal('homotetico'),
+    id,
+    punto: id,
+    centro: id,
+    razon: z.number().refine((razon) => razon !== 0, 'la razón no puede ser 0'),
+  }),
+  z.object({
+    tipo: z.literal('interseccionRectas'),
+    id,
+    rectas: z.tuple([parDeIds, parDeIds]),
+  }),
+  z.object({
+    tipo: z.literal('interseccionRectaArco'),
+    ids: parDeIds,
+    recta: parDeIds,
+    centro: id,
+    radio: id,
+  }),
+  z.object({
+    tipo: z.literal('cortesCirculos'),
+    ids: parDeIds,
+    centros: parDeIds,
+    radios: parDeIds,
+  }),
 ]);
 
 export const comprobacionSchema = z.discriminatedUnion('tipo', [
@@ -160,6 +196,57 @@ function usoDeDerivado(derivado: Derivado): UsoDeDerivado {
         radios: [],
         crea: [],
         creaRadio: derivado.id,
+      };
+    case 'puntoEnDireccion':
+      return {
+        puntos: [{ ruta: ['origen'], nombre: derivado.origen }, ...parEn(['direccion'], derivado.direccion)],
+        radios: [{ ruta: ['radio'], nombre: derivado.radio }],
+        crea: [derivado.id],
+      };
+    case 'pie':
+      return {
+        puntos: [{ ruta: ['punto'], nombre: derivado.punto }, ...parEn(['recta'], derivado.recta)],
+        radios: [],
+        crea: [derivado.id],
+      };
+    case 'simetrico':
+      return {
+        puntos: [{ ruta: ['punto'], nombre: derivado.punto }, ...parEn(['eje'], derivado.eje)],
+        radios: [],
+        crea: [derivado.id],
+      };
+    case 'homotetico':
+      return {
+        puntos: [
+          { ruta: ['punto'], nombre: derivado.punto },
+          { ruta: ['centro'], nombre: derivado.centro },
+        ],
+        radios: [],
+        crea: [derivado.id],
+      };
+    case 'interseccionRectas':
+      return {
+        puntos: [
+          ...parEn(['rectas', 0], derivado.rectas[0]),
+          ...parEn(['rectas', 1], derivado.rectas[1]),
+        ],
+        radios: [],
+        crea: [derivado.id],
+      };
+    case 'interseccionRectaArco':
+      return {
+        puntos: [...parEn(['recta'], derivado.recta), { ruta: ['centro'], nombre: derivado.centro }],
+        radios: [{ ruta: ['radio'], nombre: derivado.radio }],
+        crea: [...derivado.ids],
+      };
+    case 'cortesCirculos':
+      return {
+        puntos: parEn(['centros'], derivado.centros),
+        radios: [
+          { ruta: ['radios', 0], nombre: derivado.radios[0] },
+          { ruta: ['radios', 1], nombre: derivado.radios[1] },
+        ],
+        crea: [...derivado.ids],
       };
   }
 }

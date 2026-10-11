@@ -164,6 +164,72 @@ export const DERIVADOS: readonly EntradaVocabulario[] = [
       'Define un radio que vale factor × distancia(P, Q), con P y Q ya definidos (datos o derivados anteriores). Úsalo cuando la abertura del compás depende de un punto calculado.',
     ejemplo: { tipo: 'radio', id: 't', entre: ['M', 'N'], factor: 0.5 },
   },
+  {
+    tipo: 'puntoEnDireccion',
+    campos:
+      'id, origen, direccion [P, Q], radio (id de un radio), perpendicular (opcional; por defecto false), sentido (opcional; 1 o -1; por defecto 1)',
+    descripcion:
+      'Crea el punto que está a la distancia del radio desde el origen, en la dirección de P a Q (con sentido -1, al revés). Con perpendicular: true, en la dirección perpendicular, hacia la izquierda de P→Q en pantalla (arriba si P→Q va hacia la derecha). Sirve para llevar la abertura del compás sobre una recta, para trazar paralelas (otra dirección, otro origen) y perpendiculares.',
+    ejemplo: {
+      tipo: 'puntoEnDireccion',
+      id: 'D',
+      origen: 'C',
+      direccion: ['C', 'E'],
+      radio: 'r',
+      perpendicular: false,
+      sentido: 1,
+    },
+  },
+  {
+    tipo: 'pie',
+    campos: 'id, punto, recta [P, Q]',
+    descripcion: 'Crea el pie de la perpendicular trazada desde «punto» a la recta PQ.',
+    ejemplo: { tipo: 'pie', id: 'F', punto: 'C', recta: ['A', 'B'] },
+  },
+  {
+    tipo: 'simetrico',
+    campos: 'id, punto, eje [P, Q]',
+    descripcion: 'Crea el simétrico de «punto» respecto del eje PQ.',
+    ejemplo: { tipo: 'simetrico', id: "C'", punto: 'C', eje: ['A', 'B'] },
+  },
+  {
+    tipo: 'homotetico',
+    campos: 'id, punto, centro, razon (número distinto de 0; negativo invierte)',
+    descripcion: 'Crea el homotético de «punto» con el centro y la razón dados.',
+    ejemplo: { tipo: 'homotetico', id: "A'", punto: 'A', centro: 'O', razon: 2 },
+  },
+  {
+    tipo: 'interseccionRectas',
+    campos: 'id, rectas [[P, Q], [R, S]]',
+    descripcion:
+      'Crea el punto donde se cortan las rectas PQ y RS. Si son paralelas o coinciden, la construcción es imposible.',
+    ejemplo: { tipo: 'interseccionRectas', id: 'X', rectas: [['A', 'B'], ['C', 'D']] },
+  },
+  {
+    tipo: 'interseccionRectaArco',
+    campos: 'ids [X, Y], recta [P, Q], centro, radio (id de un radio)',
+    descripcion:
+      'Crea los dos puntos donde la recta PQ corta a la circunferencia con ese centro y ese radio. X es el que se encuentra primero al recorrer la recta de P a Q. Si no la corta en dos puntos (o la toca en uno), la construcción es imposible.',
+    ejemplo: {
+      tipo: 'interseccionRectaArco',
+      ids: ['X', 'Y'],
+      recta: ['A', 'B'],
+      centro: 'C',
+      radio: 'r',
+    },
+  },
+  {
+    tipo: 'cortesCirculos',
+    campos: 'ids [X, Y], centros [P, Q], radios [r1, r2] (ids de radios)',
+    descripcion:
+      'Crea los dos puntos donde se cortan las circunferencias de centro P y radio r1 y de centro Q y radio r2 (pueden ser radios distintos). X queda a la izquierda al mirar de P a Q en pantalla e Y a la derecha. Si no se cortan en dos puntos (o son tangentes), la construcción es imposible.',
+    ejemplo: {
+      tipo: 'cortesCirculos',
+      ids: ['X', 'Y'],
+      centros: ['A', 'B'],
+      radios: ['r', 'r'],
+    },
+  },
 ];
 
 export const COMPROBACIONES: readonly EntradaVocabulario[] = [
