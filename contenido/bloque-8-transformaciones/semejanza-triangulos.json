@@ -1,0 +1,292 @@
+{
+  "id": "semejanza-triangulos",
+  "bloque": 8,
+  "titulo": "Triángulo semejante por homotecia",
+  "enunciado": "Dado el triángulo ABC, el centro de homotecia O y la razón 3/2, construye el triángulo semejante A'B'C'.",
+  "ideaClave": "Una homotecia de razón k multiplica por k las distancias al centro: el triángulo resultante tiene los mismos ángulos y los lados en la razón k.",
+  "requisitos": [
+    "homotecia",
+    "giro"
+  ],
+  "datos": {
+    "O": [
+      30,
+      120
+    ],
+    "A": [
+      60,
+      110
+    ],
+    "B": [
+      90,
+      100
+    ],
+    "C": [
+      75,
+      70
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "homotetico",
+      "id": "A'",
+      "punto": "A",
+      "centro": "O",
+      "razon": 1.5
+    },
+    {
+      "tipo": "homotetico",
+      "id": "B'",
+      "punto": "B",
+      "centro": "O",
+      "razon": 1.5
+    },
+    {
+      "tipo": "homotetico",
+      "id": "C'",
+      "punto": "C",
+      "centro": "O",
+      "razon": 1.5
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo y el centro",
+      "texto": "Tenemos el triángulo ABC y el centro de homotecia O. Vamos a construir otro triángulo con razón 3/2.",
+      "porque": "Una homotecia de razón 3/2 lleva cada punto al que está 1,5 veces más lejos de O, en la misma dirección.",
+      "consejo": "Marca O con una cruz fina y ten a mano la regla para medir las distancias al centro.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice A'",
+      "texto": "Une O con A y prolonga la recta. Lleva OA' = 1,5 · OA sobre esa recta y marca A'.",
+      "porque": "A' está en la misma recta que O y A, a una distancia de O igual a 1,5 veces OA.",
+      "consejo": "Mide OA con el compás, añade la mitad y marca A' sobre la prolongación.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértices B' y C'",
+      "texto": "Repite con B y con C: une O con cada vértice, prolonga y marca B' y C' a 1,5 veces su distancia a O.",
+      "porque": "Así los tres vértices quedan en la misma razón respecto de O.",
+      "consejo": "Mide cada distancia por separado: no uses la misma medida para B y para C.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo semejante",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo A'B'C', semejante a ABC con razón 3/2.",
+      "porque": "Los lados de A'B'C' son 1,5 veces los de ABC, y los ángulos no cambian.",
+      "consejo": "Repasa el triángulo A'B'C' en trazo grueso; las líneas a O quedan en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la razón",
+      "texto": "AB/A'B' = 2/3 y BC/B'C' = 2/3: los lados están en la razón 3/2 y los ángulos coinciden.",
+      "porque": "Una homotecia da lados paralelos y en razón constante: por eso es un caso particular de semejanza.",
+      "consejo": "Compara con el transportador dos ángulos correspondientes: deben medir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Homotecia y semejanza",
+      "texto": "Como A'B' es paralelo a AB, la semejanza es una homotecia. Una semejanza con giro no tiene lados paralelos.",
+      "porque": "Una homotecia conserva la dirección de las rectas; un giro la cambia, aunque los ángulos sigan iguales.",
+      "consejo": "Si los lados no son paralelos, prueba con giro o traslación: la semejanza sigue existiendo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Medir la razón sobre el lado equivocado: el triángulo sale con lados que no están en la razón 3/2.",
+    "Tomar OA' igual a OA en lugar de 1,5 veces OA: la figura sale igual, no semejante.",
+    "Confundir homotecia y semejanza: la homotecia tiene lados paralelos, la semejanza general no."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "O",
+        "A"
+      ],
+      "b": [
+        "O",
+        "A'"
+      ],
+      "c": [
+        "O",
+        "B"
+      ],
+      "d": [
+        "O",
+        "B'"
+      ]
+    },
+    {
+      "tipo": "proporcion",
+      "a": [
+        "A",
+        "B"
+      ],
+      "b": [
+        "A'",
+        "B'"
+      ],
+      "c": [
+        "B",
+        "C"
+      ],
+      "d": [
+        "B'",
+        "C'"
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "B",
+          "A",
+          "C"
+        ],
+        [
+          "B'",
+          "A'",
+          "C'"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "A",
+          "B",
+          "C"
+        ],
+        [
+          "A'",
+          "B'",
+          "C'"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
