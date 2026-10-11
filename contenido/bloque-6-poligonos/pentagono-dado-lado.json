@@ -1,0 +1,348 @@
+{
+  "id": "pentagono-dado-lado",
+  "bloque": 6,
+  "titulo": "Pentágono regular dado el lado",
+  "enunciado": "Construye el pentágono regular ABCDE conocido el lado AB = 60 mm.",
+  "ideaClave": "El centro del pentágono está en la mediatriz del lado, y desde él se reparten los demás vértices con cuerdas iguales al lado.",
+  "requisitos": [
+    "pentagono-regular"
+  ],
+  "datos": {
+    "A": [
+      60,
+      110
+    ],
+    "B": [
+      120,
+      110
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "L",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "k",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 0.6881909602355868
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "O",
+      "origen": "M",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "k",
+      "perpendicular": true
+    },
+    {
+      "tipo": "radio",
+      "id": "R",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Ax",
+        "C"
+      ],
+      "centros": [
+        "B",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "R"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Bx",
+        "D"
+      ],
+      "centros": [
+        "C",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "R"
+      ]
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Cx",
+        "E"
+      ],
+      "centros": [
+        "D",
+        "O"
+      ],
+      "radios": [
+        "L",
+        "R"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El lado AB",
+      "texto": "Traza el lado AB de 60 mm. Es el lado de nuestro pentágono.",
+      "porque": "Un pentágono regular tiene cinco lados iguales: basta con conocer uno para construirlo.",
+      "consejo": "Traza AB en trazo fino y marca A y B con una cruz.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz y centro O",
+      "texto": "Halla el punto medio M de AB y levanta la mediatriz. Sobre ella, a unos 41 mm de M, marca el centro O.",
+      "porque": "El centro del pentágono está en la mediatriz del lado, a una distancia de AB igual a s·cot 36° / 2.",
+      "consejo": "Calcula la distancia antes de medir: 60 · 1,376 / 2 ≈ 41 mm.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "M",
+          "hasta": "O",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "M",
+          "hacia1": "A",
+          "hacia2": "O"
+        }
+      ]
+    },
+    {
+      "titulo": "La circunferencia",
+      "texto": "Pincha en O con la abertura OA y traza la circunferencia que pasa por A y B.",
+      "porque": "Los cinco vértices del pentágono están sobre esta circunferencia, de radio OA.",
+      "consejo": "Traza la circunferencia de una sola pasada, sin cambiar la abertura.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "R",
+          "hacia": "B",
+          "amplitud": 2.9
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "Pincha en B con la abertura AB y corta la circunferencia en C, el siguiente vértice.",
+      "porque": "BC mide lo mismo que AB: las cuerdas del pentágono son todas iguales.",
+      "consejo": "No cambies la abertura desde A y B: el lado debe quedar igual en todo el pentágono.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "L",
+          "hacia": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice D",
+      "texto": "Pincha en C con la misma abertura y corta la circunferencia en D, el vértice de arriba.",
+      "porque": "CD es otra cuerda igual al lado, y D queda en el punto más alto del pentágono.",
+      "consejo": "Marca D con una cruz fina: es el vértice que más se aleja de AB.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "L",
+          "hacia": "D"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice E",
+      "texto": "Pincha en D con la misma abertura y corta la circunferencia en E. Ya tienes los cinco vértices.",
+      "porque": "DE es la última cuerda: al volver a A, la distancia EA también debe ser el lado.",
+      "consejo": "Si E no cae cerca de A al trazar, revisa la abertura desde el paso anterior.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "L",
+          "hacia": "E"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El pentágono ABCDE",
+      "texto": "Une A con B, B con C, C con D, D con E y E con A. Ya tienes el pentágono.",
+      "porque": "Los cinco lados son cuerdas iguales de la misma circunferencia, así que el polígono es regular.",
+      "consejo": "Repasa el contorno en trazo grueso y borra la circunferencia auxiliar si te estorba.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los lados",
+      "texto": "Los cinco lados miden 60 mm. El último, EA, cierra el pentágono con la misma abertura.",
+      "porque": "Si EA no mide el lado, el pentágono no sería regular: por eso el cierre es la comprobación final.",
+      "consejo": "Compara con el compás cada lado con AB: debe abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "E",
+            "A"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Calcular mal la distancia del centro a AB: la circunferencia no pasa por A y B a la vez.",
+    "Cambiar la abertura entre vértices: los lados salen distintos y el pentágono se deforma.",
+    "Trazar el pentágono hacia abajo de AB: el centro O tiene que estar al mismo lado que los vértices."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "B",
+          "C"
+        ],
+        [
+          "C",
+          "D"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "E",
+          "A"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "E",
+      "centro": "O",
+      "radio": "R"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "D",
+      "centro": "O",
+      "radio": "R"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
