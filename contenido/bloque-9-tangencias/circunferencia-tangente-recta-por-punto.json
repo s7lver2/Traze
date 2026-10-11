@@ -1,0 +1,264 @@
+{
+  "id": "circunferencia-tangente-recta-por-punto",
+  "bloque": 9,
+  "titulo": "Circunferencia tangente a una recta por un punto",
+  "enunciado": "Dada la recta r con el punto de tangencia T y un punto exterior P, traza la circunferencia tangente a r en T que pasa por P.",
+  "ideaClave": "El centro de la circunferencia es el corte de la perpendicular a r por T con la mediatriz de TP.",
+  "requisitos": [
+    "tangente-en-punto",
+    "mediatriz-segmento",
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "T": [
+      60,
+      120
+    ],
+    "R": [
+      150,
+      120
+    ],
+    "P": [
+      110,
+      60
+    ]
+  },
+  "radios": {
+    "s": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "N",
+      "origen": "T",
+      "direccion": [
+        "T",
+        "R"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "T",
+        "P"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M2",
+      "origen": "M",
+      "direccion": [
+        "T",
+        "P"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "C",
+      "rectas": [
+        [
+          "T",
+          "N"
+        ],
+        [
+          "M",
+          "M2"
+        ]
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rC",
+      "entre": [
+        "C",
+        "T"
+      ],
+      "factor": 1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La recta r y los puntos",
+      "texto": "Tenemos la recta r, con el punto de tangencia T sobre ella, y un punto P fuera de la recta.",
+      "porque": "La circunferencia debe ser tangente a r en T, así que su centro está sobre la perpendicular a r por T.",
+      "consejo": "Marca T con una cruz fina y traza r en trazo fino, prolongada a ambos lados.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "T",
+            "R"
+          ],
+          "extension": 6,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "T"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular a r por T",
+      "texto": "Levanta en T la perpendicular a r. En esa perpendicular estará el centro C.",
+      "porque": "El radio en el punto de tangencia es perpendicular a la tangente.",
+      "consejo": "Usa la escuadra apoyada en r y marca el ángulo recto en T.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "T",
+            "N"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T",
+          "hacia1": "R",
+          "hacia2": "N"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de TP",
+      "texto": "Halla el punto medio M de TP y traza la mediatriz de TP. El centro también está sobre ella.",
+      "porque": "Todo punto de la mediatriz de TP equidista de T y de P: el centro está a la misma distancia de los dos.",
+      "consejo": "Traza la mediatriz con la escuadra, perpendicular a TP por su punto medio.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "M2"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "T",
+            "M"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "M",
+            "P"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "El centro C",
+      "texto": "La perpendicular por T y la mediatriz de TP se cortan en C. Ese es el centro de la circunferencia.",
+      "porque": "C está en la perpendicular a r por T y equidista de T y de P: es el centro buscado.",
+      "consejo": "Marca C con una cruz fina antes de pinchar el compás; ahí va la punta.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La circunferencia",
+      "texto": "Pincha en C con la abertura CT y traza la circunferencia. Pasa por T y por P.",
+      "porque": "CT = CP, así que la circunferencia pasa por P, y en T es tangente a r.",
+      "consejo": "Traza la circunferencia de una sola pasada, sin cambiar la abertura del compás.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rC",
+          "hacia": "T",
+          "amplitud": 2.9,
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la tangencia",
+      "texto": "El radio CT es perpendicular a r en T, y CP mide lo mismo que CT: la circunferencia es tangente a r en T y pasa por P.",
+      "porque": "La tangente en un punto es perpendicular al radio que llega a ese punto.",
+      "consejo": "Si dudas, mide CT y CP con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "T",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "P",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T",
+          "hacia1": "C",
+          "hacia2": "R"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar la perpendicular en un punto distinto de T: la circunferencia no es tangente en T.",
+    "Confundir la mediatriz de TP con la bisectriz del ángulo en T: el centro sale en otro sitio.",
+    "Usar una abertura distinta para CT y CP: la circunferencia no pasa por P."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "T",
+        "R"
+      ],
+      "centro": "C",
+      "punto": "T"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P",
+      "centro": "C",
+      "radio": "rC"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "C",
+      "a": "T",
+      "b": "P"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
