@@ -27,7 +27,7 @@ Antes de empezar, ejecuta `pnpm install` una vez.
 - `pnpm promover <archivo>`: si no hay errores, lo copia a `contenido/bloque-N-nombre/` con `meta.version` 1 y la revisión pendiente, y borra el borrador.
 - `pnpm promover <archivo> --reemplazar`: regenera una lección que ya existe. Sube la versión y vuelve a dejar la revisión pendiente.
 - `pnpm revisar <id> --por <nombre>`: anota que una persona ha revisado la lección a mano (con la fecha de hoy).
-- `pnpm estado`: lista las lecciones. Las marcadas con ⚑ son del bloque 5 (tangencias) o del 7 (diédrico) y están pendientes de revisión: se revisan primero.
+- `pnpm estado`: lista las lecciones. Las marcadas con ⚑ son del bloque 9 (tangencias) y están pendientes de revisión: se revisan primero.
 - `pnpm validar`: valida todo `contenido/`.
 
 Una lección solo está lista para publicar cuando aparece como revisada en `pnpm estado`.
@@ -54,11 +54,11 @@ El temario (`temario/temario.json`) fija las lecciones, su orden y las comprobac
 - `pnpm temario`: estado del temario, por bloques, con errores y avisos. Falla si una lección de `contenido/` no cumple su entrada.
 - `pnpm temario encargo <id>`: imprime el texto de encargo para generar esa lección (se pega en Claude en el Modo B, o lo lee el agente en el Modo A).
 - `pnpm temario --completo`: falla si falta alguna lección.
-- `pnpm temario --publicable`: además, falla si la revisión humana no llega al mínimo (todas las de los bloques 5 y 7, y una de cada tres de las demás).
+- `pnpm temario --publicable`: además, falla si la revisión humana no llega al mínimo (todas las del bloque 9, y una de cada tres de las demás).
 
 Se generan en el orden del temario: una lección solo puede pedir como requisito otra que ya exista. Si una lección necesita más de 10 pasos, se divide en dos: se añade la segunda al temario, justo después, con la primera como requisito.
 
-## Qué mirar al revisar una lección (bloques 5 y 7 primero)
+## Qué mirar al revisar una lección (el bloque 9 primero)
 
 La revisión humana comprueba lo que los tests numéricos no pueden:
 
