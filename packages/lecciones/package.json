@@ -11,7 +11,8 @@
     "./rotulos": "./src/rotulos.ts",
     "./busqueda": "./src/consejos-busqueda.ts",
     "./bloques": "./src/bloques.ts",
-    "./problemas": "./src/problemas.ts"
+    "./problemas": "./src/problemas.ts",
+    "./reto": "./src/reto.ts"
   },
   "scripts": {
     "test": "vitest run --passWithNoTests",

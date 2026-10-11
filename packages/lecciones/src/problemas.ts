@@ -24,6 +24,8 @@ const ESCALA_MAX = 1.3;
 const GIRO_SUAVE = (25 * Math.PI) / 180;
 const VARIACION_RELATIVA = 0.12;
 const DESVIACION_MAXIMA = 0.4;
+/** Dos puntos distintos más cerca que esto no se pueden pinchar por separado. */
+const SEPARACION_MINIMA_MM = 4;
 
 /** Generador pseudoaleatorio con semilla (mulberry32): la misma semilla da siempre el mismo problema. */
 export function crearAzar(semilla: number): () => number {
@@ -61,6 +63,17 @@ function cajaDe(puntos: readonly Punto[]): { x1: number; y1: number; x2: number;
   return { x1: Math.min(...xs), y1: Math.min(...ys), x2: Math.max(...xs), y2: Math.max(...ys) };
 }
 
+function separacionMinima(puntos: readonly Punto[]): number {
+  let minima = Infinity;
+  puntos.forEach((a, i) => {
+    for (const b of puntos.slice(i + 1)) {
+      const d = distancia(a, b);
+      if (d > 1e-6 && d < minima) minima = d;
+    }
+  });
+  return minima;
+}
+
 function variante(base: Leccion, datos: Record<string, [number, number]>, escala: number): Leccion {
   const copia = structuredClone(base);
   copia.datos = datos;
@@ -89,6 +102,8 @@ export function generarProblema(
   const diametro = Math.max(cajaBase.x2 - cajaBase.x1, cajaBase.y2 - cajaBase.y1, 1);
   const derivados = Object.keys(referencia.puntos).filter((id) => !idsDatos.includes(id));
   const { ancho, alto } = base.lienzo;
+  // Si la lección ya tiene puntos muy juntos, el problema no puede exigir más separación que ella.
+  const separacion = Math.min(SEPARACION_MINIMA_MM, 0.6 * separacionMinima(Object.values(referencia.puntos)));
 
   for (let intento = 0; intento < intentos; intento++) {
     const conVariacion = intento < INTENTOS_CON_VARIACION && azar() < 0.8;
@@ -125,6 +140,8 @@ export function generarProblema(
     }
     if (!comprobaciones.every((comprobacion) => comprobacion.ok)) continue;
     if (comprobarRender(resuelta).length > 0) continue;
+
+    if (separacionMinima(Object.values(resuelta.puntos)) < separacion) continue;
 
     // Los cortes entre dos posibles no pueden haberse cambiado por el otro: cada punto construido debe
     // quedar cerca de donde lo habría puesto la figura original girada y escalada.
