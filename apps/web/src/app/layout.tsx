@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Source_Serif_4 } from 'next/font/google';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { Cabecera } from '../componentes/Cabecera';
 import './globals.css';
 import '../estilos/tokens.css';
 import '../estilos/base.css';
 import '../estilos/hoja.css';
+import '../estilos/cabecera.css';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],
@@ -25,11 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es-ES" className={serif.variable}>
       <body>
-        <header className="cabecera">
-          <Link className="logo" href="/">
-            Traze
-          </Link>
-        </header>
+        <Cabecera />
         <main>
           <div className="hoja">{children}</div>
         </main>
