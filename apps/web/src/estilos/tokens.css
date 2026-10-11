@@ -1,0 +1,63 @@
+:root {
+  /* Color: superficie */
+  --papel: #f7f0de;
+  --papel-claro: #fbf6e8;
+  --mesa: #e9dfc8;
+  --papel-sombra: #e1d6b8;
+  --margen: #d9a5a0;
+  --regla: rgba(120, 95, 55, 0.55);
+  --velo: rgba(255, 255, 255, 0.35);
+  --rejilla-mesa: rgba(120, 95, 55, 0.07);
+  --escuadra: rgba(47, 93, 140, 0.12);
+  --cuadricula: #b9ad8c;
+
+  /* Color: texto y acento */
+  --tinta: #2b2b2b;
+  --tinta-suave: #5c5648;
+  --azul-correccion: #2f5d8c;
+  --rojo-profe: #b3261e;
+  --nota-fondo: #ecebdc;
+  --exito-suave: #dfe8d4;
+  --exito-texto: #3b5a2a;
+
+  /* Color: trazo del dibujo (no cambian) */
+  --grafito-dato: #4a4a4a;
+  --grafito-construccion: #5f82aa;
+  --grafito-resultado: #111111;
+
+  /* Tipografía */
+  --rotulacion: 'ISOCPEUR', 'Osifont', 'Arial Narrow', Arial, sans-serif;
+  --interfaz: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --serif: var(--fuente-serif), Georgia, 'Times New Roman', serif;
+
+  /* Forma y profundidad */
+  --radio-chico: 6px;
+  --radio-medio: 10px;
+  --radio-hoja: 12px;
+  --radio-pildora: 999px;
+  --sombra-hoja: 0 1px 2px rgba(80, 60, 25, 0.14), 0 12px 28px rgba(80, 60, 25, 0.12);
+  --sombra-suave: 0 1px 2px rgba(80, 60, 25, 0.1), 0 4px 12px rgba(80, 60, 25, 0.08);
+  --sombra-boton: 0 1px 0 rgba(80, 60, 25, 0.25);
+
+  /* Espacio (escala de 4 px) */
+  --e1: 4px;
+  --e2: 8px;
+  --e3: 12px;
+  --e4: 16px;
+  --e5: 24px;
+  --e6: 32px;
+
+  /* Movimiento */
+  --t-control: 150ms;
+  --t-panel: 250ms;
+  --t-entrada: 200ms;
+  --curva: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-control: 0ms;
+    --t-panel: 0ms;
+    --t-entrada: 0ms;
+  }
+}
