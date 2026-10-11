@@ -1,0 +1,295 @@
+{
+  "id": "baricentro-triangulo",
+  "bloque": 4,
+  "titulo": "Baricentro y medianas",
+  "enunciado": "Dado el triángulo ABC, halla los puntos medios de sus lados, traza las tres medianas y halla su punto de corte G, el baricentro.",
+  "ideaClave": "Las tres medianas se cortan en el baricentro, que está a dos tercios de cada vértice.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "A": [
+      40,
+      110
+    ],
+    "B": [
+      160,
+      110
+    ],
+    "C": [
+      90,
+      30
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "Ma",
+      "entre": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "Mb",
+      "entre": [
+        "C",
+        "A"
+      ]
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "Mc",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "G",
+      "rectas": [
+        [
+          "A",
+          "Ma"
+        ],
+        [
+          "B",
+          "Mb"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo ABC",
+      "texto": "Tenemos el triángulo ABC. Vamos a trazar sus medianas: las rectas que unen cada vértice con el punto medio del lado opuesto.",
+      "porque": "Una mediana une un vértice con el punto medio del lado contrario.",
+      "consejo": "Marca los vértices con una cruz fina antes de buscar los puntos medios.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Los puntos medios",
+      "texto": "Halla el punto medio de cada lado: Ma en BC, Mb en CA y Mc en AB. Con la mediatriz o midiendo, cada lado queda partido en dos mitades iguales.",
+      "porque": "El punto medio de un segmento está a igual distancia de sus extremos.",
+      "consejo": "Si mides con la regla, toma la mitad de la longitud con el compás antes de marcar.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Ma",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Mb",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Mc",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "Ma"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "Ma",
+            "C"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "Mb"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "Mb",
+            "A"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "Mc"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "Mc",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Mediana desde A",
+      "texto": "Une A con Ma, el punto medio de BC. Es la primera mediana.",
+      "porque": "La mediana desde A pasa por el punto medio del lado opuesto BC.",
+      "consejo": "Traza las medianas en trazo fino: se van a cortar en un único punto.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "Ma",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediana desde B",
+      "texto": "Une B con Mb, el punto medio de CA. Es la segunda mediana.",
+      "porque": "La mediana desde B pasa por el punto medio del lado opuesto CA.",
+      "consejo": "Usa la regla apoyada en B y en Mb y traza sin levantarla.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "Mb",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediana desde C",
+      "texto": "Une C con Mc, el punto medio de AB. Es la tercera mediana.",
+      "porque": "La mediana desde C pasa por el punto medio del lado opuesto AB.",
+      "consejo": "La tercera mediana debe pasar por el mismo punto donde se cortan las otras dos: es una buena comprobación.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "Mc",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El baricentro G",
+      "texto": "Las tres medianas se cortan en un punto. Márcalo con G: es el baricentro.",
+      "porque": "El baricentro es el centro de gravedad del triángulo: cada mediana queda dividida en dos partes, una el doble que la otra.",
+      "consejo": "Marca G con una cruz fina y ponle letra en mayúscula, sin tapar los vértices.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Dos tercios de cada mediana",
+      "texto": "AG es el doble de GMa, y lo mismo ocurre con las otras medianas: G está a dos tercios del vértice.",
+      "porque": "Cada mediana queda dividida en razón 2:1 desde el vértice, así que AG/GMa = BG/GMb = 2.",
+      "consejo": "Si dudas, compara AG con GMa midiendo con el compás: AG debe abrir el doble.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "G",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "G",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Confundir la mediana con la mediatriz: la mediana une vértice y punto medio, la mediatriz es perpendicular al lado.",
+    "Dividir cada mediana por la mitad en lugar de en razón 2:1: G queda demasiado cerca del lado.",
+    "Trazar una mediana desde el punto medio en lugar de desde el vértice."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "A",
+        "G",
+        "Ma"
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "C",
+        "G",
+        "Mc"
+      ]
+    },
+    {
+      "tipo": "proporcion",
+      "a": [
+        "A",
+        "G"
+      ],
+      "b": [
+        "G",
+        "Ma"
+      ],
+      "c": [
+        "B",
+        "G"
+      ],
+      "d": [
+        "G",
+        "Mb"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
