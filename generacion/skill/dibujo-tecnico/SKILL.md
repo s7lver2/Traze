@@ -82,6 +82,12 @@ Campos: centro, radio (id de un radio), hacia (punto), amplitud (opcional, radia
 {"tipo":"arco","centro":"A","radio":"r","hacia":"M"}
 ```
 
+**arcoEntre**: Arco de circunferencia con ese centro que va del punto «desde» al punto «hasta», que deben estar a la misma distancia del centro. Por defecto es el arco corto. Para el arco largo, y siempre en una media circunferencia, indica «pasaPor» con un punto ya definido que esté en el arco que quieres. Úsalo para enlaces, óvalos, arcos capaces y circunferencias completas por tramos.
+Campos: centro, desde, hasta, pasaPor (opcional), estilo (opcional; por defecto «construccion»).
+```json
+{"tipo":"arcoEntre","centro":"O","desde":"A","hasta":"B","pasaPor":"P","estilo":"resultado"}
+```
+
 **marcaAnguloRecto**: Cuadradito de ángulo recto en el vértice, entre las direcciones hacia dos puntos.
 Campos: vertice, hacia1, hacia2.
 ```json

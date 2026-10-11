@@ -126,6 +126,9 @@ function calcularRadios(
   return radios;
 }
 
+const VUELTA = 2 * Math.PI;
+const giroPositivo = (angulo: number): number => ((angulo % VUELTA) + VUELTA) % VUELTA;
+
 function resolverPrimitiva(
   primitiva: Primitiva,
   puntos: Puntos,
@@ -181,6 +184,51 @@ function resolverPrimitiva(
         radio,
         inicio: angulo - primitiva.amplitud,
         fin: angulo + primitiva.amplitud,
+        estilo: primitiva.estilo,
+      };
+    }
+    case 'arcoEntre': {
+      const centro = obtener(puntos, primitiva.centro);
+      const desde = obtener(puntos, primitiva.desde);
+      const hasta = obtener(puntos, primitiva.hasta);
+      const radio = distancia(centro, desde);
+      if (radio < EPS || Math.abs(distancia(centro, hasta) - radio) > TOLERANCIA) {
+        throw new ConstruccionImposible(
+          `El arco con centro «${primitiva.centro}» no une «${primitiva.desde}» y «${primitiva.hasta}»: no están a la misma distancia del centro`,
+        );
+      }
+      const angulo1 = Math.atan2(desde.y - centro.y, desde.x - centro.x);
+      const angulo2 = Math.atan2(hasta.y - centro.y, hasta.x - centro.x);
+      const barrido = giroPositivo(angulo2 - angulo1);
+      if (barrido < 1e-9 || VUELTA - barrido < 1e-9) {
+        throw new ConstruccionImposible(
+          `Los puntos «${primitiva.desde}» y «${primitiva.hasta}» coinciden: no definen un arco`,
+        );
+      }
+
+      let enSentidoPositivo: boolean;
+      if (primitiva.pasaPor !== undefined) {
+        const pasa = obtener(puntos, primitiva.pasaPor);
+        const anguloPasa = Math.atan2(pasa.y - centro.y, pasa.x - centro.x);
+        enSentidoPositivo = giroPositivo(anguloPasa - angulo1) <= barrido + 1e-9;
+      } else {
+        if (Math.abs(barrido - Math.PI) < 1e-9) {
+          throw new ConstruccionImposible(
+            `El arco entre «${primitiva.desde}» y «${primitiva.hasta}» es una media circunferencia: indica por qué punto pasa con «pasaPor»`,
+          );
+        }
+        enSentidoPositivo = barrido < Math.PI;
+      }
+
+      const inicio = enSentidoPositivo ? angulo1 : angulo2;
+      const fin = inicio + (enSentidoPositivo ? barrido : VUELTA - barrido);
+      return {
+        tipo: 'arco',
+        cx: centro.x,
+        cy: centro.y,
+        radio,
+        inicio,
+        fin,
         estilo: primitiva.estilo,
       };
     }

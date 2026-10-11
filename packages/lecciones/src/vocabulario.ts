@@ -128,6 +128,13 @@ export const PRIMITIVAS: readonly EntradaVocabulario[] = [
     ejemplo: { tipo: 'arco', centro: 'A', radio: 'r', hacia: 'M' },
   },
   {
+    tipo: 'arcoEntre',
+    campos: 'centro, desde, hasta, pasaPor (opcional), estilo (opcional; por defecto «construccion»)',
+    descripcion:
+      'Arco de circunferencia con ese centro que va del punto «desde» al punto «hasta», que deben estar a la misma distancia del centro. Por defecto es el arco corto. Para el arco largo, y siempre en una media circunferencia, indica «pasaPor» con un punto ya definido que esté en el arco que quieres. Úsalo para enlaces, óvalos, arcos capaces y circunferencias completas por tramos.',
+    ejemplo: { tipo: 'arcoEntre', centro: 'O', desde: 'A', hasta: 'B', pasaPor: 'P', estilo: 'resultado' },
+  },
+  {
     tipo: 'marcaAnguloRecto',
     campos: 'vertice, hacia1, hacia2',
     descripcion:

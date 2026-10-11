@@ -33,6 +33,14 @@ export const primitivaSchema = z.discriminatedUnion('tipo', [
     amplitud: z.number().positive().max(Math.PI).default(0.32),
     estilo: estilo.default('construccion'),
   }),
+  z.object({
+    tipo: z.literal('arcoEntre'),
+    centro: id,
+    desde: id,
+    hasta: id,
+    pasaPor: id.optional(),
+    estilo: estilo.default('construccion'),
+  }),
   z.object({ tipo: z.literal('marcaAnguloRecto'), vertice: id, hacia1: id, hacia2: id }),
   z.object({ tipo: z.literal('marcaIgualdad'), segmento: parDeIds }),
 ]);
@@ -134,6 +142,13 @@ function referenciasDePrimitiva(p: Primitiva): Referencia[] {
       return [
         { ruta: ['centro'], nombre: p.centro },
         { ruta: ['hacia'], nombre: p.hacia },
+      ];
+    case 'arcoEntre':
+      return [
+        { ruta: ['centro'], nombre: p.centro },
+        { ruta: ['desde'], nombre: p.desde },
+        { ruta: ['hasta'], nombre: p.hasta },
+        ...(p.pasaPor !== undefined ? [{ ruta: ['pasaPor'], nombre: p.pasaPor }] : []),
       ];
     case 'marcaAnguloRecto':
       return [
