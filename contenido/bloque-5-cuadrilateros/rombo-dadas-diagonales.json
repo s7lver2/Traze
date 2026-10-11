@@ -1,0 +1,278 @@
+{
+  "id": "rombo-dadas-diagonales",
+  "bloque": 5,
+  "titulo": "Rombo dadas las diagonales",
+  "enunciado": "Construye el rombo ABCD conocidas sus diagonales: la mayor AC = 120 mm y la menor BD = 60 mm.",
+  "ideaClave": "Las diagonales del rombo son perpendiculares y se cortan en su punto medio, así que todos sus lados miden lo mismo.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "A": [
+      40,
+      80
+    ],
+    "C": [
+      160,
+      80
+    ]
+  },
+  "radios": {
+    "hm": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B",
+      "origen": "O",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "hm",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "O",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "hm",
+      "perpendicular": true,
+      "sentido": -1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La diagonal mayor AC",
+      "texto": "Traza la diagonal mayor AC de 120 mm.",
+      "porque": "Las diagonales del rombo son las rectas que unen vértices opuestos.",
+      "consejo": "Marca A y C con una cruz fina y traza AC en trazo fino, como guía.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "El punto medio O",
+      "texto": "Halla el punto medio O de AC. Por O pasa la mediatriz, perpendicular a AC.",
+      "porque": "En el rombo las diagonales se cortan en su punto medio.",
+      "consejo": "Marca O con una cruz y no lo borres: es el centro de todo el dibujo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "C"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "La mitad de la menor",
+      "texto": "Sobre la mediatriz, a 30 mm de O a cada lado, marca B y D: son los extremos de la diagonal menor.",
+      "porque": "La diagonal menor mide 60 mm, así que cada mitad mide 30 mm desde O.",
+      "consejo": "Apoya la escuadra en AC para que la mediatriz salga perpendicular y no se incline.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "A",
+          "hacia2": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "La diagonal menor BD",
+      "texto": "Une B con D: esa es la diagonal menor, de 60 mm, perpendicular a AC.",
+      "porque": "Las diagonales del rombo son perpendiculares, así que BD corta a AC en ángulo recto.",
+      "consejo": "Traza BD en trazo fino, sin pasarte de B y D.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Los cuatro lados",
+      "texto": "Une A con B, B con C, C con D y D con A. Ya tienes el rombo ABCD.",
+      "porque": "Cada lado es la hipotenusa de un triángulo rectángulo de catetos 60 y 30 mm, así que todos miden lo mismo.",
+      "consejo": "Repasa el contorno del rombo en trazo grueso y borra las diagonales si quieres ver solo el perímetro.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "A",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el resultado",
+      "texto": "Las diagonales se cortan en O, su punto medio, y forman ángulo recto. Los cuatro lados miden lo mismo.",
+      "porque": "Un rombo tiene las diagonales perpendiculares que se cortan en su punto medio, y así cada lado mide igual.",
+      "consejo": "Si dudas, mide AB, BC, CD y DA con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "D"
+          ]
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "A",
+          "hacia2": "B"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Medir la diagonal menor desde A en lugar de desde O: el rombo queda desplazado.",
+    "Trazar la diagonal menor inclinada: deja de ser perpendicular a la mayor.",
+    "Confundir el rombo con el romboide: en el rombo las diagonales son perpendiculares, en el romboide no."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "B",
+        "D"
+      ],
+      "segmento": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "B",
+        "D"
+      ],
+      "segmento": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "B",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "D",
+          "A"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
