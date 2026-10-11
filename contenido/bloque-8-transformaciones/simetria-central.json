@@ -1,0 +1,295 @@
+{
+  "id": "simetria-central",
+  "bloque": 8,
+  "titulo": "Simetría central",
+  "enunciado": "Dado el triángulo ABC y el centro de simetría O, halla el simétrico de cada vértice respecto de O.",
+  "ideaClave": "En una simetría central, el centro O es el punto medio de cada segmento que une un punto con su simétrico.",
+  "requisitos": [
+    "dividir-segmento-dos-partes"
+  ],
+  "datos": {
+    "A": [
+      50,
+      100
+    ],
+    "B": [
+      90,
+      50
+    ],
+    "C": [
+      120,
+      110
+    ],
+    "O": [
+      100,
+      80
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "homotetico",
+      "id": "A'",
+      "punto": "A",
+      "centro": "O",
+      "razon": -1
+    },
+    {
+      "tipo": "homotetico",
+      "id": "B'",
+      "punto": "B",
+      "centro": "O",
+      "razon": -1
+    },
+    {
+      "tipo": "homotetico",
+      "id": "C'",
+      "punto": "C",
+      "centro": "O",
+      "razon": -1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo y el centro",
+      "texto": "Tenemos el triángulo ABC y el centro de simetría O, que queda fuera del triángulo.",
+      "porque": "Una simetría central transforma cada punto en otro que está al otro lado de O, a la misma distancia.",
+      "consejo": "Marca O con una cruz fina y no lo confundas con un vértice.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de A",
+      "texto": "Une A con O y sigue la recta al otro lado de O. Lleva la misma distancia OA y marca A'.",
+      "porque": "O es el punto medio de AA': OA = OA' y A, O y A' están alineados.",
+      "consejo": "Usa la misma abertura de compás que para OA y marca el extremo con una cruz.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "A'"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de B",
+      "texto": "Une B con O, sigue al otro lado y lleva la misma distancia OB para marcar B'.",
+      "porque": "O es el punto medio de BB' y B, O y B' están alineados.",
+      "consejo": "Usa la misma abertura de compás que para OB.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "B'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B'"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de C",
+      "texto": "Repite con C: une C con O, sigue al otro lado y marca C' a la misma distancia.",
+      "porque": "Cada punto y su simétrico están alineados con O y a igual distancia de él.",
+      "consejo": "Haz C' después de B' para no mezclar aberturas.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "C'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "C'"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo simétrico",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo A'B'C', simétrico de ABC respecto de O.",
+      "porque": "Los lados del triángulo simétrico son paralelos a los originales y miden lo mismo.",
+      "consejo": "Repasa el triángulo A'B'C' en trazo grueso y deja las líneas auxiliares a O en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el centro",
+      "texto": "O es el punto medio de los tres segmentos AA', BB' y CC'. El lado A'B' es paralelo a AB y mide lo mismo.",
+      "porque": "La simetría central conserva distancias y paralelismo: por eso el triángulo girado 180° se queda igual.",
+      "consejo": "Si dudas, mide AO y OA' con el compás: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B'"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Medir la distancia al otro lado de O con una abertura distinta: el simétrico no queda a la misma distancia.",
+    "Confundir la simetría central con la axial: en la central el eje es un punto, no una recta.",
+    "Unir A' con C en lugar de con B': el triángulo simétrico sale cruzado."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "B",
+        "B'"
+      ],
+      "segmento": [
+        "A",
+        "A'"
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
