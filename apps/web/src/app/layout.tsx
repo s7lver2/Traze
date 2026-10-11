@@ -7,6 +7,7 @@ import '../estilos/base.css';
 import '../estilos/hoja.css';
 import '../estilos/cabecera.css';
 import '../estilos/lienzo.css';
+import '../estilos/escenario.css';
 import '../estilos/panel.css';
 import '../estilos/controles.css';
 import '../estilos/deslizador.css';
@@ -32,9 +33,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="es-ES" className={serif.variable}>
       <body>
         <Cabecera />
-        <main>
-          <div className="hoja">{children}</div>
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

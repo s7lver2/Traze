@@ -1,5 +1,6 @@
 import type { PrimitivaResuelta } from '@traze/lecciones';
 import { ROTULO } from '@traze/lecciones/rotulos';
+import { herramientaActiva } from '../reproductor/herramientas';
 import { primitivasVisibles, type PrimitivaAnimada } from '../reproductor/tiempos';
 import {
   descripcionAnguloRecto,
@@ -10,6 +11,7 @@ import {
   puntaSegmento,
   radioPunto,
 } from '../reproductor/trazado';
+import { Herramienta } from './Herramienta';
 
 interface Propiedades {
   ancho: number;
@@ -86,6 +88,8 @@ export function Lienzo({
     ({ primitiva }) => !(ocultarConstruccion && esConstruccion(primitiva)),
   );
 
+  const activa = herramientaActiva(visibles);
+
   return (
     <svg
       className="lienzo"
@@ -95,9 +99,6 @@ export function Lienzo({
       aria-label={descripcion}
     >
       <defs>
-        <pattern id="cuadricula" width="5" height="5" patternUnits="userSpaceOnUse">
-          <path className="cuadricula-linea" d="M 5 0 L 0 0 L 0 5" />
-        </pattern>
         <filter id="grafito" x="-5%" y="-5%" width="110%" height="110%">
           <feTurbulence
             type="fractalNoise"
@@ -116,14 +117,13 @@ export function Lienzo({
         </filter>
       </defs>
 
-      <rect className="papel" width={ancho} height={alto} />
-      <rect width={ancho} height={alto} fill="url(#cuadricula)" />
-
       <g filter="url(#grafito)">
         {visibles.map((animada) => (
           <Trazo key={animada.clave} animada={animada} />
         ))}
       </g>
+
+      {activa && <Herramienta activa={activa} />}
 
       <g className="rotulos">
         {visibles.map(({ clave, primitiva }) =>

@@ -1,12 +1,3 @@
-/* Marco de ficha */
-.datos-modificables {
-  margin-top: var(--e5);
-  padding: var(--e4);
-  border: 1px solid var(--papel-sombra);
-  border-radius: var(--radio-medio);
-  background: var(--papel-claro);
-}
-
 .datos-modificables h3 {
   margin: 0 0 var(--e2);
   font-size: 1.1rem;

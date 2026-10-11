@@ -51,6 +51,13 @@ const PARES: readonly [texto: string, fondo: string][] = [
   ['papel', 'azul-correccion'],
   ['papel', 'tinta-suave'],
   ['exito-texto', 'exito-suave'],
+  ['tinta', 'postit-amarillo'],
+  ['tinta', 'postit-rosa'],
+  ['tinta', 'postit-azul'],
+  ['tinta-suave', 'postit-amarillo'],
+  ['tinta-suave', 'postit-rosa'],
+  ['tinta-suave', 'postit-azul'],
+  ['azul-correccion', 'postit-azul'],
 ];
 
 describe('contraste AA de los pares de texto principales', () => {

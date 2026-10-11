@@ -1,0 +1,253 @@
+/* Escenario: el canvas es toda la página. Papel cuadriculado con notas alrededor. */
+.escenario {
+  --ancho-columna: 13.5rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--ancho-columna) minmax(0, 1fr) var(--ancho-columna);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    'titulo titulo titulo'
+    'izquierda dibujo derecha'
+    'cajetin barra vacio';
+  gap: var(--e4) var(--e5);
+  align-items: start;
+  min-height: max(36rem, calc(100dvh - 5rem));
+  padding: var(--e4) var(--e5) var(--e5);
+  border-top: 1px solid var(--papel-sombra);
+  background-color: var(--papel);
+  /* Cuadrícula de 20 px con líneas más marcadas cada 100 px, como papel milimetrado */
+  background-image:
+    linear-gradient(var(--cuadricula-gruesa) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cuadricula-gruesa) 1px, transparent 1px),
+    linear-gradient(var(--rejilla-mesa) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rejilla-mesa) 1px, transparent 1px);
+  background-size:
+    100px 100px,
+    100px 100px,
+    20px 20px,
+    20px 20px;
+  box-shadow: inset 0 -1px 0 var(--papel-sombra);
+  animation: entrada var(--t-entrada) var(--curva) both;
+}
+
+.escenario-titulo {
+  grid-area: titulo;
+  text-align: center;
+}
+
+.escenario-titulo h1 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem);
+  font-style: italic;
+  font-weight: 400;
+}
+
+.escenario-dibujo {
+  grid-area: dibujo;
+  align-self: center;
+  min-width: 0;
+  padding-top: var(--e5);
+}
+
+/* Flechas de paso sobre el plano: aparecen al pasar el ratón, al enfocar o al terminar la animación */
+.escenario-dibujo {
+  position: relative;
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--tinta);
+  border-radius: var(--radio-pildora);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-suave);
+  color: var(--tinta);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition:
+    opacity var(--t-panel) var(--curva),
+    background var(--t-control) var(--curva);
+}
+
+.flecha svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.flecha-anterior {
+  left: 0;
+}
+
+.flecha-siguiente {
+  right: 0;
+}
+
+.escenario-dibujo:hover .flecha:not(:disabled),
+.flecha:focus-visible,
+.flecha-visible:not(:disabled) {
+  opacity: 1;
+}
+
+.flecha:hover:not(:disabled) {
+  background: var(--papel-sombra);
+}
+
+.flecha:disabled {
+  opacity: 0;
+  cursor: default;
+  pointer-events: none;
+}
+
+.notas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e4);
+  min-width: 0;
+}
+
+.notas-izquierda {
+  grid-area: izquierda;
+}
+
+.notas-derecha {
+  grid-area: derecha;
+}
+
+.escenario > .cajetin {
+  grid-area: cajetin;
+  align-self: end;
+  width: 100%;
+  background: var(--papel-claro);
+}
+
+/* Notas adhesivas: alineadas a la cuadrícula, con un giro casi imperceptible */
+.postit {
+  padding: var(--e3) var(--e4);
+  border-radius: var(--radio-postit);
+  background: var(--postit-amarillo);
+  box-shadow: var(--sombra-suave);
+  color: var(--tinta);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  transform: rotate(var(--giro, 0deg));
+}
+
+.postit h2,
+.postit h3 {
+  margin: 0 0 var(--e2);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.postit p {
+  margin: 0 0 var(--e2);
+}
+
+.postit > :last-child {
+  margin-bottom: 0;
+}
+
+.postit-paso {
+  --giro: -0.8deg;
+}
+
+.postit-porque {
+  --giro: 0.8deg;
+  background: var(--postit-rosa);
+}
+
+.postit-consejo {
+  --giro: -0.6deg;
+  background: var(--postit-azul);
+  color: var(--azul-correccion);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.postit-datos {
+  --giro: 0.5deg;
+  background: var(--exito-suave);
+}
+
+.postit-ajustes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--e2);
+  border: 1px solid var(--papel-sombra);
+  background: var(--papel-claro);
+}
+
+.ajustes-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e2);
+}
+
+/* Barra flotante: el índice de pasos y las acciones principales */
+.barra {
+  grid-area: barra;
+  align-self: end;
+  justify-self: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e2);
+  max-width: 100%;
+  padding: var(--e1) var(--e2);
+  border: 1px solid var(--tinta);
+  border-radius: var(--radio-pildora);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-suave);
+}
+
+/* Tablet y móvil: el dibujo arriba, las notas debajo y la barra pegada abajo */
+@media (max-width: 1100px) {
+  .escenario {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding: var(--e4);
+  }
+
+  .escenario-dibujo {
+    order: 1;
+    width: 100%;
+  }
+
+  .lienzo {
+    max-height: none;
+  }
+
+  .notas {
+    order: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  }
+
+  .escenario > .cajetin {
+    order: 3;
+    max-width: 22rem;
+  }
+
+  .barra {
+    order: 4;
+    position: sticky;
+    bottom: var(--e3);
+    z-index: 5;
+  }
+}

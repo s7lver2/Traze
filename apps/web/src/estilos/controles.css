@@ -1,11 +1,3 @@
-.controles {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--e2);
-  margin: var(--e4) 0;
-}
-
 .boton {
   min-width: 44px;
   min-height: 44px;

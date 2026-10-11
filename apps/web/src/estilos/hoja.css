@@ -1,4 +1,8 @@
 main {
+  margin: 0;
+}
+
+.pagina {
   max-width: 72rem;
   margin: 0 auto;
   padding: var(--e4) clamp(var(--e4), 4vw, 2.5rem) calc(var(--e6) * 2);

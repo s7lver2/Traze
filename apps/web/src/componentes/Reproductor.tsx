@@ -5,7 +5,6 @@ import type { Leccion, LeccionResuelta } from '@traze/lecciones';
 import { ConstruccionImposible, interpretarLeccion } from '@traze/lecciones/interpretar';
 import { crearEstado, reductor, VELOCIDADES } from '../reproductor/estado';
 import { decimal } from '../reproductor/formato';
-import { etiquetaPaso, situacionPaso } from '../reproductor/indice';
 import { derivarBanda } from '../reproductor/instrumentos';
 import { duracionPaso } from '../reproductor/tiempos';
 import { BandaInstrumentos } from './BandaInstrumentos';
@@ -32,6 +31,7 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   const dibujos = useMemo(() => vista.pasos.map((paso) => paso.dibujo), [vista]);
   const pasoActual = vista.pasos[estado.paso];
   const duracion = duracionPaso(dibujos[estado.paso]);
+  const terminado = estado.progreso >= 1 && !estado.reproduciendo;
   const banda = useMemo(
     () => derivarBanda(dibujos[estado.paso], vista.radios, leccion.radios, factores),
     [dibujos, estado.paso, vista.radios, leccion.radios, factores],
@@ -73,69 +73,168 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   }
 
   return (
-    <section className="reproductor" aria-label="Demostración animada">
-      <div className="sala">
-        <div className="lienzo-marco">
-          <Lienzo
-            ancho={vista.lienzo.ancho}
-            alto={vista.lienzo.alto}
-            dibujos={dibujos}
-            paso={estado.paso}
-            progreso={estado.progreso}
-            ocultarConstruccion={estado.ocultarConstruccion}
-            descripcion={`Paso ${estado.paso + 1} de ${total}: ${pasoActual.titulo}`}
-          />
-          <span className="escuadra" aria-hidden="true" />
-        </div>
+    <section className="escenario" aria-label="Demostración animada">
+      <header className="escenario-titulo">
+        <p className="etiqueta">Bloque {leccion.bloque}</p>
+        <h1>{leccion.titulo}</h1>
+      </header>
 
-        <div className="panel-paso">
+      <div className="escenario-dibujo">
+        <Lienzo
+          ancho={vista.lienzo.ancho}
+          alto={vista.lienzo.alto}
+          dibujos={dibujos}
+          paso={estado.paso}
+          progreso={estado.progreso}
+          ocultarConstruccion={estado.ocultarConstruccion}
+          descripcion={`Paso ${estado.paso + 1} de ${total}: ${pasoActual.titulo}`}
+        />
+
+        <button
+          type="button"
+          className={`flecha flecha-anterior${terminado ? ' flecha-visible' : ''}`}
+          disabled={estado.paso === 0}
+          aria-label="Paso anterior"
+          onClick={() => despachar({ tipo: 'anterior' })}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.5 5.5 8 12l6.5 6.5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className={`flecha flecha-siguiente${terminado ? ' flecha-visible' : ''}`}
+          disabled={estado.paso === total - 1}
+          aria-label={
+            estado.paso < total - 1
+              ? `Paso siguiente: ${vista.pasos[estado.paso + 1].titulo}`
+              : 'Paso siguiente'
+          }
+          onClick={() => despachar({ tipo: 'siguiente' })}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9.5 5.5 6.5 6.5-6.5 6.5" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="notas notas-izquierda">
+        <aside className="postit postit-paso">
           <p className="etiqueta" aria-live="polite">
             Paso {estado.paso + 1} de {total}
           </p>
           <h2>{pasoActual.titulo}</h2>
           <p className="texto-paso">{pasoActual.texto}</p>
-          <p className="porque">
-            <strong>Por qué.</strong> {pasoActual.porque}
-          </p>
-          {pasoActual.consejo && (
-            <details className="nota-profe">
-              <summary>Consejo del profe</summary>
-              <p>{pasoActual.consejo}</p>
-            </details>
-          )}
-        </div>
+          {banda && <BandaInstrumentos banda={banda} />}
+        </aside>
+
+        {Object.keys(leccion.radios).length > 0 && (
+          <aside className="postit postit-datos datos-modificables">
+            <h3>Prueba otros datos</h3>
+            {Object.entries(leccion.radios).map(([id, radio]) => (
+              <label key={id} className="deslizador">
+                <span>
+                  Abertura del compás ({id}): {decimal(factores[id], 2)} × {radio.entre.join('')}
+                </span>
+                <input
+                  type="range"
+                  min={FACTOR_MIN}
+                  max={FACTOR_MAX}
+                  step={0.01}
+                  value={factores[id]}
+                  onChange={(evento) => cambiarFactor(id, Number(evento.target.value))}
+                />
+              </label>
+            ))}
+            {aviso && (
+              <p className="aviso" role="alert">
+                {aviso}. Se muestra el último trazado válido.
+              </p>
+            )}
+          </aside>
+        )}
       </div>
 
-      <ol className="indice-pasos" aria-label="Pasos de la lección">
-        {vista.pasos.map((paso, i) => {
-          const situacion = situacionPaso(i, estado.paso);
-          return (
-            <li key={i}>
-              <button
-                type="button"
-                className={`paso-boton paso-${situacion}`}
-                aria-current={situacion === 'actual' ? 'step' : undefined}
-                aria-label={etiquetaPaso(i, paso.titulo, situacion)}
-                onClick={() => despachar({ tipo: 'irA', paso: i })}
-              >
-                <span className="paso-circulo" aria-hidden="true">
-                  {situacion === 'hecho' ? '✓' : i + 1}
-                </span>
-              </button>
-            </li>
-          );
-        })}
-      </ol>
+      <div className="notas notas-derecha">
+        <aside className="postit postit-porque">
+          <p className="etiqueta">Por qué</p>
+          <p className="porque">{pasoActual.porque}</p>
+        </aside>
 
-      <div className="controles" role="group" aria-label="Controles de la lección">
-        <button
-          type="button"
-          className="boton"
-          disabled={estado.paso === 0}
-          onClick={() => despachar({ tipo: 'anterior' })}
-        >
-          ← Anterior
-        </button>
+        {pasoActual.consejo && (
+          <aside className="postit postit-consejo">
+            <p className="etiqueta">Consejo del profe</p>
+            <p>{pasoActual.consejo}</p>
+          </aside>
+        )}
+
+        <aside className="postit postit-ajustes" aria-label="Ajustes de la demostración">
+          <div className="ajustes-botones">
+            <button
+              type="button"
+              className="boton"
+              onClick={() => despachar({ tipo: 'reiniciar' })}
+            >
+              Reiniciar
+            </button>
+            <button
+              type="button"
+              className="boton"
+              onClick={() => despachar({ tipo: 'verSolucion' })}
+            >
+              Ver solución completa
+            </button>
+          </div>
+
+          <label className="campo">
+            Velocidad
+            <select
+              className="selector"
+              value={estado.velocidad}
+              onChange={(evento) => {
+                const valor = VELOCIDADES.find((v) => v === Number(evento.target.value));
+                if (valor) despachar({ tipo: 'velocidad', valor });
+              }}
+            >
+              {VELOCIDADES.map((v) => (
+                <option key={v} value={v}>
+                  {decimal(v, 1).replace(',0', '')}×
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="campo">
+            <input
+              type="checkbox"
+              checked={estado.ocultarConstruccion}
+              onChange={() => despachar({ tipo: 'alternarConstruccion' })}
+            />
+            Ocultar construcción
+          </label>
+        </aside>
+      </div>
+
+      <aside className="cajetin" aria-label="Cajetín de la lámina">
+        <dl>
+          <div>
+            <dt>Lámina</dt>
+            <dd>{leccion.titulo}</dd>
+          </div>
+          <div>
+            <dt>Escala</dt>
+            <dd>1:1</dd>
+          </div>
+          <div>
+            <dt>Formato</dt>
+            <dd>
+              {vista.lienzo.ancho} × {vista.lienzo.alto} mm
+            </dd>
+          </div>
+        </dl>
+      </aside>
+
+      <div className="barra" role="group" aria-label="Controles de la lección">
         <button
           type="button"
           className="boton boton-principal"
@@ -144,76 +243,7 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
         >
           {estado.reproduciendo ? 'Pausar' : 'Reproducir todo'}
         </button>
-        <button
-          type="button"
-          className="boton"
-          disabled={estado.paso === total - 1}
-          onClick={() => despachar({ tipo: 'siguiente' })}
-        >
-          Siguiente →
-        </button>
-        <button type="button" className="boton" onClick={() => despachar({ tipo: 'reiniciar' })}>
-          Reiniciar
-        </button>
-        <button type="button" className="boton" onClick={() => despachar({ tipo: 'verSolucion' })}>
-          Ver solución completa
-        </button>
-
-        <label className="campo">
-          Velocidad
-          <select
-            className="selector"
-            value={estado.velocidad}
-            onChange={(evento) => {
-              const valor = VELOCIDADES.find((v) => v === Number(evento.target.value));
-              if (valor) despachar({ tipo: 'velocidad', valor });
-            }}
-          >
-            {VELOCIDADES.map((v) => (
-              <option key={v} value={v}>
-                {decimal(v, 1).replace(',0', '')}×
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="campo">
-          <input
-            type="checkbox"
-            checked={estado.ocultarConstruccion}
-            onChange={() => despachar({ tipo: 'alternarConstruccion' })}
-          />
-          Ocultar construcción
-        </label>
       </div>
-
-      {banda && <BandaInstrumentos banda={banda} />}
-
-      {Object.keys(leccion.radios).length > 0 && (
-        <div className="datos-modificables">
-          <h3>Prueba otros datos</h3>
-          {Object.entries(leccion.radios).map(([id, radio]) => (
-            <label key={id} className="deslizador">
-              <span>
-                Abertura del compás ({id}): {decimal(factores[id], 2)} × {radio.entre.join('')}
-              </span>
-              <input
-                type="range"
-                min={FACTOR_MIN}
-                max={FACTOR_MAX}
-                step={0.01}
-                value={factores[id]}
-                onChange={(evento) => cambiarFactor(id, Number(evento.target.value))}
-              />
-            </label>
-          ))}
-          {aviso && (
-            <p className="aviso" role="alert">
-              {aviso}. Se muestra el último trazado válido.
-            </p>
-          )}
-        </div>
-      )}
     </section>
   );
 }
