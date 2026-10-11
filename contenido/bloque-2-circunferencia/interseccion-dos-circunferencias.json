@@ -1,0 +1,237 @@
+{
+  "id": "interseccion-dos-circunferencias",
+  "bloque": 2,
+  "titulo": "Cuerda común de dos circunferencias",
+  "enunciado": "Dadas dos circunferencias secantes de centros O1 y O2 y radios conocidos, halla sus puntos de corte y traza la cuerda común.",
+  "ideaClave": "La cuerda común de dos circunferencias secantes es perpendicular a la recta de centros y la corta en su punto medio.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "O1": [
+      70,
+      70
+    ],
+    "O2": [
+      120,
+      70
+    ],
+    "T1": [
+      105,
+      70
+    ],
+    "T2": [
+      150,
+      70
+    ]
+  },
+  "radios": {
+    "r1": {
+      "mm": 35
+    },
+    "r2": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "A",
+        "B"
+      ],
+      "centros": [
+        "O1",
+        "O2"
+      ],
+      "radios": [
+        "r1",
+        "r2"
+      ]
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos dos circunferencias de centros O1 y O2 y radios r1 y r2. Vamos a hallar sus puntos de corte.",
+      "porque": "Dos circunferencias que se cortan tienen dos puntos en común, uno a cada lado de la recta de centros.",
+      "consejo": "Marca los centros con una cruz fina y une O1 con O2 con la regla en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "O2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O1"
+        },
+        {
+          "tipo": "punto",
+          "id": "O2"
+        }
+      ]
+    },
+    {
+      "titulo": "Traza las dos circunferencias",
+      "texto": "Pincha en O1 con la abertura r1 y traza la circunferencia. Haz lo mismo en O2 con la abertura r2.",
+      "porque": "Cada circunferencia es el lugar de los puntos que están a su radio de su centro.",
+      "consejo": "Cambia la abertura entre O1 y O2 solo cuando hayas trazado la primera circunferencia completa.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O1",
+          "radio": "r1",
+          "hacia": "T1",
+          "amplitud": 2.9
+        },
+        {
+          "tipo": "arco",
+          "centro": "O2",
+          "radio": "r2",
+          "hacia": "T2",
+          "amplitud": 2.9
+        }
+      ]
+    },
+    {
+      "titulo": "Los puntos de corte",
+      "texto": "Las dos circunferencias se cortan en dos puntos. Llama A al de arriba y B al de abajo.",
+      "porque": "A y B están a r1 de O1 y a r2 de O2 a la vez, así que pertenecen a las dos circunferencias.",
+      "consejo": "Si los cortes quedan muy juntos, las circunferencias casi se tocan: mide con cuidado.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La cuerda común AB",
+      "texto": "Apoya la regla en A y en B y traza la recta que los une. Ese segmento es la cuerda común.",
+      "porque": "La cuerda AB une los dos puntos comunes, así que es la cuerda compartida por las dos circunferencias.",
+      "consejo": "Dibuja la cuerda en trazo grueso y que se detenga en los cortes, sin prolongarla.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Punto medio y ángulo recto",
+      "texto": "La recta de centros corta a AB en su punto medio M, y forma con AB un ángulo recto.",
+      "porque": "Los dos centros equidistan de A y de B, así que la recta O1O2 es la mediatriz de AB.",
+      "consejo": "Marca el ángulo recto con el cuadradito de la escuadra, para que se vea a primera vista.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "M",
+          "hacia1": "A",
+          "hacia2": "O1"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "M"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "M",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los radios",
+      "texto": "Une A con O1 y con O2. Los segmentos AO1 y AO2 miden r1 y r2, como las circunferencias que hemos trazado.",
+      "porque": "A pertenece a las dos circunferencias, así que está a r1 de O1 y a r2 de O2.",
+      "consejo": "Si dudas, mide con el compás: la abertura debe coincidir con el radio de cada circunferencia.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "O1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "O2",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Separar tanto los centros que las circunferencias no se tocan: no hay puntos de corte.",
+    "Trazar la cuerda común uniendo los centros: la recta O1O2 es la línea de centros, no la cuerda.",
+    "Dibujar la cuerda inclinada: la cuerda común siempre es perpendicular a O1O2."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "A",
+      "centro": "O1",
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "A",
+      "centro": "O2",
+      "radio": "r2"
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "A",
+        "B"
+      ],
+      "segmento": [
+        "O1",
+        "O2"
+      ]
+    },
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "O1",
+        "O2"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
