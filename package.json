@@ -8,6 +8,10 @@
     "typecheck": "pnpm -r typecheck",
     "validar": "pnpm --filter @traze/lecciones validar",
     "prompt": "pnpm --filter @traze/lecciones prompt",
+    "comprobar": "pnpm --filter @traze/lecciones comprobar",
+    "promover": "pnpm --filter @traze/lecciones promover",
+    "revisar": "pnpm --filter @traze/lecciones revisar",
+    "estado": "pnpm --filter @traze/lecciones estado",
     "web": "pnpm --filter @traze/web dev"
   }
 }

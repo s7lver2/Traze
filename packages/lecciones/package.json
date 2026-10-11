@@ -14,7 +14,11 @@
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "validar": "tsx src/validar-cli.ts",
-    "prompt": "tsx src/prompt-cli.ts"
+    "prompt": "tsx src/prompt-cli.ts",
+    "comprobar": "tsx src/comprobar-cli.ts",
+    "promover": "tsx src/promover-cli.ts",
+    "revisar": "tsx src/revisar-cli.ts",
+    "estado": "tsx src/estado-cli.ts"
   },
   "dependencies": {
     "@traze/geometria": "workspace:*",
