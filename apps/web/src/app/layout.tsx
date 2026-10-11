@@ -15,6 +15,7 @@ import '../estilos/leccion.css';
 import '../estilos/portada.css';
 import '../estilos/temario.css';
 import '../estilos/consejos.css';
+import { urlDelSitio } from '../seo';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],
@@ -25,9 +26,11 @@ const serif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(urlDelSitio()),
   title: { default: 'Traze: Dibujo Técnico paso a paso', template: '%s · Traze' },
   description:
     'Aprende los trazados de Dibujo Técnico de 1º de Bachillerato viendo cómo se construyen, paso a paso.',
+  openGraph: { siteName: 'Traze', locale: 'es_ES', type: 'website' },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

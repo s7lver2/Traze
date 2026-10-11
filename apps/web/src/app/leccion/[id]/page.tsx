@@ -4,6 +4,14 @@ import { notFound } from 'next/navigation';
 import { vecinas } from '@traze/lecciones';
 import { Reproductor } from '../../../componentes/Reproductor';
 import { cargarLeccion, cargarLecciones } from '../../../contenido';
+import {
+  datosEstructurados,
+  descripcionSeo,
+  jsonLdSeguro,
+  rutaLeccion,
+  tituloSeo,
+  urlDelSitio,
+} from '../../../seo';
 import { cargarTemario } from '../../../temario';
 
 export const dynamicParams = false;
@@ -20,7 +28,14 @@ export async function generateMetadata({ params }: Propiedades): Promise<Metadat
   const { id } = await params;
   const cargada = cargarLeccion(id);
   if (!cargada) return {};
-  return { title: cargada.leccion.titulo, description: cargada.leccion.enunciado };
+  const titulo = tituloSeo(cargada.leccion.titulo);
+  const descripcion = descripcionSeo(cargada.leccion);
+  return {
+    title: titulo,
+    description: descripcion,
+    alternates: { canonical: rutaLeccion(id) },
+    openGraph: { title: titulo, description: descripcion, url: rutaLeccion(id), type: 'article' },
+  };
 }
 
 export default async function PaginaLeccion({ params }: Propiedades) {
@@ -39,6 +54,12 @@ export default async function PaginaLeccion({ params }: Propiedades) {
 
   return (
     <article className="leccion">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdSeguro(datosEstructurados(leccion, resuelta, urlDelSitio())),
+        }}
+      />
       <Reproductor leccion={leccion} resuelta={resuelta} />
 
       <div className="pagina">

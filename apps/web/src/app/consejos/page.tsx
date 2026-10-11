@@ -3,6 +3,7 @@ import { BibliotecaConsejos } from '../../componentes/BibliotecaConsejos';
 import { cargarBiblioteca, cargarConsejosGenerales } from '../../consejos';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/consejos' },
   title: 'Consejos para hacerlo perfecto',
   description:
     'Consejos de oficio para Dibujo Técnico: material, uso del compás y la escuadra, precisión y limpieza, y la lista de comprobación final de una lámina.',

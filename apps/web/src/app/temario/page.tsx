@@ -5,6 +5,7 @@ import { cargarLecciones } from '../../contenido';
 import { cargarTemario } from '../../temario';
 
 export const metadata: Metadata = {
+  alternates: { canonical: '/temario' },
   title: 'Temario',
   description:
     'Todo el temario de Dibujo Técnico de 1º de Bachillerato en una ruta ordenada, por bloques, con tu cuaderno de lecciones vistas.',
