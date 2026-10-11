@@ -16,6 +16,7 @@ import '../estilos/portada.css';
 import '../estilos/temario.css';
 import '../estilos/consejos.css';
 import '../estilos/reto.css';
+import '../estilos/taller.css';
 import { urlDelSitio } from '../seo';
 
 const serif = Source_Serif_4({

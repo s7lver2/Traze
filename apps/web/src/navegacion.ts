@@ -16,6 +16,7 @@ export const ENLACES: readonly Enlace[] = [
     coincide: (ruta) => ruta === '/' || seccion('/leccion')(ruta),
   },
   { texto: 'Retos', href: '/retos', disponible: true, coincide: (ruta) => seccion('/retos')(ruta) || seccion('/reto')(ruta) },
+  { texto: 'Taller', href: '/taller', disponible: true, coincide: seccion('/taller') },
   { texto: 'Consejos', href: '/consejos', disponible: true, coincide: seccion('/consejos') },
   { texto: 'Mi carpeta', href: '/carpeta', disponible: false, coincide: seccion('/carpeta') },
 ];

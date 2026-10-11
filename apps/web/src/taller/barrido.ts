@@ -9,6 +9,8 @@ export interface Posicion {
  */
 export interface Barrido {
   centro: Posicion;
+  /** Ángulo continuo en el que empezó el giro. */
+  inicial: number;
   /** Último ángulo bruto del puntero, para desenrollar el siguiente. */
   ultimo: number;
   /** Ángulo continuo actual. */
@@ -22,7 +24,7 @@ const anguloDe = (centro: Posicion, p: Posicion): number => Math.atan2(p.y - cen
 
 export function iniciarBarrido(centro: Posicion, posicion: Posicion): Barrido {
   const angulo = anguloDe(centro, posicion);
-  return { centro, ultimo: angulo, actual: angulo, minimo: angulo, maximo: angulo };
+  return { centro, inicial: angulo, ultimo: angulo, actual: angulo, minimo: angulo, maximo: angulo };
 }
 
 /** Menor diferencia entre dos ángulos, en (−π, π]. */

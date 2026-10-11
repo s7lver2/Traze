@@ -1,0 +1,52 @@
+/* Taller: lámina libre con herramientas */
+
+.lienzo-taller {
+  overflow: hidden;
+  border-radius: var(--radio-medio);
+  box-shadow: var(--sombra-hoja);
+  touch-action: none;
+}
+
+.papel-taller {
+  fill: var(--papel-claro);
+}
+
+.rejilla-taller {
+  fill: none;
+  stroke: var(--cuadricula);
+  stroke-width: 0.15;
+  opacity: 0.5;
+}
+
+.herramientas-taller {
+  display: grid;
+  gap: var(--e2);
+  margin-top: var(--e2);
+}
+
+.boton[aria-pressed='true'] {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+/* A qué se engancha el puntero: un punto que existe, o un corte que todavía no es punto */
+.iman {
+  fill: none;
+  stroke: var(--azul-correccion);
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.iman-corte {
+  stroke-dasharray: 2 2;
+}
+
+.medida {
+  fill: var(--tinta);
+  font-family: var(--interfaz);
+  paint-order: stroke;
+  stroke: var(--papel-claro);
+  stroke-width: 1.2px;
+  pointer-events: none;
+}

@@ -4,11 +4,12 @@ import { ENLACES, enlacesVisibles, esActivo } from '../src/navegacion';
 const lecciones = ENLACES.find((enlace) => enlace.texto === 'Lecciones')!;
 
 describe('enlacesVisibles', () => {
-  it('muestra Temario, Lecciones, Retos y Consejos (Mi carpeta aún no existe)', () => {
+  it('muestra Temario, Lecciones, Retos, Taller y Consejos (Mi carpeta aún no existe)', () => {
     expect(enlacesVisibles().map((enlace) => enlace.texto)).toEqual([
       'Temario',
       'Lecciones',
       'Retos',
+      'Taller',
       'Consejos',
     ]);
   });
@@ -18,6 +19,7 @@ describe('enlacesVisibles', () => {
       'Temario',
       'Lecciones',
       'Retos',
+      'Taller',
       'Consejos',
       'Mi carpeta',
     ]);
@@ -25,7 +27,7 @@ describe('enlacesVisibles', () => {
 
   it('muestra un enlace en cuanto está disponible', () => {
     const todos = ENLACES.map((enlace) => ({ ...enlace, disponible: true }));
-    expect(enlacesVisibles(todos)).toHaveLength(5);
+    expect(enlacesVisibles(todos)).toHaveLength(6);
   });
 });
 
