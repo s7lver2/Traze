@@ -1,0 +1,69 @@
+/* Marco de ficha */
+.datos-modificables {
+  margin-top: var(--e5);
+  padding: var(--e4);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+}
+
+.datos-modificables h3 {
+  margin: 0 0 var(--e2);
+  font-size: 1.1rem;
+}
+
+.deslizador {
+  display: grid;
+  gap: var(--e1);
+}
+
+.deslizador input[type='range'] {
+  width: 100%;
+  min-height: 44px;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Pista de 4 px */
+.deslizador input[type='range']::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--radio-pildora);
+  background: var(--regla);
+}
+
+.deslizador input[type='range']::-moz-range-track {
+  height: 4px;
+  border-radius: var(--radio-pildora);
+  background: var(--regla);
+}
+
+/* Mando de 22 px */
+.deslizador input[type='range']::-webkit-slider-thumb {
+  width: 22px;
+  height: 22px;
+  margin-top: -9px;
+  border: 3px solid var(--papel-claro);
+  border-radius: var(--radio-pildora);
+  background: var(--azul-correccion);
+  box-shadow: var(--sombra-boton);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.deslizador input[type='range']::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--papel-claro);
+  border-radius: var(--radio-pildora);
+  background: var(--azul-correccion);
+  box-shadow: var(--sombra-boton);
+}
+
+.aviso {
+  margin: var(--e3) 0 0;
+  color: var(--rojo-profe);
+  font-weight: 600;
+}

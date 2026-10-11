@@ -1,0 +1,71 @@
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e2);
+  margin: var(--e4) 0;
+}
+
+.boton {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--e4);
+  border: 1px solid var(--tinta);
+  border-radius: var(--radio-pildora);
+  background: var(--papel);
+  box-shadow: var(--sombra-boton);
+  color: var(--tinta);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background var(--t-control) var(--curva),
+    transform var(--t-control) var(--curva);
+}
+
+.boton:hover:not(:disabled) {
+  background: var(--papel-sombra);
+}
+
+.boton:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.boton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Un solo acento por vista */
+.boton-principal {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+.boton-principal:hover:not(:disabled) {
+  background: var(--tinta-suave);
+}
+
+.selector {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 var(--e4);
+  border: 1px solid var(--tinta);
+  border-radius: var(--radio-pildora);
+  background: var(--papel);
+  color: var(--tinta);
+  font: inherit;
+  cursor: pointer;
+}
+
+.campo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e2);
+  min-height: 44px;
+}
+
+.campo input[type='checkbox'] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--azul-correccion);
+}
