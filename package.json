@@ -4,6 +4,7 @@
   "packageManager": "pnpm@9.12.0",
   "engines": { "node": ">=20" },
   "scripts": {
+    "build": "pnpm --filter @traze/web build",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "validar": "pnpm --filter @traze/lecciones validar",
