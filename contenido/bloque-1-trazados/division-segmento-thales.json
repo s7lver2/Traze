@@ -1,0 +1,340 @@
+{
+  "id": "division-segmento-thales",
+  "bloque": 1,
+  "titulo": "División de un segmento con el teorema de Thales",
+  "enunciado": "Divide el segmento AB en tres partes iguales con regla y compás, usando una semirrecta auxiliar desde A.",
+  "ideaClave": "Tres paralelas que cortan a dos secantes determinan segmentos proporcionales: si en la auxiliar las partes son iguales, también lo son en AB.",
+  "requisitos": [
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "A": [
+      25,
+      120
+    ],
+    "B": [
+      185,
+      120
+    ],
+    "C": [
+      60,
+      30
+    ]
+  },
+  "radios": {
+    "rm": {
+      "mm": 20
+    },
+    "rl": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rm"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P2",
+      "origen": "P1",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rm"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P3",
+      "origen": "P2",
+      "direccion": [
+        "A",
+        "C"
+      ],
+      "radio": "rm"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X1",
+      "origen": "P1",
+      "direccion": [
+        "P3",
+        "B"
+      ],
+      "radio": "rl"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X2",
+      "origen": "P2",
+      "direccion": [
+        "P3",
+        "B"
+      ],
+      "radio": "rl"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "D1",
+      "rectas": [
+        [
+          "P1",
+          "X1"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "D2",
+      "rectas": [
+        [
+          "P2",
+          "X2"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el segmento AB y una semirrecta auxiliar que sale de A hacia C. Hay que dividir AB en tres partes iguales.",
+      "porque": "No podemos dividir AB directamente con la abertura del compás, así que trabajamos sobre una recta auxiliar donde sí podemos medir.",
+      "consejo": "Elige C de modo que la semirrecta AC forme un ángulo cómodo con AB; ni muy plano ni casi vertical.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "A",
+            "C"
+          ],
+          "extension": 0,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Primera unidad sobre AC",
+      "texto": "Abre el compás una medida fija, cualquiera, y pincha en A. El arco corta a la auxiliar en P1.",
+      "porque": "AP1 es la primera de tres partes iguales sobre la auxiliar.",
+      "consejo": "Antes de empezar, comprueba que la abertura no cambia en los tres traslados.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm",
+          "hacia": "P1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P1"
+        }
+      ]
+    },
+    {
+      "titulo": "Traslada la unidad dos veces",
+      "texto": "Sin cambiar la abertura, pincha en P1 y marca P2; luego pincha en P2 y marca P3.",
+      "porque": "AP1 = P1P2 = P2P3: tres unidades iguales sobre AC.",
+      "consejo": "Pincha con firmeza en cada punto y marca el corte de forma ligera antes de repasar.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "P1",
+          "radio": "rm",
+          "hacia": "P2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "P2",
+          "radio": "rm",
+          "hacia": "P3",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P2"
+        },
+        {
+          "tipo": "punto",
+          "id": "P3"
+        }
+      ]
+    },
+    {
+      "titulo": "Une P3 con B",
+      "texto": "Traza el segmento P3B. Es la recta a la que vamos a dar paralelas.",
+      "porque": "Las paralelas a P3B que pasan por P1 y P2 cortan a AB en los puntos que buscamos.",
+      "consejo": "Dibuja P3B en trazo fino; será construcción.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "P3",
+          "hasta": "B",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralelas por P1 y P2",
+      "texto": "Por P2 traza la paralela a P3B; por P1, la otra. Cada una corta a AB: los cortes son D2 y D1.",
+      "porque": "Tres paralelas cortan a dos secantes en segmentos proporcionales.",
+      "consejo": "Lleva la paralela con el compás copiando el ángulo de P3B, o con la escuadra apoyada en la regla.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "P2",
+            "X2"
+          ],
+          "extension": 8,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "P1",
+            "X1"
+          ],
+          "extension": 8,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca D1 y D2",
+      "texto": "Marca los cortes de las paralelas con AB: D1 y D2.",
+      "porque": "Las paralelas reparten AB en tres partes proporcionales a las de AC.",
+      "consejo": "Marca D1 y D2 con cruces finas sobre AB.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "D1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "D2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tres partes",
+      "texto": "Los segmentos AD1, D1D2 y D2B son iguales: cada uno es un tercio de AB.",
+      "porque": "Thales: la razón entre AD1 y AB es la misma que entre AP1 y AP3, es decir, 1/3.",
+      "consejo": "Si dudas, mide las tres partes con el compás: la abertura debe caber tres veces en AB.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "D1"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D1",
+            "D2"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D2",
+            "B"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trasladar la unidad con una abertura distinta en cada paso: AP1, P1P2 y P2P3 dejan de ser iguales.",
+    "Trazar las paralelas por P1 y P2 con una dirección distinta de P3B: los cortes D1 y D2 quedan mal."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "A",
+        "D1"
+      ],
+      "b": [
+        "A",
+        "B"
+      ],
+      "c": [
+        "A",
+        "P1"
+      ],
+      "d": [
+        "A",
+        "P3"
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "D1"
+        ],
+        [
+          "D1",
+          "D2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "D1",
+          "D2"
+        ],
+        [
+          "D2",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

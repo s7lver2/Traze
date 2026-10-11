@@ -1,0 +1,234 @@
+{
+  "id": "bisectriz-angulo",
+  "bloque": 1,
+  "titulo": "Bisectriz de un ángulo",
+  "enunciado": "Dado el ángulo de vértice V y lados VP y VQ, traza su bisectriz con regla y compás.",
+  "ideaClave": "Los puntos de la bisectriz equidistan de los dos lados del ángulo.",
+  "requisitos": [
+    "compas-basico"
+  ],
+  "datos": {
+    "V": [
+      30,
+      110
+    ],
+    "P": [
+      180,
+      40
+    ],
+    "Q": [
+      180,
+      120
+    ]
+  },
+  "radios": {
+    "ra": {
+      "mm": 40
+    },
+    "rm": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "P"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "Q"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Z",
+        "W"
+      ],
+      "centros": [
+        "X",
+        "Y"
+      ],
+      "radios": [
+        "rm",
+        "rm"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos un ángulo de vértice V, con los lados VP y VQ. Hay que trazar la recta que lo divide en dos partes iguales.",
+      "porque": "La bisectriz es el lugar de los puntos que están a igual distancia de los dos lados.",
+      "consejo": "Marca el vértice V con una cruz fina y rotúlalo; los lados se trazan con regla en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "P",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "Q",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco con centro en V",
+      "texto": "Pincha en V y traza un arco que corte a los dos lados. Llama X al corte del lado VP e Y al del lado VQ.",
+      "porque": "Todos los puntos de un arco están a la misma distancia del centro, así que VX = VY.",
+      "consejo": "Usa una abertura cómoda, más o menos a mitad del ángulo, para que el arco corte a los dos lados.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "ra",
+          "hacia": "X",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "X"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos desde X e Y",
+      "texto": "Pincha en X y traza un arco. Sin cambiar la abertura, pincha en Y y traza otro arco que corte al primero.",
+      "porque": "Un punto del corte de los dos arcos está a la misma distancia de X y de Y.",
+      "consejo": "La abertura tiene que ser mayor que la mitad de XY; si no, los arcos no se cortan.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "X",
+          "radio": "rm",
+          "hacia": "Z",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "Y",
+          "radio": "rm",
+          "hacia": "Z",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca el corte Z",
+      "texto": "Los dos arcos se cortan en dos puntos. Llama Z a uno de ellos: los dos están sobre la misma recta que pasa por V, así que cualquiera de los dos sirve para trazar la bisectriz.",
+      "porque": "Z equidista de X y de Y, luego también de los dos lados del ángulo.",
+      "consejo": "Marca Z con una cruz fina, sin repasar los arcos encima.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Z",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Une V con Z",
+      "texto": "Apoya la regla en V y en Z y traza la recta que pasa por los dos. Es la bisectriz.",
+      "porque": "La recta VZ divide el ángulo XVY en dos ángulos iguales: XVZ y ZVY.",
+      "consejo": "Dibuja la bisectriz en trazo grueso y prolóngala un poco más allá de Z.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "V",
+            "Z"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los dos ángulos",
+      "texto": "Los ángulos XVZ y ZVY tienen la misma medida: cada uno es la mitad del ángulo original.",
+      "porque": "Los triángulos VXZ y VYZ son iguales por tener los tres lados iguales (LLL).",
+      "consejo": "Si dudas, mide los dos ángulos con el transportador: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Z",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "Z",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Abrir el compás en X e Y menos de la mitad de XY: los arcos no se cortan.",
+    "Elegir el corte fuera del ángulo: la recta resultante no es la bisectriz."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "X",
+          "V",
+          "Z"
+        ],
+        [
+          "Z",
+          "V",
+          "Y"
+        ]
+      ]
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "Z",
+      "a": "X",
+      "b": "Y"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "X",
+      "centro": "V",
+      "radio": "ra"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

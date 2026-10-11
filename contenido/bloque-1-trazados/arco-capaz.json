@@ -1,0 +1,437 @@
+{
+  "id": "arco-capaz",
+  "bloque": 1,
+  "titulo": "Arco capaz de un ángulo",
+  "enunciado": "Dado el ángulo PVQ y el segmento AB, traza el arco capaz: el lugar de los puntos desde los que AB se ve bajo ese mismo ángulo.",
+  "ideaClave": "Todos los puntos del arco capaz ven AB bajo el mismo ángulo. Su centro está en la mediatriz de AB y en la perpendicular al lado trasladado por A.",
+  "requisitos": [
+    "mediatriz-segmento",
+    "perpendicular-por-punto",
+    "bisectriz-angulo"
+  ],
+  "datos": {
+    "A": [
+      60,
+      110
+    ],
+    "B": [
+      140,
+      110
+    ],
+    "V": [
+      120,
+      25
+    ],
+    "P": [
+      180,
+      25
+    ],
+    "Q": [
+      150,
+      65
+    ]
+  },
+  "radios": {
+    "ra": {
+      "mm": 20
+    },
+    "rr": {
+      "mm": 30
+    },
+    "rh": {
+      "mm": 45
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "X",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "P"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y0",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "Q"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "radio",
+      "id": "rc",
+      "entre": [
+        "X",
+        "Y0"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B0",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "ra"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Y",
+        "Y2"
+      ],
+      "centros": [
+        "B0",
+        "A"
+      ],
+      "radios": [
+        "rc",
+        "ra"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Z",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "Y"
+      ],
+      "radio": "rr",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "W",
+      "origen": "M",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "rh",
+      "perpendicular": true
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "O",
+      "rectas": [
+        [
+          "A",
+          "Z"
+        ],
+        [
+          "M",
+          "W"
+        ]
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rR",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "T",
+      "origen": "O",
+      "direccion": [
+        "M",
+        "W"
+      ],
+      "radio": "rR"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el ángulo PVQ de vértice V y el segmento AB. Queremos el lugar de los puntos que ven AB bajo ese mismo ángulo.",
+      "porque": "Si un punto ve AB bajo el ángulo α, su arco de circunferencia tiene la misma medida para cualquier punto de ese arco.",
+      "consejo": "Marca V, A y B con cruces finas; los lados del ángulo y el segmento AB se trazan en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "P",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V",
+          "hasta": "Q",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos con centro en V",
+      "texto": "Pincha en V y traza un arco que corte a los dos lados. Llama X al corte con VP y Y0 al corte con VQ.",
+      "porque": "Así tenemos el ángulo medido sobre una circunferencia de centro V.",
+      "consejo": "Usa una abertura moderada, para que el arco corte limpio a los dos lados.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "ra",
+          "hacia": "X",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "V",
+          "radio": "ra",
+          "hacia": "Y0",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "X"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y0"
+        }
+      ]
+    },
+    {
+      "titulo": "Copia el ángulo en A",
+      "texto": "Pincha en A y traza un arco que corte AB en B0. Mide con el compás la distancia XY0, y con esa abertura, pincha en B0 y corta el arco de A en Y: el ángulo BAY es igual al ángulo PVQ.",
+      "porque": "Dos arcos con cuerdas iguales abarcan ángulos iguales: así se traslada el ángulo a A.",
+      "consejo": "Haz el corte de Y con los dos arcos bien abiertos: un corte flojo desvía el ángulo.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "ra",
+          "hacia": "B0",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B0",
+          "radio": "rc",
+          "hacia": "Y",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "ra",
+          "hacia": "Y",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Traza el lado AY",
+      "texto": "Une A con Y. Ahora el ángulo BAY tiene la misma medida que PVQ.",
+      "porque": "AY es el lado trasladado del ángulo; el arco capaz es tangente a esta recta en A.",
+      "consejo": "Traza AY con la regla en trazo fino: es construcción.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "Y",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular a AY por A",
+      "texto": "Por A traza la perpendicular a AY: marca sobre ella un punto Z, del lado de arriba de AB, a la distancia que quieras de A, y une A con Z.",
+      "porque": "El radio de un arco es perpendicular a la tangente en su punto, así que el centro del arco capaz está en esta perpendicular.",
+      "consejo": "Usa un arco amplio para que los cortes queden bien separados.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Z",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "A",
+            "Z"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de AB",
+      "texto": "Halla el punto medio M de AB y traza su mediatriz, perpendicular a AB por M.",
+      "porque": "El centro de cualquier circunferencia que pasa por A y B está en la mediatriz de AB.",
+      "consejo": "Marca M con una cruz fina antes de trazar la perpendicular.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "W",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "W"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Centro O",
+      "texto": "La perpendicular a AY por A y la mediatriz de AB se cortan en el centro O del arco capaz.",
+      "porque": "O está a la misma distancia de A y de B (está en la mediatriz) y el radio OA es perpendicular al lado AY.",
+      "consejo": "Marca O con una cruz bien visible: será el centro del arco.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Radio OA",
+      "texto": "Con centro en O y abertura OA, traza el arco que pasa por A y B.",
+      "porque": "OA = OB, así que A y B están en la misma circunferencia de centro O.",
+      "consejo": "Comprueba que el compás no ha cambiado al pinchar en O.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rR",
+          "hacia": "A",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El arco capaz",
+      "texto": "El arco capaz es el arco de centro O que va de A a B por el lado de arriba. Su punto más alto es T.",
+      "porque": "Cualquier punto del arco ve AB bajo el ángulo α de PVQ: es el arco capaz.",
+      "consejo": "Traza el arco en trazo grueso; el resto de la construcción queda en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "B",
+          "pasaPor": "T",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el ángulo",
+      "texto": "Une T con A y con B: el ángulo ATB mide lo mismo que el ángulo PVQ.",
+      "porque": "El ángulo inscrito en el arco mide la mitad del ángulo central que abarca AB, y eso es lo que hemos trasladado.",
+      "consejo": "Si dudas, mide los dos ángulos con el transportador: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "T",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "T",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trasladar el ángulo con el lado equivocado: el arco sale hacia el lado contrario y el ángulo ATB no coincide.",
+    "Elegir el punto de la mediatriz al otro lado de AB: el arco capaz queda del lado que no corresponde."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "A",
+          "T",
+          "B"
+        ],
+        [
+          "P",
+          "V",
+          "Q"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "T",
+      "centro": "O",
+      "radio": "rR"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "A",
+      "b": "B"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "id": "perpendicular-por-punto",
+  "bloque": 1,
+  "titulo": "Perpendicular a una recta por un punto exterior",
+  "enunciado": "Dada la recta r definida por A y B, y un punto exterior P, traza por P la perpendicular a r con regla y compás.",
+  "ideaClave": "Un punto equidistante de dos puntos de r está en la mediatriz de ellos, que es perpendicular a r.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "A": [
+      20,
+      70
+    ],
+    "B": [
+      190,
+      70
+    ],
+    "P": [
+      90,
+      10
+    ]
+  },
+  "radios": {
+    "rp": {
+      "mm": 75
+    },
+    "rm": {
+      "mm": 55
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "interseccionRectaArco",
+      "ids": [
+        "X",
+        "Y"
+      ],
+      "recta": [
+        "A",
+        "B"
+      ],
+      "centro": "P",
+      "radio": "rp"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "M",
+        "N"
+      ],
+      "centros": [
+        "X",
+        "Y"
+      ],
+      "radios": [
+        "rm",
+        "rm"
+      ]
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "F",
+      "rectas": [
+        [
+          "M",
+          "N"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la recta r, que pasa por A y B, y un punto P fuera de ella. Hay que trazar por P la recta perpendicular a r.",
+      "porque": "Perpendicular significa que forma 90° con r; para conseguirlo usamos dos puntos a igual distancia de P sobre la recta.",
+      "consejo": "Marca P con una cruz fina y distínguelo de los puntos que se obtendrán sobre r.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Arco con centro en P",
+      "texto": "Pincha en P y abre el compás más que la distancia de P a r. El arco corta a la recta en dos puntos, X e Y.",
+      "porque": "Todos los puntos del arco están a la misma distancia de P, así que PX = PY.",
+      "consejo": "Si el arco no llega a la recta, la abertura es demasiado pequeña: aumenta el compás.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "P",
+          "radio": "rp",
+          "hacia": "X",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "X"
+        },
+        {
+          "tipo": "punto",
+          "id": "Y"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos desde X e Y",
+      "texto": "Pincha en X y traza un arco que corte la zona de arriba de la recta. Sin cambiar la abertura, pincha en Y y haz lo mismo. Los arcos se cortan en M, por encima de r, y en N, por debajo.",
+      "porque": "M y N están a la misma distancia de X y de Y, así que pertenecen a la mediatriz de XY.",
+      "consejo": "Usa una abertura mayor que la mitad de XY para que los arcos se crucen con un ángulo abierto.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "X",
+          "radio": "rm",
+          "hacia": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "Y",
+          "radio": "rm",
+          "hacia": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "N",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Une P con los cortes",
+      "texto": "Apoya la regla en M y en N y traza la recta que los une. Esa recta pasa por P.",
+      "porque": "P también está a igual distancia de X y de Y, así que la mediatriz de XY pasa por P.",
+      "consejo": "Comprueba que la recta pasa exactamente por P antes de marcarla.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "N"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El corte con r",
+      "texto": "La recta MN corta a r en F. Ese es el pie de la perpendicular.",
+      "porque": "La mediatriz de XY es perpendicular a r porque XY está sobre r.",
+      "consejo": "Marca F con una cruz fina y no lo confundas con P.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el ángulo recto",
+      "texto": "La recta PF es perpendicular a r: forma 90° con ella.",
+      "porque": "Por eso la perpendicular trazada por P es única: solo hay una recta que forma 90° con r por ese punto.",
+      "consejo": "Marca el ángulo recto con el cuadradito, y si dudas, comprueba con la escuadra.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "F",
+          "hacia1": "A",
+          "hacia2": "M"
+        },
+        {
+          "tipo": "punto",
+          "id": "P",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar un radio menor que la distancia de P a r: el arco no corta a la recta.",
+    "Abrir el compás desde X e Y menos de la mitad de XY: M y N no se obtienen."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "M",
+        "N"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "M",
+        "P",
+        "N"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "X",
+      "centro": "P",
+      "radio": "rp"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

@@ -1,0 +1,215 @@
+{
+  "id": "compas-basico",
+  "bloque": 0,
+  "titulo": "Uso del compás: transportar un segmento",
+  "enunciado": "Dado el segmento AB y una semirrecta de origen C, transporta con el compás la longitud AB sobre la semirrecta.",
+  "ideaClave": "Con la misma abertura del compás, un arco con centro en C corta a la semirrecta a la distancia AB: CD = AB.",
+  "requisitos": [],
+  "datos": {
+    "A": [
+      30,
+      100
+    ],
+    "B": [
+      80,
+      100
+    ],
+    "C": [
+      30,
+      50
+    ],
+    "E": [
+      150,
+      50
+    ]
+  },
+  "radios": {
+    "r": {
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "E"
+      ],
+      "radio": "r"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el segmento AB, abajo, y una semirrecta que sale de C hacia E. Hay que llevar la longitud AB sobre la semirrecta.",
+      "porque": "El compás no mide: copia distancias. Por eso basta con llevar la abertura de un sitio a otro.",
+      "consejo": "Antes de empezar, marca A, B y C con un punto fino y rotúlalos en mayúscula.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "C",
+            "E"
+          ],
+          "extension": 0,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Abre el compás en AB",
+      "texto": "Pincha la punta del compás en A y ábrelo hasta B. La abertura del compás ya es la longitud AB.",
+      "porque": "Abrir el compás entre dos puntos copia exactamente la distancia que hay entre ellos.",
+      "consejo": "Gira el compás por la cabeza, con una sola mano; no lo abras tirando del brazo.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "r",
+          "hacia": "B",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Pincha en C",
+      "texto": "Sin cambiar la abertura, pincha la punta en C, el origen de la semirrecta.",
+      "porque": "El centro del arco que vamos a trazar es C: desde C se mide la distancia sobre la semirrecta.",
+      "consejo": "Comprueba que la abertura no se ha movido antes de pinchar en C.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "r",
+          "hacia": "D",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca el corte D",
+      "texto": "El arco corta a la semirrecta en un punto. Llámalo D.",
+      "porque": "D está a la distancia de la abertura desde C, es decir, a la distancia AB.",
+      "consejo": "Marca D con una cruz fina, sin repasar el arco encima.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Compara CD con AB",
+      "texto": "Los segmentos CD y AB tienen la misma longitud.",
+      "porque": "Ambos son radios de arcos con la misma abertura del compás.",
+      "consejo": "Si dudas, mide CD y AB con la regla: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "D"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Resultado",
+      "texto": "Sobre la semirrecta queda copiada la longitud AB: CD = AB.",
+      "porque": "El compás conserva la abertura, así que la distancia se transporta sin medir con regla.",
+      "consejo": "El trazo del resultado debe ser más grueso que el de la construcción; el compás, con mina afilada y firme.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura al pasar de A a C: el punto D deja de estar a la distancia AB.",
+    "Pinchar el compás en un punto que no es el origen de la semirrecta."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "C",
+          "D"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "D",
+      "centro": "C",
+      "radio": "r"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

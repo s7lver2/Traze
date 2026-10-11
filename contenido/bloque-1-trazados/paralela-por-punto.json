@@ -1,0 +1,221 @@
+{
+  "id": "paralela-por-punto",
+  "bloque": 1,
+  "titulo": "Paralela a una recta por un punto",
+  "enunciado": "Dada la recta AB y un punto exterior P, traza por P la paralela a AB con regla y compás.",
+  "ideaClave": "En un paralelogramo los lados opuestos son iguales y paralelos: copiando AB y AP se obtiene el cuarto vértice Q, y PQ es paralela a AB.",
+  "requisitos": [
+    "compas-basico"
+  ],
+  "datos": {
+    "A": [
+      30,
+      100
+    ],
+    "B": [
+      110,
+      100
+    ],
+    "P": [
+      50,
+      40
+    ]
+  },
+  "radios": {
+    "rAB": {
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    },
+    "rAP": {
+      "entre": [
+        "A",
+        "P"
+      ],
+      "factor": 1
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Q",
+        "S"
+      ],
+      "centros": [
+        "P",
+        "B"
+      ],
+      "radios": [
+        "rAB",
+        "rAP"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la recta AB y un punto P fuera de ella. Hay que trazar por P una recta paralela a AB.",
+      "porque": "Dos rectas son paralelas si mantienen siempre la misma distancia; para copiar la dirección de AB usamos un paralelogramo.",
+      "consejo": "Marca P con una cruz fina para no confundirlo con los vértices que vas a obtener.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Lleva AB desde P",
+      "texto": "Pincha en P y abre el compás hasta B: la abertura es la longitud AB. Traza un arco hacia la derecha de P.",
+      "porque": "El lado PQ del paralelogramo debe medir lo mismo que AB.",
+      "consejo": "Antes de pinchar en P, comprueba que la abertura sigue siendo la de AB.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "P",
+          "radio": "rAB",
+          "hacia": "Q",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Lleva AP desde B",
+      "texto": "Abre el compás hasta P, que es la longitud AP, y pincha en B. Traza un arco que corte al anterior.",
+      "porque": "El lado BQ del paralelogramo debe medir lo mismo que AP.",
+      "consejo": "Usa un arco con ángulo abierto en el corte para que el punto salga preciso.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rAP",
+          "hacia": "Q",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca el vértice Q",
+      "texto": "Los dos arcos se cortan en un punto, Q. Es el cuarto vértice del paralelogramo ABQP.",
+      "porque": "Así se forma el paralelogramo ABQP, con AB y PQ opuestos.",
+      "consejo": "Marca Q con una cruz fina y luego dibuja el paralelogramo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Q",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "P",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "Q",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Une P con Q",
+      "texto": "Apoya la regla en P y en Q y traza la recta que los une. Esa recta es la paralela a AB.",
+      "porque": "En un paralelogramo los lados opuestos son paralelos: PQ ∥ AB.",
+      "consejo": "Dibuja la paralela en trazo grueso y prolóngala un poco a cada lado.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "P",
+            "Q"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los lados",
+      "texto": "Los segmentos AB y PQ tienen la misma longitud, y son paralelos.",
+      "porque": "Un paralelogramo tiene los lados opuestos iguales y paralelos.",
+      "consejo": "Si dudas, mide AB y PQ con la regla: deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "P",
+            "Q"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Tomar el otro corte de los arcos: el cuadrilátero queda cruzado y PQ no es paralela a AB.",
+    "Usar para el segundo arco una abertura distinta de AP: el vértice Q sale desplazado."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "P",
+          "Q"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "P",
+          "Q"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "Q",
+      "centro": "P",
+      "radio": "rAB"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
