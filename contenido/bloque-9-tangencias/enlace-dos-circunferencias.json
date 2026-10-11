@@ -1,0 +1,290 @@
+{
+  "id": "enlace-dos-circunferencias",
+  "bloque": 9,
+  "titulo": "Enlace de dos circunferencias",
+  "enunciado": "Enlaza las circunferencias de centros O1 (radio 30 mm) y O2 (radio 20 mm) mediante un arco de radio R = 25 mm, tangente exterior a las dos.",
+  "ideaClave": "El centro del arco de enlace está a distancia r1 + R de O1 y r2 + R de O2, y los puntos de tangencia están alineados con cada centro.",
+  "requisitos": [
+    "enlace-recta-circunferencia"
+  ],
+  "datos": {
+    "O1": [
+      60,
+      100
+    ],
+    "O2": [
+      150,
+      100
+    ],
+    "Q1": [
+      60,
+      70
+    ],
+    "Q2": [
+      150,
+      80
+    ]
+  },
+  "radios": {
+    "r1": {
+      "mm": 30
+    },
+    "r2": {
+      "mm": 20
+    },
+    "R": {
+      "mm": 25
+    },
+    "ra": {
+      "mm": 55
+    },
+    "rb": {
+      "mm": 45
+    },
+    "s": {
+      "mm": 20
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "E",
+        "Eb"
+      ],
+      "centros": [
+        "O1",
+        "O2"
+      ],
+      "radios": [
+        "ra",
+        "rb"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "G1",
+      "origen": "O1",
+      "direccion": [
+        "O1",
+        "E"
+      ],
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "G2",
+      "origen": "O2",
+      "direccion": [
+        "O2",
+        "E"
+      ],
+      "radio": "r2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "G1",
+      "direccion": [
+        "O1",
+        "E"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y2",
+      "origen": "G2",
+      "direccion": [
+        "O2",
+        "E"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Las dos circunferencias",
+      "texto": "Tenemos dos circunferencias: la de centro O1 y radio 30 mm, y la de centro O2 y radio 20 mm. Une O1 con O2.",
+      "porque": "El arco de enlace va por fuera de las dos, así que su centro está al otro lado de cada circunferencia.",
+      "consejo": "Traza la recta O1O2 en trazo fino: guía los cortes de los pasos siguientes.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O1",
+          "radio": "r1",
+          "hacia": "Q1",
+          "amplitud": 2.9,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O2",
+          "radio": "r2",
+          "hacia": "Q2",
+          "amplitud": 2.9,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "O2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O1"
+        },
+        {
+          "tipo": "punto",
+          "id": "O2"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos auxiliares",
+      "texto": "Con centro O1 y radio 55 mm (30 + 25) y con centro O2 y radio 45 mm (20 + 25), traza dos arcos que se corten.",
+      "porque": "El centro E del enlace está a 30 + 25 de O1 y a 20 + 25 de O2: las distancias son las de los radios más R.",
+      "consejo": "Usa las aberturas de 55 y 45 mm sin cambiarlas hasta marcar el corte.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O1",
+          "radio": "ra",
+          "hacia": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O2",
+          "radio": "rb",
+          "hacia": "E",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El centro E",
+      "texto": "Los dos arcos se cortan por encima de O1O2. Ese corte es el centro E del arco de enlace.",
+      "porque": "E está a 55 mm de O1 y a 45 mm de O2, así que el arco de radio 25 mm con centro E toca a las dos circunferencias.",
+      "consejo": "Marca E con una cruz fina y no borres los arcos auxiliares hasta comprobarlo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de tangencia G1 y G2",
+      "texto": "Une E con O1 y con O2. Sobre EO1, a 30 mm de O1, marca G1; sobre EO2, a 20 mm de O2, marca G2.",
+      "porque": "Los puntos de tangencia están sobre la recta que une cada centro con E: ahí se tocan las circunferencias y el arco.",
+      "consejo": "Marca G1 y G2 con una cruz fina, en el segmento que une cada centro con E.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "O1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "O2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "G1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "G2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El arco de enlace",
+      "texto": "Pincha en E con la abertura de 25 mm y traza el arco de G1 a G2. Ese arco enlaza las dos circunferencias.",
+      "porque": "El arco tiene radio 25 mm y su centro E, así que toca a las dos circunferencias en G1 y G2.",
+      "consejo": "Traza el arco de G1 a G2 en un solo movimiento para que quede liso en las uniones.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "E",
+          "desde": "G1",
+          "hasta": "G2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tangencias",
+      "texto": "EG1 y EG2 miden 25 mm, el radio del arco. La tangente en G1 es perpendicular a O1G1, y la tangente en G2 es perpendicular a O2G2.",
+      "porque": "Una circunferencia es tangente a otra cuando su centro y el punto de contacto están alineados con el centro de la otra.",
+      "consejo": "Si dudas, mide EG1 y EG2 con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "E",
+            "G1"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "E",
+            "G2"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar r1 − R o r2 − R en lugar de la suma: el arco no enlaza por fuera y sale dentro de una de las circunferencias.",
+    "Elegir el corte de E por debajo de O1O2 sin comprobar el enlace: el arco queda en el lado contrario.",
+    "Marcar G1 y G2 fuera de los segmentos EO1 y EO2: los puntos no son de tangencia."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "G1",
+        "Y1"
+      ],
+      "centro": "O1",
+      "punto": "G1"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "G2",
+        "Y2"
+      ],
+      "centro": "O2",
+      "punto": "G2"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "G1",
+      "centro": "E",
+      "radio": "R"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "G2",
+      "centro": "E",
+      "radio": "R"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
