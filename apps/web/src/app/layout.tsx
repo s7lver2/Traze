@@ -8,6 +8,7 @@ import '../estilos/base.css';
 import '../estilos/hoja.css';
 import '../estilos/cabecera.css';
 import '../estilos/lienzo.css';
+import '../estilos/panel.css';
 
 const serif = Source_Serif_4({
   subsets: ['latin'],

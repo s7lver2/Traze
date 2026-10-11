@@ -1,0 +1,158 @@
+.sala {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--e5);
+  align-items: start;
+}
+
+@media (max-width: 800px) {
+  .sala {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panel del paso */
+
+.panel-paso h2 {
+  margin: var(--e1) 0 var(--e2);
+}
+
+.texto-paso {
+  margin: 0 0 var(--e3);
+}
+
+.porque {
+  margin: 0 0 var(--e4);
+  color: var(--tinta-suave);
+}
+
+/* Nota del profe: bloque con banda azul que se despliega con animación */
+
+.nota-profe {
+  padding: 0;
+  border-left: 4px solid var(--azul-correccion);
+  border-radius: var(--radio-chico);
+  background: var(--nota-fondo);
+  color: var(--azul-correccion);
+}
+
+.nota-profe summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--e4);
+  cursor: pointer;
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+.nota-profe[open] > p {
+  margin: 0;
+  padding: 0 var(--e4) var(--e4);
+  color: var(--tinta);
+  animation: nota-abrir var(--t-panel) var(--curva) both;
+}
+
+@keyframes nota-abrir {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Índice de pasos: círculos de 30 px dentro de una zona táctil de 44 px */
+
+.indice-pasos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e1);
+  margin: var(--e5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paso-boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-pildora);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+}
+
+.paso-boton:hover:not(:disabled) {
+  background: transparent;
+}
+
+.paso-circulo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--tinta-suave);
+  border-radius: var(--radio-pildora);
+  background: var(--papel);
+  color: var(--tinta);
+  font-size: 0.875rem;
+  transition:
+    background var(--t-control) var(--curva),
+    box-shadow var(--t-control) var(--curva);
+}
+
+.paso-pendiente:hover .paso-circulo {
+  background: var(--papel-sombra);
+}
+
+.paso-hecho .paso-circulo {
+  border-color: var(--exito-texto);
+  background: var(--exito-suave);
+  color: var(--exito-texto);
+}
+
+.paso-actual .paso-circulo {
+  border-color: var(--tinta);
+  background: var(--tinta);
+  box-shadow: var(--sombra-boton);
+  color: var(--papel);
+  font-weight: 700;
+}
+
+/* Banda de instrumentos */
+
+.banda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e2) var(--e5);
+  margin: 0 0 var(--e4);
+  padding: var(--e3) var(--e4);
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+}
+
+.banda > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.banda dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+.banda dd {
+  margin: 0;
+  font-family: var(--serif);
+}
