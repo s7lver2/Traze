@@ -1,0 +1,377 @@
+{
+  "id": "espiral-tres-cuatro-centros",
+  "bloque": 10,
+  "titulo": "Espiral de tres centros",
+  "enunciado": "Dado el triángulo equilátero ABC de lado 8 mm, traza una espiral de tres centros con arcos de 120° cuyos radios crecen en AB cada arco, centrados cíclicamente en A, B y C.",
+  "ideaClave": "En una espiral de tres centros, cada arco de 120° termina en un punto de la recta que une su centro con el siguiente, y el siguiente arco empieza allí con la misma tangente.",
+  "requisitos": [
+    "espiral-dos-centros"
+  ],
+  "datos": {
+    "A": [
+      101,
+      80
+    ],
+    "B": [
+      109,
+      80
+    ]
+  },
+  "radios": {
+    "s": {
+      "mm": 6
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "r1",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "C",
+        "Cb"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radios": [
+        "r1",
+        "r1"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "r2",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 2
+    },
+    {
+      "tipo": "radio",
+      "id": "r3",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 3
+    },
+    {
+      "tipo": "radio",
+      "id": "r4",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 4
+    },
+    {
+      "tipo": "radio",
+      "id": "r5",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 5
+    },
+    {
+      "tipo": "radio",
+      "id": "r6",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 6
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r1",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P2",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "C"
+      ],
+      "radio": "r2",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P3",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "A"
+      ],
+      "radio": "r3",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P4",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r4",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P5",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "C"
+      ],
+      "radio": "r5",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P6",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "A"
+      ],
+      "radio": "r6",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "P1",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo ABC",
+      "texto": "Traza el triángulo equilátero ABC de 8 mm de lado. Sus vértices serán los centros de la espiral.",
+      "porque": "Un triángulo equilátero tiene los tres ángulos de 60°, así que los arcos de 120° encajan con sus vértices.",
+      "consejo": "Traza AB primero y después C con arcos de 8 mm desde A y desde B.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Primer arco con centro A",
+      "texto": "Pincha en A con la abertura AB = 8 mm y traza un arco de 120° desde C hasta P1, en el lado contrario a B.",
+      "porque": "El ángulo CAP1 mide 120°, y P1 está en la recta AB, al otro lado de A.",
+      "consejo": "Traza el arco de 120° de una sola pasada y marca P1 sobre la prolongación de BA.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "A",
+          "desde": "C",
+          "hasta": "P1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P1",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Segundo arco con centro B",
+      "texto": "Pincha en B con la abertura de 16 mm (2·AB) y traza el arco de 120° desde P1 hasta P2, en la prolongación de CB.",
+      "porque": "A, B y P1 están alineados: el arco de centro B empieza en P1 con la misma tangente que el primero.",
+      "consejo": "Cambia la abertura a 16 mm antes de pinchar en B.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "B",
+          "desde": "P1",
+          "hasta": "P2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Tercer arco con centro C",
+      "texto": "Pincha en C con la abertura de 24 mm (3·AB) y traza el arco de 120° desde P2 hasta P3, en la prolongación de AC.",
+      "porque": "B, C y P2 están alineados: el arco de centro C empieza en P2 con la misma tangente que el de centro B.",
+      "consejo": "Traza este arco con cuidado: es el primero que se aleja del triángulo por la parte de abajo.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "C",
+          "desde": "P2",
+          "hasta": "P3",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P3",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Cuarto y quinto arco",
+      "texto": "Con centro A y radio 32 mm traza el arco de 120° de P3 a P4. Con centro B y radio 40 mm, el de P4 a P5.",
+      "porque": "Cada arco empieza donde termina el anterior, sobre la recta de centros: así la espiral sigue tangente.",
+      "consejo": "Cambia la abertura entre arco y arco y comprueba que el punto de unión cae en la recta de centros.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "A",
+          "desde": "P3",
+          "hasta": "P4",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "B",
+          "desde": "P4",
+          "hasta": "P5",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P4",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P5",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Sexto arco y dos vueltas",
+      "texto": "Con centro C y radio 48 mm (6·AB) traza el arco de 120° de P5 a P6. Así completas dos vueltas: seis arcos de 120° alrededor de los tres centros.",
+      "porque": "Cada vuelta completa suma tres arcos de 120°, y el radio crece en AB con cada arco.",
+      "consejo": "Antes de trazar el sexto arco, cuenta los radios: 8, 16, 24, 32, 40 y 48 mm.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "C",
+          "desde": "P5",
+          "hasta": "P6",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P6",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tangencias",
+      "texto": "En P1, el arco de centro A y el de centro B son tangentes: sus centros y el punto de unión están alineados con la recta AB.",
+      "porque": "Dos arcos son tangentes en un punto cuando los centros y el punto de unión están alineados, y en P1 esa recta es AB.",
+      "consejo": "Si dudas, apoya la escuadra en AB en P1: el arco debe llegar perpendicular a la recta.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "P1",
+          "hacia1": "A",
+          "hacia2": "Y1"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar el mismo radio para todos los arcos: la figura sale una circunferencia, no una espiral.",
+    "Trazar un arco de 60° en lugar de 120°: el punto de unión cae en el lugar equivocado y el siguiente arco no es tangente.",
+    "Confundir los centros: si el arco cambia de centro en el orden equivocado, la espiral se cruza."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P1",
+        "Y1"
+      ],
+      "centro": "A",
+      "punto": "P1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P1",
+      "centro": "A",
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P2",
+      "centro": "B",
+      "radio": "r2"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P6",
+      "centro": "C",
+      "radio": "r6"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
