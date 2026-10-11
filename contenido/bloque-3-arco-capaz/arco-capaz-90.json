@@ -1,0 +1,221 @@
+{
+  "id": "arco-capaz-90",
+  "bloque": 3,
+  "titulo": "Arco capaz de 90°",
+  "enunciado": "Dado el segmento AB como hipotenusa, halla los vértices C desde los que AB se ve con un ángulo recto y traza uno de ellos.",
+  "ideaClave": "Todo ángulo inscrito en una semicircunferencia es recto.",
+  "requisitos": [
+    "arco-capaz"
+  ],
+  "datos": {
+    "A": [
+      60,
+      100
+    ],
+    "B": [
+      150,
+      100
+    ],
+    "T": [
+      120,
+      50
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "r",
+      "entre": [
+        "A",
+        "O"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "C",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "T"
+      ],
+      "radio": "r"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El segmento AB",
+      "texto": "Tenemos el segmento AB, que será la hipotenusa de un triángulo rectángulo. Buscamos los vértices C desde los que AB se ve bajo 90°.",
+      "porque": "Un triángulo rectángulo tiene el ángulo recto en el vértice opuesto a la hipotenusa.",
+      "consejo": "Marca A y B con una cruz fina antes de trazar nada más.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "El centro O",
+      "texto": "Halla el punto medio O de AB con la mediatriz: será el centro del arco que buscamos.",
+      "porque": "El centro de la semicircunferencia de diámetro AB es el punto medio de AB.",
+      "consejo": "Marca O con una cruz fina y no borres los arcos de la mediatriz.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "O"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "La semicircunferencia",
+      "texto": "Pincha en O con abertura OA y traza la semicircunferencia por encima de AB, de A a B.",
+      "porque": "Todos los puntos de la semicircunferencia están a la misma distancia OA de su centro O.",
+      "consejo": "Pincha en O con firmeza y gira el compás despacio, sin cambiar la abertura.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "B",
+          "pasaPor": "C",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Elige el punto C",
+      "texto": "Une O con el punto T, que está por encima de AB. La semirrecta OT corta a la semicircunferencia en C.",
+      "porque": "C está sobre la semicircunferencia, así que OC mide lo mismo que OA: es un radio.",
+      "consejo": "Elige C lejos de A y de B: así el triángulo se ve mejor.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "T",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo ACB",
+      "texto": "Une C con A y C con B. Obtienes el triángulo ACB, con la hipotenusa AB.",
+      "porque": "Los lados CA y CB son los catetos del triángulo, y AB su hipotenusa.",
+      "consejo": "Traza los lados del triángulo en trazo grueso, por encima de la semicircunferencia.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El ángulo en C es recto",
+      "texto": "Marca el ángulo en C: es un ángulo recto de 90°.",
+      "porque": "Es un ángulo inscrito que abarca la hipotenusa AB, que es un diámetro: vale la mitad de 180°.",
+      "consejo": "Usa la escuadra para comprobar que CA y CB forman una L perfecta.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "C",
+          "hacia1": "A",
+          "hacia2": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba con otro punto",
+      "texto": "Cualquier otro punto de la semicircunferencia da también un ángulo recto: el ángulo en C no depende de dónde esté C.",
+      "porque": "Por eso el lugar geométrico de los vértices que ven AB bajo 90° es la semicircunferencia.",
+      "consejo": "Mueve mentalmente C por el arco y compruébalo con la escuadra en dos o tres posiciones.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Tomar el radio igual a AB en lugar de AB/2: el arco sale demasiado grande y C queda fuera de la semicircunferencia.",
+    "Confundir el centro O con un vértice del triángulo: el ángulo en O vale 180° y no sirve.",
+    "Trazar la semicircunferencia por debajo de AB sin tener en cuenta el lado elegido para C."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "angulo",
+      "vertice": "C",
+      "a": "A",
+      "b": "B",
+      "grados": 90
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "O",
+      "radio": "r"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
