@@ -1,0 +1,387 @@
+{
+  "id": "ovalo-eje-mayor",
+  "bloque": 10,
+  "titulo": "Óvalo dado el eje mayor",
+  "enunciado": "Traza el óvalo de eje mayor AB = 150 mm con cuatro centros.",
+  "ideaClave": "En cada punto de enlace, el centro del arco pequeño, el del arco grande y el punto de enlace están alineados: por eso los arcos son tangentes.",
+  "requisitos": [
+    "compas-basico",
+    "tangente-en-punto"
+  ],
+  "datos": {
+    "A": [
+      30,
+      70
+    ],
+    "B": [
+      180,
+      70
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "homotetico",
+      "id": "C",
+      "punto": "B",
+      "centro": "A",
+      "razon": 0.3333333333333333
+    },
+    {
+      "tipo": "homotetico",
+      "id": "D",
+      "punto": "B",
+      "centro": "A",
+      "razon": 0.6666666666666666
+    },
+    {
+      "tipo": "radio",
+      "id": "rc",
+      "entre": [
+        "A",
+        "C"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "O1",
+        "O2"
+      ],
+      "centros": [
+        "C",
+        "D"
+      ],
+      "radios": [
+        "rc",
+        "rc"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E",
+      "origen": "C",
+      "direccion": [
+        "O1",
+        "C"
+      ],
+      "radio": "rc"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "F",
+      "origen": "D",
+      "direccion": [
+        "O1",
+        "D"
+      ],
+      "radio": "rc"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "G",
+      "origen": "C",
+      "direccion": [
+        "O2",
+        "C"
+      ],
+      "radio": "rc"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "H",
+      "origen": "D",
+      "direccion": [
+        "O2",
+        "D"
+      ],
+      "radio": "rc"
+    },
+    {
+      "tipo": "radio",
+      "id": "Rb",
+      "entre": [
+        "O1",
+        "E"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "Rt",
+      "entre": [
+        "O2",
+        "G"
+      ],
+      "factor": 1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El eje mayor AB",
+      "texto": "Traza el eje mayor AB de 150 mm, horizontal. El óvalo es simétrico respecto de AB y de su mediatriz.",
+      "porque": "El eje mayor es el diámetro más largo del óvalo: sus extremos A y B son puntos de la curva.",
+      "consejo": "Marca A y B con una cruz fina y traza AB en trazo fino, sin borrarlo al final.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Dividir AB en tres partes",
+      "texto": "Divide AB en tres partes iguales: los puntos C y D están a un tercio y a dos tercios de A.",
+      "porque": "AC = AB/3 y AD = 2·AB/3: los centros C y D son los que fijan los arcos de los extremos.",
+      "consejo": "Lleva el tercio de AB con el compás desde A, dos veces, y marca C y D con una cruz.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "C"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "D"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Centros O1 y O2",
+      "texto": "Con centro C y con centro D, y radio AC, traza dos arcos que se corten arriba y abajo de AB. Llama O1 y O2 a los dos cortes.",
+      "porque": "O1 y O2 están a igual distancia de C y de D, así que están sobre la mediatriz de CD: son los centros de los arcos grandes.",
+      "consejo": "Mantén la abertura AC para todos los arcos de este paso; cambiarla desplaza O1 y O2.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rc",
+          "hacia": "O1"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rc",
+          "hacia": "O1"
+        },
+        {
+          "tipo": "punto",
+          "id": "O1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "O2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de enlace",
+      "texto": "Une O1 con C y prolonga la recta hasta E; une O1 con D y prolóngala hasta F. Haz lo mismo con O2 para hallar G y H.",
+      "porque": "E, C y O1 están alineados: el arco pequeño con centro C toca al arco grande con centro O1 en E.",
+      "consejo": "Traza cada recta con la regla apoyada en el centro grande y pasando por el centro pequeño.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "F",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "G",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "H",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "H",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos pequeños en los extremos",
+      "texto": "Con centro C, traza el arco de A a E y el de A a G. Con centro D, traza el arco de B a F y el de B a H.",
+      "porque": "Los arcos de centro C y D pasan por A y B, y por los puntos de enlace E, G, F y H.",
+      "consejo": "Traza cada arco de una sola pasada, sin cambiar la abertura de AC.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "C",
+          "desde": "A",
+          "hasta": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "C",
+          "desde": "A",
+          "hasta": "G",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "D",
+          "desde": "B",
+          "hasta": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "D",
+          "desde": "B",
+          "hasta": "H",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos grandes",
+      "texto": "Con centro O1, traza el arco de E a F por debajo de AB. Con centro O2, traza el arco de G a H por encima.",
+      "porque": "E y F están a la misma distancia de O1, y lo mismo G y H de O2: los arcos grandes enlazan con los pequeños.",
+      "consejo": "Haz primero el arco de E a F y después el de G a H, sin mover el compás en medio.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O1",
+          "desde": "E",
+          "hasta": "F",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O2",
+          "desde": "G",
+          "hasta": "H",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los enlaces",
+      "texto": "Los centros C, O1 y E están alineados, igual que D, O1 y F, o C, O2 y G. Los puntos de enlace están sobre sus circunferencias.",
+      "porque": "Dos arcos son tangentes cuando su punto de unión está sobre la recta que une sus centros.",
+      "consejo": "Si dudas, mide O1E con el compás y compara con O1F: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "F",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura AC al trazar los arcos de C y D: O1 y O2 se desplazan y el óvalo deja de cerrarse bien.",
+    "Unir O1 con C sin prolongar hasta E: el punto de enlace queda en el sitio equivocado y la tangencia falla.",
+    "Trazar los arcos grandes desde el centro equivocado: el óvalo se deforma y deja de ser simétrico."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "O1",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "O1",
+        "D",
+        "F"
+      ]
+    },
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "O2",
+        "C",
+        "G"
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "E",
+      "centro": "C",
+      "radio": "rc"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "F",
+      "centro": "O1",
+      "radio": "Rb"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
