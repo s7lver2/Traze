@@ -1,0 +1,329 @@
+{
+  "id": "traslacion",
+  "bloque": 8,
+  "titulo": "Traslación de un triángulo",
+  "enunciado": "Dado el triángulo ABC y el vector de traslación v = V1V2, traslada cada vértice para obtener el triángulo A'B'C'.",
+  "ideaClave": "En una traslación, cada punto se desplaza la misma distancia y en la misma dirección que el vector, así que el triángulo trasladado es igual al original.",
+  "requisitos": [
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "A": [
+      40,
+      60
+    ],
+    "B": [
+      70,
+      40
+    ],
+    "C": [
+      60,
+      100
+    ],
+    "V1": [
+      20,
+      125
+    ],
+    "V2": [
+      60,
+      125
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rv",
+      "entre": [
+        "V1",
+        "V2"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "A'",
+      "origen": "A",
+      "direccion": [
+        "V1",
+        "V2"
+      ],
+      "radio": "rv"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B'",
+      "origen": "B",
+      "direccion": [
+        "V1",
+        "V2"
+      ],
+      "radio": "rv"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "C'",
+      "origen": "C",
+      "direccion": [
+        "V1",
+        "V2"
+      ],
+      "radio": "rv"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo y el vector",
+      "texto": "Tenemos el triángulo ABC y el vector v = V1V2, de 40 mm en horizontal.",
+      "porque": "Un vector fija una dirección, un sentido y una longitud: todos los puntos se desplazan así.",
+      "consejo": "Marca V1 y V2 con una flecha fina para que el sentido del vector se vea.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "V1",
+          "hasta": "V2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V1"
+        },
+        {
+          "tipo": "punto",
+          "id": "V2"
+        }
+      ]
+    },
+    {
+      "titulo": "Trasladar el vértice A",
+      "texto": "Por A traza la paralela a v. Con la abertura de v, pincha en A y marca A' sobre esa paralela, en el sentido de V1 a V2.",
+      "porque": "AA' es paralelo a v y mide lo mismo: así A se desplaza exactamente como el vector.",
+      "consejo": "Copia la longitud de v con el compás antes de pinchar en A; no la midas con la regla.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "A",
+            "A'"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rv",
+          "hacia": "A'"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Trasladar el vértice B",
+      "texto": "Repite con B: paralela a v por B y, con la abertura de v, marca B' en el mismo sentido.",
+      "porque": "BB' es paralelo a v y mide lo mismo, igual que AA'.",
+      "consejo": "No cambies la abertura entre A y B: cada vértice se traslada con la misma medida.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "B",
+            "B'"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rv",
+          "hacia": "B'"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Trasladar el vértice C",
+      "texto": "Repite con C: paralela a v por C y marca C' con la misma abertura de v, en el sentido de V1 a V2.",
+      "porque": "Los tres vértices se han desplazado la misma distancia y en la misma dirección.",
+      "consejo": "Comprueba que la paralela sale siempre en la misma dirección que v: las tres deben ser paralelas entre sí.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "C",
+            "C'"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rv",
+          "hacia": "C'"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo trasladado",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo A'B'C', igual al original y desplazado por v.",
+      "porque": "La traslación conserva distancias y ángulos: el triángulo trasladado es igual al original.",
+      "consejo": "Repasa el triángulo trasladado en trazo grueso y deja las paralelas en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el desplazamiento",
+      "texto": "Los segmentos AA', BB' y CC' son iguales y paralelos a v. El lado A'B' mide lo mismo que AB.",
+      "porque": "Un vector de traslación desplaza todos los puntos igual: por eso el triángulo se conserva.",
+      "consejo": "Compara AB con A'B' con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "A'"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "B'"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "C'"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trasladar el vértice en sentido contrario al vector: el triángulo se desplaza hacia la izquierda en lugar de hacia la derecha.",
+    "Cambiar la abertura entre vértices: los lados del triángulo trasladado no miden lo mismo que los originales.",
+    "Trazar la paralela a v con una inclinación distinta: el desplazamiento no es un vector puro."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "A'"
+        ],
+        [
+          "V1",
+          "V2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "A'"
+        ],
+        [
+          "V1",
+          "V2"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "B",
+          "B'"
+        ],
+        [
+          "V1",
+          "V2"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
