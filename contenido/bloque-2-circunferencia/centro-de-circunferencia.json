@@ -1,0 +1,344 @@
+{
+  "id": "centro-de-circunferencia",
+  "bloque": 2,
+  "titulo": "Centro de una circunferencia",
+  "enunciado": "Dada una circunferencia sin su centro, búscalo con regla y compás usando dos cuerdas.",
+  "ideaClave": "La mediatriz de cualquier cuerda pasa por el centro de la circunferencia.",
+  "requisitos": [
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "A": [
+      107,
+      94
+    ],
+    "B": [
+      124,
+      63
+    ],
+    "C": [
+      85,
+      90
+    ],
+    "D": [
+      120,
+      55
+    ]
+  },
+  "radios": {
+    "rm1": {
+      "mm": 30
+    },
+    "rm2": {
+      "mm": 35
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "interseccionArcos",
+      "ids": [
+        "M",
+        "N"
+      ],
+      "centros": [
+        "A",
+        "B"
+      ],
+      "radio": "rm1"
+    },
+    {
+      "tipo": "interseccionArcos",
+      "ids": [
+        "P",
+        "Q"
+      ],
+      "centros": [
+        "C",
+        "D"
+      ],
+      "radio": "rm2"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "O",
+      "rectas": [
+        [
+          "M",
+          "N"
+        ],
+        [
+          "P",
+          "Q"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La circunferencia sin centro",
+      "texto": "Tenemos una circunferencia de la que solo sabemos cuatro puntos: A, B, C y D. Hay que hallar su centro.",
+      "porque": "Cualquier punto de la circunferencia está a la misma distancia del centro, y eso es lo que vamos a usar.",
+      "consejo": "Marca los cuatro puntos con una cruz fina, sin pasar el lápiz por encima.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "A",
+          "hasta": "D",
+          "pasaPor": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "D",
+          "hasta": "A",
+          "pasaPor": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "D"
+        }
+      ]
+    },
+    {
+      "titulo": "Dos cuerdas que no sean paralelas",
+      "texto": "Une A con B y C con D. Son dos cuerdas de la circunferencia, y no deben ser paralelas.",
+      "porque": "Una cuerda es un segmento cuyos extremos están sobre la circunferencia; su mediatriz pasa por el centro.",
+      "consejo": "Elige cuerdas de longitud parecida: así los arcos del compás salen de un tamaño cómodo.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de la cuerda AB",
+      "texto": "Con la misma abertura, traza arcos desde A y desde B que se corten en M y N. Une M con N.",
+      "porque": "M y N equidistan de A y de B, así que la recta MN es la mediatriz de AB.",
+      "consejo": "Abre el compás más de la mitad de AB para que los arcos se corten con claridad.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm1",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rm1",
+          "hacia": "N"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm1",
+          "hacia": "M"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rm1",
+          "hacia": "N"
+        },
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "N",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "M",
+            "N"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Mediatriz de la cuerda CD",
+      "texto": "Repite con la otra cuerda: arcos desde C y desde D con una abertura distinta, que se corten en P y en Q. Une P con Q.",
+      "porque": "La mediatriz de CD también equidista de C y de D, y es otra recta que pasa por el centro.",
+      "consejo": "Cambiar la abertura entre cuerdas está permitido; dentro de cada cuerda, no.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rm2",
+          "hacia": "P"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rm2",
+          "hacia": "Q"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rm2",
+          "hacia": "P"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "rm2",
+          "hacia": "Q"
+        },
+        {
+          "tipo": "punto",
+          "id": "P",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "P",
+            "Q"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El centro O",
+      "texto": "Las dos mediatrices se cortan en un único punto. Márcalo con O: es el centro de la circunferencia.",
+      "porque": "El centro es el único punto que equidista de todos los puntos de la circunferencia, y las dos mediatrices lo determinan.",
+      "consejo": "Marca O con una cruz fina y dibuja las mediatrices más suaves para que no compitan con el resultado.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los radios",
+      "texto": "Une O con cada uno de los cuatro puntos. Los cuatro segmentos miden lo mismo: es el radio de la circunferencia.",
+      "porque": "Como O equidista de A, B, C y D, esos cuatro puntos están sobre la misma circunferencia de centro O.",
+      "consejo": "Si dudas, compara OA con OC usando la misma abertura del compás.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "A"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "C"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Elegir dos cuerdas paralelas: sus mediatrices son paralelas y no tienen punto de corte.",
+    "Trazar una mediatriz con una abertura menor que la mitad de la cuerda: los arcos no se cortan.",
+    "Estimar el centro a ojo en lugar de trazar la intersección de las dos mediatrices."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "A",
+      "b": "C"
+    },
+    {
+      "tipo": "equidistante",
+      "punto": "O",
+      "a": "B",
+      "b": "D"
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "M",
+        "N"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "P",
+        "Q"
+      ],
+      "segmento": [
+        "C",
+        "D"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
