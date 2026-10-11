@@ -1,0 +1,102 @@
+/* Marco del lienzo: 10 px de radio, fondo papel-claro y escuadra decorativa */
+.lienzo-marco {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--papel-sombra);
+  border-radius: var(--radio-medio);
+  background: var(--papel-claro);
+  box-shadow: var(--sombra-suave);
+}
+
+.lienzo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Escuadra translúcida en la esquina: puramente decorativa (aria-hidden en el marcado) */
+.escuadra {
+  position: absolute;
+  right: var(--e3);
+  bottom: var(--e3);
+  width: 84px;
+  height: 84px;
+  background: var(--escuadra);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+/* Dibujo (los colores del trazo no cambian) */
+
+.papel {
+  fill: var(--papel-claro);
+}
+
+.cuadricula-linea {
+  fill: none;
+  stroke: var(--cuadricula);
+  stroke-width: 0.12;
+  opacity: 0.5;
+}
+
+.trazo {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.trazo-dato {
+  stroke: var(--grafito-dato);
+  stroke-width: 2px;
+}
+
+.trazo-construccion {
+  stroke: var(--grafito-construccion);
+  stroke-width: 1px;
+}
+
+.trazo-resultado {
+  stroke: var(--grafito-resultado);
+  stroke-width: 3px;
+}
+
+.punto-dato {
+  fill: var(--grafito-dato);
+}
+
+.punto-construccion {
+  fill: var(--grafito-construccion);
+}
+
+.punto-resultado {
+  fill: var(--grafito-resultado);
+}
+
+.marca {
+  fill: none;
+  stroke: var(--grafito-resultado);
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.radio-compas {
+  fill: none;
+  stroke: var(--grafito-construccion);
+  stroke-width: 1px;
+  stroke-dasharray: 3 3;
+  opacity: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+
+.punta {
+  fill: var(--azul-correccion);
+}
+
+.rotulo {
+  font-family: var(--rotulacion);
+  font-style: italic;
+  fill: var(--grafito-resultado);
+}
