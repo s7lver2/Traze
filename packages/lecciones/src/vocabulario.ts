@@ -258,4 +258,54 @@ export const COMPROBACIONES: readonly EntradaVocabulario[] = [
     descripcion: 'Comprueba que la recta PQ pasa por el punto medio del segmento AB.',
     ejemplo: { tipo: 'pasaPorPuntoMedio', recta: ['M', 'N'], segmento: ['A', 'B'] },
   },
+  {
+    tipo: 'tangente',
+    campos: 'recta [P, Q], centro, punto',
+    descripcion:
+      'Comprueba que la recta PQ es tangente en «punto» a la circunferencia de ese centro que pasa por «punto»: «punto» está en la recta y el radio es perpendicular a ella.',
+    ejemplo: { tipo: 'tangente', recta: ['P', 'T'], centro: 'C', punto: 'T' },
+  },
+  {
+    tipo: 'puntoEnCircunferencia',
+    campos: 'punto, centro, radio (id de un radio)',
+    descripcion: 'Comprueba que «punto» está a la distancia del radio del centro.',
+    ejemplo: { tipo: 'puntoEnCircunferencia', punto: 'T', centro: 'C', radio: 'r' },
+  },
+  {
+    tipo: 'igualLongitud',
+    campos: 'segmentos [[P, Q], [R, S]]',
+    descripcion: 'Comprueba que los segmentos PQ y RS miden lo mismo.',
+    ejemplo: { tipo: 'igualLongitud', segmentos: [['A', 'O'], ['O', 'B']] },
+  },
+  {
+    tipo: 'proporcion',
+    campos: 'a [P, Q], b [R, S], c [T, U], d [V, W]',
+    descripcion: 'Comprueba la proporción PQ/RS = TU/VW (los cuatro segmentos con longitud mayor que cero en los denominadores).',
+    ejemplo: { tipo: 'proporcion', a: ['O', 'A'], b: ['O', 'B'], c: ['O', 'C'], d: ['O', 'X'] },
+  },
+  {
+    tipo: 'colineales',
+    campos: 'puntos [P, Q, R]',
+    descripcion: 'Comprueba que los tres puntos están alineados. P y Q no pueden coincidir.',
+    ejemplo: { tipo: 'colineales', puntos: ['M', 'N', 'P'] },
+  },
+  {
+    tipo: 'paralelas',
+    campos: 'rectas [[P, Q], [R, S]]',
+    descripcion: 'Comprueba que las rectas PQ y RS son paralelas.',
+    ejemplo: { tipo: 'paralelas', rectas: [['A', 'B'], ['P', 'Q']] },
+  },
+  {
+    tipo: 'angulo',
+    campos: 'vertice, a, b, grados (de 0 a 180)',
+    descripcion: 'Comprueba que el ángulo con vértice en «vertice» y lados hacia «a» y «b» mide esos grados.',
+    ejemplo: { tipo: 'angulo', vertice: 'B', a: 'A', b: 'C', grados: 120 },
+  },
+  {
+    tipo: 'igualAngulo',
+    campos: 'angulos [[a1, vertice1, b1], [a2, vertice2, b2]]',
+    descripcion:
+      'Comprueba que los dos ángulos miden lo mismo. Cada ángulo se escribe como [punto de un lado, vértice, punto del otro lado].',
+    ejemplo: { tipo: 'igualAngulo', angulos: [['P', 'V', 'Z'], ['Z', 'V', 'Q']] },
+  },
 ];

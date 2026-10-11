@@ -24,7 +24,7 @@ export function procesarLeccion(datos: unknown): ResultadoProceso {
 
   try {
     const resuelta = interpretarLeccion(validada.leccion);
-    const comprobaciones = ejecutarComprobaciones(validada.leccion, resuelta.puntos);
+    const comprobaciones = ejecutarComprobaciones(validada.leccion, resuelta.puntos, resuelta.radios);
     const fallos = comprobaciones
       .filter((comprobacion) => !comprobacion.ok)
       .map((comprobacion) => `comprobaciones: ${comprobacion.descripcion} (${comprobacion.detalle})`);

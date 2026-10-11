@@ -186,6 +186,54 @@ Campos: recta [P, Q], segmento [A, B].
 {"tipo":"pasaPorPuntoMedio","recta":["M","N"],"segmento":["A","B"]}
 ```
 
+**tangente**: Comprueba que la recta PQ es tangente en «punto» a la circunferencia de ese centro que pasa por «punto»: «punto» está en la recta y el radio es perpendicular a ella.
+Campos: recta [P, Q], centro, punto.
+```json
+{"tipo":"tangente","recta":["P","T"],"centro":"C","punto":"T"}
+```
+
+**puntoEnCircunferencia**: Comprueba que «punto» está a la distancia del radio del centro.
+Campos: punto, centro, radio (id de un radio).
+```json
+{"tipo":"puntoEnCircunferencia","punto":"T","centro":"C","radio":"r"}
+```
+
+**igualLongitud**: Comprueba que los segmentos PQ y RS miden lo mismo.
+Campos: segmentos [[P, Q], [R, S]].
+```json
+{"tipo":"igualLongitud","segmentos":[["A","O"],["O","B"]]}
+```
+
+**proporcion**: Comprueba la proporción PQ/RS = TU/VW (los cuatro segmentos con longitud mayor que cero en los denominadores).
+Campos: a [P, Q], b [R, S], c [T, U], d [V, W].
+```json
+{"tipo":"proporcion","a":["O","A"],"b":["O","B"],"c":["O","C"],"d":["O","X"]}
+```
+
+**colineales**: Comprueba que los tres puntos están alineados. P y Q no pueden coincidir.
+Campos: puntos [P, Q, R].
+```json
+{"tipo":"colineales","puntos":["M","N","P"]}
+```
+
+**paralelas**: Comprueba que las rectas PQ y RS son paralelas.
+Campos: rectas [[P, Q], [R, S]].
+```json
+{"tipo":"paralelas","rectas":[["A","B"],["P","Q"]]}
+```
+
+**angulo**: Comprueba que el ángulo con vértice en «vertice» y lados hacia «a» y «b» mide esos grados.
+Campos: vertice, a, b, grados (de 0 a 180).
+```json
+{"tipo":"angulo","vertice":"B","a":"A","b":"C","grados":120}
+```
+
+**igualAngulo**: Comprueba que los dos ángulos miden lo mismo. Cada ángulo se escribe como [punto de un lado, vértice, punto del otro lado].
+Campos: angulos [[a1, vertice1, b1], [a2, vertice2, b2]].
+```json
+{"tipo":"igualAngulo","angulos":[["P","V","Z"],["Z","V","Q"]]}
+```
+
 ## Cómo escribir cada paso
 
 - La lección tiene de 6 a 10 pasos. El primero muestra los datos y el último comprueba el resultado.

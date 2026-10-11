@@ -4,6 +4,7 @@ import {
   distanciaPuntoRecta,
   escala,
   escalar,
+  cruz,
   interseccionCircunferencias,
   interseccionRectaCircunferencia,
   interseccionRectas,
@@ -424,9 +425,22 @@ export function interpretarLeccion(
 
 const formato = (valor: number): string => valor.toExponential(2);
 
+const nombreDe = (extremos: readonly string[]): string => extremos.join('');
+const longitudDe = (puntos: Puntos, extremos: readonly [string, string]): number =>
+  distancia(obtener(puntos, extremos[0]), obtener(puntos, extremos[1]));
+
+function anguloEn(puntos: Puntos, a: string, vertice: string, b: string): number | null {
+  const v = obtener(puntos, vertice);
+  const ua = direccion(v, obtener(puntos, a));
+  const ub = direccion(v, obtener(puntos, b));
+  if (!ua || !ub) return null;
+  return (Math.atan2(Math.abs(cruz(ua, ub)), escalar(ua, ub)) * 180) / Math.PI;
+}
+
 export function ejecutarComprobaciones(
   leccion: Leccion,
   puntos: Puntos,
+  radios: Radios = {},
 ): ResultadoComprobacion[] {
   return leccion.comprobaciones.map((comprobacion): ResultadoComprobacion => {
     switch (comprobacion.tipo) {
@@ -472,6 +486,103 @@ export function ejecutarComprobaciones(
           descripcion,
           ok: separacion < TOLERANCIA,
           detalle: `distancia al punto medio ${formato(separacion)}`,
+        };
+      }
+      case 'tangente': {
+        const [nombreP, nombreQ] = comprobacion.recta;
+        const descripcion = `${nombreP}${nombreQ} es tangente en ${comprobacion.punto} a la circunferencia de centro ${comprobacion.centro}`;
+        const p = obtener(puntos, nombreP);
+        const q = obtener(puntos, nombreQ);
+        const t = obtener(puntos, comprobacion.punto);
+        const dirRecta = direccion(p, q);
+        const dirRadio = direccion(obtener(puntos, comprobacion.centro), t);
+        if (!dirRecta || !dirRadio) {
+          return { descripcion, ok: false, detalle: 'hay dos puntos coincidentes' };
+        }
+        const sobreLaRecta = distanciaPuntoRecta(t, { p, q });
+        const producto = Math.abs(escalar(dirRecta, dirRadio));
+        return {
+          descripcion,
+          ok: sobreLaRecta < TOLERANCIA && producto < TOLERANCIA,
+          detalle: `distancia a la recta ${formato(sobreLaRecta)}, producto escalar con el radio ${formato(producto)}`,
+        };
+      }
+      case 'puntoEnCircunferencia': {
+        const radio = obtenerRadio(radios, comprobacion.radio);
+        const separacion = Math.abs(
+          distancia(obtener(puntos, comprobacion.punto), obtener(puntos, comprobacion.centro)) - radio,
+        );
+        return {
+          descripcion: `${comprobacion.punto} está en la circunferencia de centro ${comprobacion.centro} y radio ${comprobacion.radio}`,
+          ok: separacion < TOLERANCIA,
+          detalle: `diferencia con el radio ${formato(separacion)}`,
+        };
+      }
+      case 'igualLongitud': {
+        const [primero, segundo] = comprobacion.segmentos;
+        const diferencia = Math.abs(longitudDe(puntos, primero) - longitudDe(puntos, segundo));
+        return {
+          descripcion: `${nombreDe(primero)} = ${nombreDe(segundo)}`,
+          ok: diferencia < TOLERANCIA,
+          detalle: `diferencia de longitudes ${formato(diferencia)}`,
+        };
+      }
+      case 'proporcion': {
+        const descripcion = `${nombreDe(comprobacion.a)}/${nombreDe(comprobacion.b)} = ${nombreDe(comprobacion.c)}/${nombreDe(comprobacion.d)}`;
+        const la = longitudDe(puntos, comprobacion.a);
+        const lb = longitudDe(puntos, comprobacion.b);
+        const lc = longitudDe(puntos, comprobacion.c);
+        const ld = longitudDe(puntos, comprobacion.d);
+        if (lb < EPS || ld < EPS) {
+          return { descripcion, ok: false, detalle: 'un denominador tiene longitud cero' };
+        }
+        const diferencia = Math.abs(la * ld - lb * lc);
+        return {
+          descripcion,
+          ok: diferencia < TOLERANCIA * Math.max(1, lb * lc),
+          detalle: `diferencia de productos cruzados ${formato(diferencia)}`,
+        };
+      }
+      case 'colineales': {
+        const [nombreP, nombreQ, nombreR] = comprobacion.puntos;
+        const descripcion = `${nombreP}, ${nombreQ} y ${nombreR} están alineados`;
+        const p = obtener(puntos, nombreP);
+        const q = obtener(puntos, nombreQ);
+        if (!direccion(p, q)) {
+          return { descripcion, ok: false, detalle: `«${nombreP}» y «${nombreQ}» coinciden` };
+        }
+        const separacion = distanciaPuntoRecta(obtener(puntos, nombreR), { p, q });
+        return { descripcion, ok: separacion < TOLERANCIA, detalle: `distancia a la recta ${formato(separacion)}` };
+      }
+      case 'paralelas': {
+        const [primera, segunda] = comprobacion.rectas;
+        const descripcion = `${nombreDe(primera)} ∥ ${nombreDe(segunda)}`;
+        const d1 = direccion(obtener(puntos, primera[0]), obtener(puntos, primera[1]));
+        const d2 = direccion(obtener(puntos, segunda[0]), obtener(puntos, segunda[1]));
+        if (!d1 || !d2) return { descripcion, ok: false, detalle: 'hay dos puntos coincidentes' };
+        const producto = Math.abs(cruz(d1, d2));
+        return { descripcion, ok: producto < TOLERANCIA, detalle: `producto vectorial ${formato(producto)}` };
+      }
+      case 'angulo': {
+        const descripcion = `el ángulo ${comprobacion.a}${comprobacion.vertice}${comprobacion.b} mide ${comprobacion.grados}°`;
+        const actual = anguloEn(puntos, comprobacion.a, comprobacion.vertice, comprobacion.b);
+        if (actual === null) return { descripcion, ok: false, detalle: 'hay dos puntos coincidentes' };
+        const diferencia = Math.abs(actual - comprobacion.grados);
+        return { descripcion, ok: diferencia < TOLERANCIA, detalle: `mide ${actual.toFixed(6)}°` };
+      }
+      case 'igualAngulo': {
+        const [[a1, v1, b1], [a2, v2, b2]] = comprobacion.angulos;
+        const descripcion = `${a1}${v1}${b1} = ${a2}${v2}${b2}`;
+        const primero = anguloEn(puntos, a1, v1, b1);
+        const segundo = anguloEn(puntos, a2, v2, b2);
+        if (primero === null || segundo === null) {
+          return { descripcion, ok: false, detalle: 'hay dos puntos coincidentes' };
+        }
+        const diferencia = Math.abs(primero - segundo);
+        return {
+          descripcion,
+          ok: diferencia < TOLERANCIA,
+          detalle: `${primero.toFixed(6)}° y ${segundo.toFixed(6)}°`,
         };
       }
     }

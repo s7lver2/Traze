@@ -113,6 +113,23 @@ export const comprobacionSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('equidistante'), punto: id, a: id, b: id }),
   z.object({ tipo: z.literal('perpendicular'), recta: parDeIds, segmento: parDeIds }),
   z.object({ tipo: z.literal('pasaPorPuntoMedio'), recta: parDeIds, segmento: parDeIds }),
+  z.object({ tipo: z.literal('tangente'), recta: parDeIds, centro: id, punto: id }),
+  z.object({ tipo: z.literal('puntoEnCircunferencia'), punto: id, centro: id, radio: id }),
+  z.object({ tipo: z.literal('igualLongitud'), segmentos: z.tuple([parDeIds, parDeIds]) }),
+  z.object({ tipo: z.literal('proporcion'), a: parDeIds, b: parDeIds, c: parDeIds, d: parDeIds }),
+  z.object({ tipo: z.literal('colineales'), puntos: z.tuple([id, id, id]) }),
+  z.object({ tipo: z.literal('paralelas'), rectas: z.tuple([parDeIds, parDeIds]) }),
+  z.object({
+    tipo: z.literal('angulo'),
+    vertice: id,
+    a: id,
+    b: id,
+    grados: z.number().positive().max(180),
+  }),
+  z.object({
+    tipo: z.literal('igualAngulo'),
+    angulos: z.tuple([z.tuple([id, id, id]), z.tuple([id, id, id])]),
+  }),
 ]);
 
 export type Primitiva = z.infer<typeof primitivaSchema>;
@@ -180,6 +197,43 @@ function referenciasDeComprobacion(c: Comprobacion): Referencia[] {
         { ruta: ['segmento', 0], nombre: c.segmento[0] },
         { ruta: ['segmento', 1], nombre: c.segmento[1] },
       ];
+    case 'tangente':
+      return [
+        ...parEn(['recta'], c.recta),
+        { ruta: ['centro'], nombre: c.centro },
+        { ruta: ['punto'], nombre: c.punto },
+      ];
+    case 'puntoEnCircunferencia':
+      return [
+        { ruta: ['punto'], nombre: c.punto },
+        { ruta: ['centro'], nombre: c.centro },
+      ];
+    case 'igualLongitud':
+      return [
+        ...parEn(['segmentos', 0], c.segmentos[0]),
+        ...parEn(['segmentos', 1], c.segmentos[1]),
+      ];
+    case 'proporcion':
+      return [
+        ...parEn(['a'], c.a),
+        ...parEn(['b'], c.b),
+        ...parEn(['c'], c.c),
+        ...parEn(['d'], c.d),
+      ];
+    case 'colineales':
+      return c.puntos.map((nombre, i) => ({ ruta: ['puntos', i], nombre }));
+    case 'paralelas':
+      return [...parEn(['rectas', 0], c.rectas[0]), ...parEn(['rectas', 1], c.rectas[1])];
+    case 'angulo':
+      return [
+        { ruta: ['vertice'], nombre: c.vertice },
+        { ruta: ['a'], nombre: c.a },
+        { ruta: ['b'], nombre: c.b },
+      ];
+    case 'igualAngulo':
+      return c.angulos.flatMap((terna, i) =>
+        terna.map((nombre, j) => ({ ruta: ['angulos', i, j], nombre })),
+      );
   }
 }
 
@@ -371,6 +425,9 @@ export const leccionSchema = z
     leccion.comprobaciones.forEach((comprobacion, i) => {
       for (const ref of referenciasDeComprobacion(comprobacion)) {
         falta(['comprobaciones', i, ...ref.ruta], 'El punto', ref.nombre, definidos);
+      }
+      if (comprobacion.tipo === 'puntoEnCircunferencia') {
+        falta(['comprobaciones', i, 'radio'], 'El radio', comprobacion.radio, radios);
       }
     });
   });
