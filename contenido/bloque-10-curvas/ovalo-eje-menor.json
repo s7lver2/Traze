@@ -1,0 +1,376 @@
+{
+  "id": "ovalo-eje-menor",
+  "bloque": 10,
+  "titulo": "Óvalo dado el eje menor",
+  "enunciado": "Traza el óvalo de eje menor CD = 70 mm, con eje mayor AB = 1,5 · CD, por cuatro arcos tangentes entre sí.",
+  "ideaClave": "Con el eje menor CD se construyen dos arcos grandes de radio CD, centrados en sus extremos, y dos arcos pequeños en los lados; los puntos de unión están alineados con los centros.",
+  "requisitos": [
+    "ovalo-eje-mayor"
+  ],
+  "datos": {
+    "C": [
+      105,
+      105
+    ],
+    "D": [
+      105,
+      35
+    ]
+  },
+  "radios": {
+    "s": {
+      "mm": 20
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "O",
+      "entre": [
+        "C",
+        "D"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "R2",
+      "entre": [
+        "C",
+        "D"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "ha",
+      "entre": [
+        "C",
+        "D"
+      ],
+      "factor": 0.75
+    },
+    {
+      "tipo": "radio",
+      "id": "hm",
+      "entre": [
+        "C",
+        "D"
+      ],
+      "factor": 0.375
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "A",
+      "origen": "O",
+      "direccion": [
+        "C",
+        "D"
+      ],
+      "radio": "ha",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B",
+      "origen": "O",
+      "direccion": [
+        "C",
+        "D"
+      ],
+      "radio": "ha",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Ec1",
+      "origen": "O",
+      "direccion": [
+        "C",
+        "D"
+      ],
+      "radio": "hm",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Ec2",
+      "origen": "O",
+      "direccion": [
+        "C",
+        "D"
+      ],
+      "radio": "hm",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "T1",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "Ec1"
+      ],
+      "radio": "R2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "T2",
+      "origen": "D",
+      "direccion": [
+        "D",
+        "Ec1"
+      ],
+      "radio": "R2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "T1p",
+      "origen": "C",
+      "direccion": [
+        "C",
+        "Ec2"
+      ],
+      "radio": "R2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "T2p",
+      "origen": "D",
+      "direccion": [
+        "D",
+        "Ec2"
+      ],
+      "radio": "R2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "T1",
+      "direccion": [
+        "C",
+        "T1"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El eje menor CD",
+      "texto": "Traza el eje menor CD de 70 mm, vertical. Marca su punto medio O.",
+      "porque": "El eje menor es el diámetro más corto del óvalo, y O es su centro.",
+      "consejo": "Marca C y D con una cruz fina y O en la mitad exacta de CD.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "D"
+        },
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El eje mayor AB",
+      "texto": "Por O traza la horizontal AB de 105 mm, perpendicular a CD. AB es 1,5 veces CD.",
+      "porque": "El eje mayor de este óvalo mide 1,5 veces el eje menor: los extremos quedan a 52,5 mm de O.",
+      "consejo": "Usa la escuadra apoyada en CD y marca A y B a la misma distancia de O.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Centros de los arcos de los extremos",
+      "texto": "Sobre AB, a 26 mm de O hacia cada lado, marca los centros Ec1 y Ec2 de los arcos de los extremos.",
+      "porque": "Ec1 está a 26 mm de O porque el arco que pasa por A debe tener radio igual a su distancia a Ec1.",
+      "consejo": "Marca Ec1 y Ec2 con una cruz fina: cada uno es el centro de un arco pequeño.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Ec1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Ec2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos grandes con centros C y D",
+      "texto": "Con centro C y radio CD traza el arco que pasa por D. Con centro D y radio CD, el que pasa por C. Estos son los arcos grandes del óvalo.",
+      "porque": "Los arcos grandes tienen radio igual al eje menor: pasan por los extremos del eje menor.",
+      "consejo": "Traza los dos arcos grandes con la misma abertura, de 70 mm, sin cambiarla entre uno y otro.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "R2",
+          "hacia": "D",
+          "amplitud": 1.2,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "D",
+          "radio": "R2",
+          "hacia": "C",
+          "amplitud": 1.2,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de enlace T1 y T2",
+      "texto": "Une C con Ec1 y prolonga la recta hasta T1 sobre el arco grande. Une D con Ec1 y prolóngala hasta T2.",
+      "porque": "C, Ec1 y T1 están alineados: en T1 el arco grande y el pequeño son tangentes.",
+      "consejo": "Traza las dos rectas desde los centros pequeños y comprueba que pasan exactamente por T1 y T2.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "T1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "T2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "T1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos grandes del óvalo",
+      "texto": "Con centro C traza el arco de T1 a T1p por encima de CD. Con centro D traza el de T2 a T2p por debajo.",
+      "porque": "Estos arcos grandes pasan por los extremos del eje menor D y C, y se unen con los pequeños en T1, T1p, T2 y T2p.",
+      "consejo": "Traza cada arco grande de una sola pasada, sin cambiar la abertura de 70 mm.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "C",
+          "desde": "T1",
+          "hasta": "T1p",
+          "pasaPor": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "D",
+          "desde": "T2",
+          "hasta": "T2p",
+          "pasaPor": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Arcos pequeños de los extremos",
+      "texto": "Con centro Ec1 traza el arco de T1 a T2 que pasa por A. Con centro Ec2 traza el de T1p a T2p que pasa por B.",
+      "porque": "Los arcos pequeños pasan por A y B, los extremos del eje mayor, y se unen tangencialmente con los grandes.",
+      "consejo": "Pincha en Ec1 y Ec2 con la abertura de su radio: 26 mm desde O más lo que llega a A o a B.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "Ec1",
+          "desde": "T1",
+          "hasta": "T2",
+          "pasaPor": "A",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "Ec2",
+          "desde": "T1p",
+          "hasta": "T2p",
+          "pasaPor": "B",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tangencias",
+      "texto": "En T1 el radio del arco grande pasa por el centro del arco pequeño: los dos arcos son tangentes. Lo mismo ocurre en T2, T1p y T2p.",
+      "porque": "Dos arcos son tangentes en un punto cuando los centros y el punto están alineados.",
+      "consejo": "Si dudas, apoya la escuadra en la recta que une los centros: el arco debe tocarla justo en el punto de unión.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T1",
+          "hacia1": "C",
+          "hacia2": "Y1"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar un radio distinto de CD para los arcos grandes: el óvalo deja de cerrarse bien en los puntos de unión.",
+    "Trazar los arcos pequeños con centro en el lado equivocado de O: el óvalo sale asimétrico.",
+    "No prolongar la recta del centro pequeño hasta el arco grande: los puntos de unión no quedan alineados y los arcos no son tangentes."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "T1",
+        "Y1"
+      ],
+      "centro": "Ec1",
+      "punto": "T1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "T1",
+      "centro": "C",
+      "radio": "R2"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "A",
+      "centro": "Ec1",
+      "radio": "hm"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
