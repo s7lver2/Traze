@@ -1,0 +1,258 @@
+{
+  "id": "cuadrado-dado-lado",
+  "bloque": 5,
+  "titulo": "Cuadrado dado el lado",
+  "enunciado": "Construye el cuadrado ABCD conocido su lado AB = 60 mm.",
+  "ideaClave": "El cuadrado tiene los cuatro lados iguales y los cuatro ángulos rectos.",
+  "requisitos": [
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "A": [
+      60,
+      110
+    ],
+    "B": [
+      120,
+      110
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "L",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "L",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "C",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "L",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El lado AB",
+      "texto": "Traza el lado AB de 60 mm. Será un lado del cuadrado.",
+      "porque": "Un cuadrado tiene los cuatro lados iguales: basta con conocer uno.",
+      "consejo": "Traza AB con la regla bien apoyada y marca A y B con una cruz fina.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular en A",
+      "texto": "Levanta en A la perpendicular a AB y lleva sobre ella los 60 mm del lado. Llama D al extremo.",
+      "porque": "El ángulo en A es recto porque la perpendicular a AB forma 90° con él.",
+      "consejo": "Usa la escuadra apoyada en AB y marca la perpendicular con un trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "A",
+          "hacia1": "B",
+          "hacia2": "D"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular en B",
+      "texto": "Haz lo mismo en B: levanta la perpendicular a AB, del mismo lado que la de A, y lleva los 60 mm. Llama C al extremo.",
+      "porque": "Las dos perpendiculares son paralelas entre sí, y BC mide lo mismo que AD.",
+      "consejo": "Si la escuadra se desliza, vuelve a apoyarla en AB antes de trazar.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "B",
+          "hacia1": "A",
+          "hacia2": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "El lado CD",
+      "texto": "Une C con D. El segmento CD cierra el cuadrado por arriba.",
+      "porque": "CD es paralelo a AB y mide lo mismo, porque es el lado opuesto en un rectángulo de lados iguales.",
+      "consejo": "Une C con D con la regla en trazo grueso, sin pasarte de los vértices.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El contorno completo",
+      "texto": "Repasa en trazo grueso los lados AD y BC. Ya tienes el contorno de los cuatro lados: AB, BC, CD y DA.",
+      "porque": "Los cuatro lados forman un cuadrilátero cerrado con los cuatro ángulos rectos.",
+      "consejo": "Repasa el contorno en trazo grueso y borra las perpendiculares auxiliares solo si te estorban.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los cuatro ángulos",
+      "texto": "Los cuatro ángulos del cuadrado son rectos y los cuatro lados miden 60 mm.",
+      "porque": "Cuatro lados iguales y cuatro ángulos rectos definen el cuadrado.",
+      "consejo": "Mide dos lados opuestos y las diagonales: las diagonales también deben ser iguales.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "D",
+          "hacia1": "A",
+          "hacia2": "C"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "C",
+            "D"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Levantar las dos perpendiculares en sentidos opuestos: el cuadrado sale por los dos lados de AB.",
+    "Medir los lados a ojo en lugar de llevar la misma abertura con el compás.",
+    "No apoyar bien la escuadra en AB: la perpendicular sale inclinada y el ángulo no es recto."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "C",
+          "D"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "B",
+          "C"
+        ],
+        [
+          "A",
+          "D"
+        ]
+      ]
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "A",
+        "D"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "B",
+        "C"
+      ],
+      "segmento": [
+        "A",
+        "B"
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
