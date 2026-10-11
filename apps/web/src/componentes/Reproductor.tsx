@@ -7,6 +7,7 @@ import { ConstruccionImposible, interpretarLeccion } from '@traze/lecciones/inte
 import { crearEstado, reductor, VELOCIDADES } from '../reproductor/estado';
 import { decimal } from '../reproductor/formato';
 import { derivarBanda } from '../reproductor/instrumentos';
+import { registrarVista } from '../progreso-navegador';
 import { duracionPaso } from '../reproductor/tiempos';
 import { BandaInstrumentos } from './BandaInstrumentos';
 import { Lienzo } from './Lienzo';
@@ -44,6 +45,10 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
     () => derivarBanda(dibujos[estado.paso], vista.radios, leccion.radios, factores),
     [dibujos, estado.paso, vista.radios, leccion.radios, factores],
   );
+
+  useEffect(() => {
+    if (estado.paso === total - 1) registrarVista(leccion.id);
+  }, [estado.paso, total, leccion.id]);
 
   useEffect(() => {
     const consulta = window.matchMedia('(prefers-reduced-motion: reduce)');
