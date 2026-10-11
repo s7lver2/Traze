@@ -1,0 +1,347 @@
+{
+  "id": "simetria-axial",
+  "bloque": 4,
+  "titulo": "Simetría axial de un triángulo",
+  "enunciado": "Dibuja el simétrico del triángulo ABC respecto del eje e, que queda definido por los puntos E1 y E2.",
+  "ideaClave": "El eje es la mediatriz de cada segmento que une un punto con su simétrico: cada punto se refleja a la misma distancia del eje.",
+  "requisitos": [
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "E1": [
+      20,
+      70
+    ],
+    "E2": [
+      190,
+      70
+    ],
+    "A": [
+      50,
+      30
+    ],
+    "B": [
+      90,
+      50
+    ],
+    "C": [
+      140,
+      25
+    ]
+  },
+  "radios": {},
+  "derivados": [
+    {
+      "tipo": "pie",
+      "id": "PA",
+      "punto": "A",
+      "recta": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rA",
+      "entre": [
+        "PA",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "simetrico",
+      "id": "A'",
+      "punto": "A",
+      "eje": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "PB",
+      "punto": "B",
+      "recta": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rB",
+      "entre": [
+        "PB",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "simetrico",
+      "id": "B'",
+      "punto": "B",
+      "eje": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "PC",
+      "punto": "C",
+      "recta": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rC",
+      "entre": [
+        "PC",
+        "C"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "simetrico",
+      "id": "C'",
+      "punto": "C",
+      "eje": [
+        "E1",
+        "E2"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el triángulo ABC y el eje e, la recta que pasa por E1 y E2. Hay que dibujar el triángulo simétrico respecto de e.",
+      "porque": "La simetría axial conserva las distancias y los ángulos: el simétrico tiene la misma forma y tamaño, al otro lado del eje.",
+      "consejo": "Traza el eje con regla en trazo de eje, fino y discontinuo si puedes, para distinguirlo del dibujo.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "E1",
+            "E2"
+          ],
+          "extension": 8,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de A",
+      "texto": "Desde A baja la perpendicular al eje, cuyo pie es PA. Con la abertura PA–A, pincha en PA y marca A' al otro lado del eje, a la misma distancia.",
+      "porque": "El eje es la mediatriz del segmento AA': PA es su punto medio.",
+      "consejo": "Antes de marcar A', comprueba que la abertura del compás es PA–A.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "PA",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "PA",
+          "radio": "rA",
+          "hacia": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "PA"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "PA",
+            "A'"
+          ]
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de B",
+      "texto": "Repite el proceso con B: perpendicular al eje, pie PB y arco de centro PB hasta B'.",
+      "porque": "Cada punto se refleja con el mismo método, así que la forma se conserva.",
+      "consejo": "Cambia la abertura solo cuando hayas terminado con A.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "PB",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "PB",
+          "radio": "rB",
+          "hacia": "B'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Simétrico de C",
+      "texto": "Y lo mismo con C: perpendicular, pie PC y arco de centro PC hasta C'.",
+      "porque": "Con los tres vértices simétricos, basta con unirlos.",
+      "consejo": "Si el arco de C' cae fuera del lienzo, el eje está demasiado lejos: revisa los datos.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "PC",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "PC",
+          "radio": "rC",
+          "hacia": "C'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Une los simétricos",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo simétrico A'B'C'.",
+      "porque": "Los lados correspondientes son iguales: AB = A'B'.",
+      "consejo": "Dibuja A'B'C' en trazo grueso, el triángulo original queda en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la simetría",
+      "texto": "AA' es perpendicular al eje y su punto medio está sobre el eje.",
+      "porque": "Esa es la definición de simetría axial: el eje es la mediatriz de cada par de puntos simétricos.",
+      "consejo": "Si dudas, mide AB y A'B': deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A",
+          "estilo": "dato"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Medir la distancia del vértice al eje en diagonal en lugar de perpendicular: el simétrico sale desplazado.",
+    "Cambiar la abertura entre el punto y su pie: el simétrico no queda a la misma distancia del eje."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "perpendicular",
+      "recta": [
+        "A",
+        "A'"
+      ],
+      "segmento": [
+        "E1",
+        "E2"
+      ]
+    },
+    {
+      "tipo": "pasaPorPuntoMedio",
+      "recta": [
+        "E1",
+        "E2"
+      ],
+      "segmento": [
+        "A",
+        "A'"
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

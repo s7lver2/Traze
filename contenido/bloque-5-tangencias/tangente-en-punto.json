@@ -1,0 +1,174 @@
+{
+  "id": "tangente-en-punto",
+  "bloque": 5,
+  "titulo": "Tangente a una circunferencia en uno de sus puntos",
+  "enunciado": "Dada una circunferencia de centro C y un punto T sobre ella, traza la recta tangente a la circunferencia en T.",
+  "ideaClave": "La tangente en un punto es perpendicular al radio que llega a ese punto: toca la circunferencia en un solo punto.",
+  "requisitos": [
+    "perpendicular-por-punto"
+  ],
+  "datos": {
+    "C": [
+      80,
+      70
+    ],
+    "T": [
+      110,
+      70
+    ]
+  },
+  "radios": {
+    "rp": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rT",
+      "entre": [
+        "C",
+        "T"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q",
+      "origen": "T",
+      "direccion": [
+        "C",
+        "T"
+      ],
+      "radio": "rp",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la circunferencia de centro C, con el punto T sobre ella. Hay que trazar la tangente en T.",
+      "porque": "Una tangente toca la circunferencia en un único punto, y ese punto es T.",
+      "consejo": "Marca C y T con cruces finas; la circunferencia se traza en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rT",
+          "hacia": "T",
+          "amplitud": 3.14159,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "T"
+        }
+      ]
+    },
+    {
+      "titulo": "El radio CT",
+      "texto": "Une C con T. Este radio llega al punto de tangencia.",
+      "porque": "La tangente es perpendicular al radio en el punto de tangencia: ese es el dato clave.",
+      "consejo": "Traza CT en trazo fino: es la guía de la construcción.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "T",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Perpendicular al radio por T",
+      "texto": "Por T levanta la perpendicular a CT: marca un punto Q a 30 mm de T en esa dirección, con la escuadra apoyada en CT.",
+      "porque": "Una recta perpendicular al radio en su extremo es tangente a la circunferencia.",
+      "consejo": "Comprueba el ángulo recto con la escuadra antes de marcar Q.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "Q",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Traza la tangente",
+      "texto": "Apoya la regla en T y en Q y traza la recta que los une, prolongada a ambos lados.",
+      "porque": "Una recta perpendicular al radio en su extremo toca la circunferencia solo en ese punto: es la tangente.",
+      "consejo": "Repasa la tangente en trazo grueso y borra la guía de CT si la marcaste en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "T",
+            "Q"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Marca el ángulo recto",
+      "texto": "En T, el radio y la tangente forman un ángulo recto. Márcalo con el cuadradito.",
+      "porque": "Ese ángulo recto es la prueba de que la recta es tangente.",
+      "consejo": "Marca el cuadradito pequeño y claro: un ángulo recto bien marcado vale más que mucho texto.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T",
+          "hacia1": "C",
+          "hacia2": "Q"
+        },
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el contacto",
+      "texto": "La recta toca la circunferencia solo en T: cualquier otro punto de la recta está fuera del círculo.",
+      "porque": "La distancia de C a la recta tangente es igual al radio, y el punto de contacto es T.",
+      "consejo": "Si dudas, apoya la regla en la circunferencia y comprueba que solo la toca en T.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "T",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar la tangente por T sin perpendicularidad al radio: la recta corta la circunferencia en dos puntos.",
+    "Confundir la tangente con la secante: una tangente toca en un único punto."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "T",
+        "Q"
+      ],
+      "centro": "C",
+      "punto": "T"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "T",
+      "centro": "C",
+      "radio": "rT"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

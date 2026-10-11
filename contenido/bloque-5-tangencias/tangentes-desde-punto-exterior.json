@@ -1,0 +1,243 @@
+{
+  "id": "tangentes-desde-punto-exterior",
+  "bloque": 5,
+  "titulo": "Tangentes desde un punto exterior",
+  "enunciado": "Dada una circunferencia de centro C que pasa por D, traza las dos tangentes a ella desde un punto exterior P.",
+  "ideaClave": "El ángulo que forma cada radio con su tangente es recto: el arco capaz de diámetro PC da los puntos de tangencia.",
+  "requisitos": [
+    "tangente-en-punto",
+    "mediatriz-segmento"
+  ],
+  "datos": {
+    "C": [
+      110,
+      70
+    ],
+    "D": [
+      140,
+      70
+    ],
+    "P": [
+      40,
+      30
+    ]
+  },
+  "radios": {
+    "rCD": {
+      "entre": [
+        "C",
+        "D"
+      ],
+      "factor": 1
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "P",
+        "C"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "rMC",
+      "entre": [
+        "M",
+        "C"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "T1",
+        "T2"
+      ],
+      "centros": [
+        "C",
+        "M"
+      ],
+      "radios": [
+        "rCD",
+        "rMC"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos la circunferencia de centro C, que pasa por D, y un punto P exterior a ella. Hay que trazar las dos tangentes desde P.",
+      "porque": "Desde un punto exterior siempre salen dos tangentes a una circunferencia.",
+      "consejo": "Marca P con una cruz bien visible: es el punto desde el que se trazan las tangentes.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rCD",
+          "hacia": "D",
+          "amplitud": 3.14159,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "D"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Punto medio de PC",
+      "texto": "Halla el punto medio M de PC. Con centro en M y abertura MC, traza un arco que corte la circunferencia en dos puntos, T1 y T2.",
+      "porque": "El ángulo CT1P está inscrito en una semicircunferencia de diámetro PC, luego mide 90°.",
+      "consejo": "Usa una abertura de MC bien abierta para que los cortes con la circunferencia sean limpios.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "M",
+          "radio": "rMC",
+          "hacia": "T1",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de tangencia T1 y T2",
+      "texto": "Los dos cortes del arco con la circunferencia son los puntos de tangencia T1 y T2. Márcalos.",
+      "porque": "T1 y T2 son los únicos puntos de la circunferencia que cumplen el ángulo recto con PC.",
+      "consejo": "Marca T1 y T2 con cruces finas; luego traza las tangentes.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "T1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Tangente PT1",
+      "texto": "Une P con T1: la recta PT1 es tangente a la circunferencia.",
+      "porque": "CT1 es radio y PT1 es perpendicular a él, así que PT1 toca la circunferencia solo en T1.",
+      "consejo": "Traza PT1 en trazo grueso y prolóngala un poco más allá de T1.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "P",
+            "T1"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T1",
+          "hacia1": "C",
+          "hacia2": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Tangente PT2",
+      "texto": "Une P con T2: la segunda tangente. Marca también su ángulo recto en T2.",
+      "porque": "Igual que con T1, CT2 es radio y PT2 es perpendicular a él.",
+      "consejo": "Comprueba con la escuadra que el ángulo en T2 es recto.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "P",
+            "T2"
+          ],
+          "extension": 8,
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T2",
+          "hacia1": "C",
+          "hacia2": "P"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el ángulo",
+      "texto": "El ángulo CT1P mide 90°: el radio CT1 es perpendicular a la tangente en T1.",
+      "porque": "Por eso las dos rectas PT1 y PT2 son tangentes y no secantes.",
+      "consejo": "Si dudas, mide el ángulo en T1 con el transportador: debe salir 90°.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "T1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "P",
+          "hasta": "C",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Dar el arco con centro M y radio distinto de MC: los cortes no caen sobre la circunferencia.",
+    "Trazar las tangentes sin pasar por los puntos de tangencia T1 y T2: las rectas no tocan la circunferencia."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P",
+        "T1"
+      ],
+      "centro": "C",
+      "punto": "T1"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P",
+        "T2"
+      ],
+      "centro": "C",
+      "punto": "T2"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "T1",
+      "centro": "C",
+      "radio": "rCD"
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "T1",
+      "a": "C",
+      "b": "P",
+      "grados": 90
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

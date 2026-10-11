@@ -1,0 +1,300 @@
+{
+  "id": "homotecia",
+  "bloque": 4,
+  "titulo": "Homotecia de un triángulo",
+  "enunciado": "Aplica al triángulo ABC una homotecia de centro O y razón 2: obtén el triángulo A'B'C' con A', B' y C' en las rectas OA, OB y OC.",
+  "ideaClave": "La homotecia multiplica las distancias al centro por la razón: conserva los ángulos y da lados paralelos a los originales.",
+  "requisitos": [
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "O": [
+      40,
+      100
+    ],
+    "A": [
+      70,
+      95
+    ],
+    "B": [
+      60,
+      75
+    ],
+    "C": [
+      55,
+      115
+    ]
+  },
+  "radios": {},
+  "derivados": [
+    {
+      "tipo": "homotetico",
+      "id": "A'",
+      "punto": "A",
+      "centro": "O",
+      "razon": 2
+    },
+    {
+      "tipo": "homotetico",
+      "id": "B'",
+      "punto": "B",
+      "centro": "O",
+      "razon": 2
+    },
+    {
+      "tipo": "homotetico",
+      "id": "C'",
+      "punto": "C",
+      "centro": "O",
+      "razon": 2
+    },
+    {
+      "tipo": "radio",
+      "id": "rOA",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "rOB",
+      "entre": [
+        "O",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "rOC",
+      "entre": [
+        "O",
+        "C"
+      ],
+      "factor": 1
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el triángulo ABC y el centro O, fuera del triángulo. Hay que ampliarlo al doble desde O.",
+      "porque": "Una homotecia de razón 2 lleva cada punto a la recta que une O con él, al doble de distancia.",
+      "consejo": "Marca O con una cruz bien visible: es el centro de la homotecia.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        }
+      ]
+    },
+    {
+      "titulo": "Rectas OA, OB y OC",
+      "texto": "Traza las rectas que unen O con cada vértice. Sobre ellas estarán los vértices ampliados.",
+      "porque": "Cada vértice ampliado está sobre la recta que pasa por O y por el vértice original.",
+      "consejo": "Estas rectas son construcción: trázalas en trazo fino y con la regla bien apoyada en O.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "A'"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "B'"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "O",
+            "C'"
+          ],
+          "extension": 0,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértice A' con la abertura OA",
+      "texto": "Pincha en A con la abertura OA y traza un arco por fuera de A, sobre la recta OA. El punto A' es el que queda a distancia OA más allá de A.",
+      "porque": "OA' = 2·OA, así que AA' = OA: se lleva la misma abertura desde A, prolongando la recta.",
+      "consejo": "Antes de pinchar en A, comprueba que la abertura sigue siendo OA.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "A",
+          "radio": "rOA",
+          "hacia": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Vértices B' y C'",
+      "texto": "Repite con B (abertura OB, pinchando en B) y con C (abertura OC, pinchando en C).",
+      "porque": "Cada vértice ampliado se obtiene con la misma razón 2: BB' = OB, CC' = OC.",
+      "consejo": "Cambia la abertura una vez por vértice y comprueba cada una antes de pinchar.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "rOB",
+          "hacia": "B'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arco",
+          "centro": "C",
+          "radio": "rOC",
+          "hacia": "C'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Une A', B' y C'",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo ampliado.",
+      "porque": "Los lados del triángulo ampliado son paralelos a los del original y el doble de largos.",
+      "consejo": "Dibuja el triángulo ampliado en trazo grueso.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba la razón",
+      "texto": "OA'/OA = OB'/OB = 2: las distancias desde O se duplican, y A'B' es paralela a AB.",
+      "porque": "Las homotecias conservan el paralelismo: las rectas AB y A'B' tienen la misma dirección.",
+      "consejo": "Si dudas, mide OA y OA': la segunda debe medir el doble.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A'",
+          "estilo": "construccion"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Ampliar desde un vértice en lugar de desde O: el resultado es otro triángulo, no una homotecia de centro O.",
+    "Llevar la abertura desde A hacia el lado contrario de O: el punto A' queda en el lado opuesto."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "colineales",
+      "puntos": [
+        "O",
+        "A",
+        "A'"
+      ]
+    },
+    {
+      "tipo": "proporcion",
+      "a": [
+        "O",
+        "A'"
+      ],
+      "b": [
+        "O",
+        "A"
+      ],
+      "c": [
+        "O",
+        "B'"
+      ],
+      "d": [
+        "O",
+        "B"
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "id": "enlace-dos-rectas",
+  "bloque": 5,
+  "titulo": "Enlace de dos rectas con un arco",
+  "enunciado": "Enlaza dos rectas que se cortan en V con un arco de radio R, de modo que el arco toque a las dos rectas.",
+  "ideaClave": "El centro del enlace está a distancia R de las dos rectas: es el corte de sus paralelas, y los puntos de tangencia son los pies de las perpendiculares desde ese centro.",
+  "requisitos": [
+    "tangente-en-punto",
+    "paralela-por-punto"
+  ],
+  "datos": {
+    "V": [
+      60,
+      110
+    ],
+    "A": [
+      140,
+      110
+    ],
+    "B": [
+      70,
+      40
+    ]
+  },
+  "radios": {
+    "rR": {
+      "mm": 15
+    },
+    "rL": {
+      "mm": 60
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "A"
+      ],
+      "radio": "rR",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P2",
+      "origen": "P1",
+      "direccion": [
+        "V",
+        "A"
+      ],
+      "radio": "rL"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q1",
+      "origen": "V",
+      "direccion": [
+        "V",
+        "B"
+      ],
+      "radio": "rR",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q2",
+      "origen": "Q1",
+      "direccion": [
+        "V",
+        "B"
+      ],
+      "radio": "rL"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "O",
+      "rectas": [
+        [
+          "P1",
+          "P2"
+        ],
+        [
+          "Q1",
+          "Q2"
+        ]
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "T1",
+      "punto": "O",
+      "recta": [
+        "V",
+        "A"
+      ]
+    },
+    {
+      "tipo": "pie",
+      "id": "T2",
+      "punto": "O",
+      "recta": [
+        "V",
+        "B"
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos dos rectas que se cortan en V: una pasa por A y la otra por B. Hay que enlazarlas con un arco de radio R = 15 mm.",
+      "porque": "Un arco de enlace debe tocar a las dos rectas sin cortarlas: su centro queda dentro del ángulo, a 15 mm de cada recta.",
+      "consejo": "Marca V con una cruz fina y dibuja las rectas en trazo fino; decide qué lado del ángulo es el interior.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "V",
+            "A"
+          ],
+          "extension": 0,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "V",
+            "B"
+          ],
+          "extension": 0,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "V"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a VA a 15 mm",
+      "texto": "Por el interior del ángulo, traza la paralela a VA a 15 mm de ella.",
+      "porque": "El centro del enlace está a 15 mm de VA, así que debe estar en esa paralela.",
+      "consejo": "Mide los 15 mm con el compás, con la punta sobre VA, y lleva la paralela con la regla.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "P1",
+            "P2"
+          ],
+          "extension": 8,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a VB a 15 mm",
+      "texto": "Haz lo mismo con VB: la paralela a 15 mm, por el interior del ángulo.",
+      "porque": "El centro del enlace está también a 15 mm de VB, así que debe estar en esta segunda paralela.",
+      "consejo": "Usa la misma abertura de 15 mm para la segunda paralela.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "Q1",
+            "Q2"
+          ],
+          "extension": 8,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Centro O",
+      "texto": "Las dos paralelas se cortan en O: es el centro del enlace.",
+      "porque": "O está a 15 mm de cada una de las dos rectas: equidista de ellas.",
+      "consejo": "Marca O con una cruz bien visible.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "O",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de tangencia",
+      "texto": "Desde O baja las perpendiculares a VA y a VB. Sus pies, T1 y T2, son los puntos de tangencia.",
+      "porque": "La distancia de O a cada recta es el radio: el pie de la perpendicular es el punto de contacto.",
+      "consejo": "Traza las perpendiculares con la escuadra apoyada en cada recta.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "T1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "T2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "T1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "T2",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "El arco de enlace",
+      "texto": "Con centro en O, traza el arco entre T1 y T2, el que queda del lado de V.",
+      "porque": "El arco va de un punto de tangencia al otro: las dos rectas lo tocan sin cortarlo.",
+      "consejo": "Traza el arco en trazo grueso, sin pasarte de T1 ni de T2.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "O",
+          "desde": "T1",
+          "hasta": "T2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "T1",
+          "hacia1": "V",
+          "hacia2": "O"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar las paralelas por el exterior del ángulo: el centro queda fuera y el arco no enlaza.",
+    "Tomar el arco por el lado contrario a V: el enlace queda desplazado y no toca en los puntos de tangencia."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "V",
+        "A"
+      ],
+      "centro": "O",
+      "punto": "T1"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "V",
+        "B"
+      ],
+      "centro": "O",
+      "punto": "T2"
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "O",
+          "T1"
+        ],
+        [
+          "O",
+          "T2"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
