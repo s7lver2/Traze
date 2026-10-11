@@ -16,6 +16,13 @@ export interface Compas {
   mango: Posicion;
 }
 
+export interface PataDibujo {
+  /** Cuadrilátero que se afina: dos puntos junto a la bisagra y dos junto al extremo. */
+  cuerpo: [Posicion, Posicion, Posicion, Posicion];
+  /** Triángulo final: aguja de acero o portaminas con su mina. */
+  punta: [Posicion, Posicion, Posicion];
+}
+
 export interface Regla {
   esquinas: [Posicion, Posicion, Posicion, Posicion];
   marcas: Tramo[];
@@ -52,6 +59,45 @@ export function geometriaCompas(aguja: Posicion, mina: Posicion): Compas | null 
     y: bisagra.y + arriba.y * pata * LARGO_MANGO,
   };
   return { aguja, mina, bisagra, mango };
+}
+
+const ANCHO_PATA_BASE = 2.4;
+const ANCHO_AGUJA = 0.5;
+const LARGO_AGUJA = 6;
+const ANCHO_MINA = 1.7;
+const LARGO_MINA = 5;
+
+function pata(
+  desde: Posicion,
+  hasta: Posicion,
+  anchoFin: number,
+  largoPunta: number,
+): PataDibujo {
+  const largo = Math.hypot(hasta.x - desde.x, hasta.y - desde.y);
+  const u = { x: (hasta.x - desde.x) / largo, y: (hasta.y - desde.y) / largo };
+  const n = { x: -u.y, y: u.x };
+  const fin = { x: hasta.x - u.x * largoPunta, y: hasta.y - u.y * largoPunta };
+  const lado = (centro: Posicion, ancho: number, signo: 1 | -1): Posicion => ({
+    x: centro.x + n.x * (ancho / 2) * signo,
+    y: centro.y + n.y * (ancho / 2) * signo,
+  });
+  return {
+    cuerpo: [
+      lado(desde, ANCHO_PATA_BASE, 1),
+      lado(desde, ANCHO_PATA_BASE, -1),
+      lado(fin, anchoFin, -1),
+      lado(fin, anchoFin, 1),
+    ],
+    punta: [lado(fin, anchoFin, 1), lado(fin, anchoFin, -1), hasta],
+  };
+}
+
+/** Las dos patas con grosor: la de la aguja acaba en punta de acero y la de la mina en un portaminas. */
+export function patasCompas(compas: Compas): { aguja: PataDibujo; mina: PataDibujo } {
+  return {
+    aguja: pata(compas.bisagra, compas.aguja, ANCHO_AGUJA, LARGO_AGUJA),
+    mina: pata(compas.bisagra, compas.mina, ANCHO_MINA, LARGO_MINA),
+  };
 }
 
 export function geometriaRegla(tramo: Tramo): Regla | null {

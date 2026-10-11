@@ -6,9 +6,9 @@
   grid-template-columns: var(--ancho-columna) minmax(0, 1fr) var(--ancho-columna);
   grid-template-rows: auto minmax(0, 1fr) auto;
   grid-template-areas:
-    'titulo titulo titulo'
+    '. titulo cajetin'
     'izquierda dibujo derecha'
-    'cajetin barra vacio';
+    '. barra .';
   gap: var(--e4) var(--e5);
   align-items: start;
   min-height: max(36rem, calc(100dvh - 5rem));
@@ -127,7 +127,7 @@
 
 .escenario > .cajetin {
   grid-area: cajetin;
-  align-self: end;
+  align-self: start;
   width: 100%;
   background: var(--papel-claro);
 }
@@ -240,7 +240,7 @@
   }
 
   .escenario > .cajetin {
-    order: 3;
+    order: 0;
     max-width: 22rem;
   }
 

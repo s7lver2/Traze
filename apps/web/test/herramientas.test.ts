@@ -4,6 +4,7 @@ import {
   geometriaCompas,
   geometriaRegla,
   herramientaActiva,
+  patasCompas,
 } from '../src/reproductor/herramientas';
 import type { PrimitivaAnimada } from '../src/reproductor/tiempos';
 
@@ -58,6 +59,37 @@ describe('geometriaCompas', () => {
 
   it('no dibuja nada con abertura nula', () => {
     expect(geometriaCompas({ x: 3, y: 3 }, { x: 3, y: 3 })).toBeNull();
+  });
+});
+
+describe('patasCompas', () => {
+  const compas = geometriaCompas({ x: 0, y: 0 }, { x: 10, y: 0 })!;
+
+  it('cada pata es un cuerpo que se afina y una punta que termina en el extremo', () => {
+    const { aguja, mina } = patasCompas(compas);
+    expect(aguja.cuerpo).toHaveLength(4);
+    expect(aguja.punta).toHaveLength(3);
+    expect(aguja.punta[2].x).toBeCloseTo(compas.aguja.x, 9);
+    expect(aguja.punta[2].y).toBeCloseTo(compas.aguja.y, 9);
+    expect(mina.punta[2].x).toBeCloseTo(compas.mina.x, 9);
+    expect(mina.punta[2].y).toBeCloseTo(compas.mina.y, 9);
+  });
+
+  it('el cuerpo es más ancho junto a la bisagra que junto a la punta', () => {
+    const { aguja } = patasCompas(compas);
+    const [a1, a2, b2, b1] = aguja.cuerpo;
+    const anchoBase = Math.hypot(a1.x - a2.x, a1.y - a2.y);
+    const anchoFinal = Math.hypot(b1.x - b2.x, b1.y - b2.y);
+    expect(anchoBase).toBeGreaterThan(anchoFinal);
+  });
+
+  it('el cuerpo termina donde empieza la punta', () => {
+    const { mina } = patasCompas(compas);
+    const [, , b2, b1] = mina.cuerpo;
+    expect(mina.punta[0].x).toBeCloseTo(b1.x, 9);
+    expect(mina.punta[0].y).toBeCloseTo(b1.y, 9);
+    expect(mina.punta[1].x).toBeCloseTo(b2.x, 9);
+    expect(mina.punta[1].y).toBeCloseTo(b2.y, 9);
   });
 });
 

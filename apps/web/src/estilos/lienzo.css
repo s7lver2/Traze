@@ -77,37 +77,87 @@
   pointer-events: none;
 }
 
-.herramienta-pata {
-  fill: none;
-  stroke: var(--tinta-suave);
-  stroke-width: 3px;
-  stroke-linecap: round;
+/* Compás: patas con grosor, aguja de acero, portaminas con mina, bisagra con tornillo y mango */
+
+.compas-cuerpo {
+  fill: var(--papel-claro);
+  stroke: var(--tinta);
+  stroke-width: 1px;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
 
-.herramienta-mango {
+.compas-aguja {
+  fill: var(--tinta-suave);
+  stroke: var(--tinta);
+  stroke-width: 0.8px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-portaminas {
+  fill: var(--grafito-resultado);
+  stroke: var(--tinta);
+  stroke-width: 0.8px;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-mango {
   fill: none;
   stroke: var(--tinta);
-  stroke-width: 4px;
+  stroke-width: 5px;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
 }
 
-.herramienta-bisagra {
+.compas-pomo {
+  fill: var(--tinta-suave);
+  stroke: var(--tinta);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-detalle {
+  fill: none;
+  stroke: var(--papel-claro);
+  stroke-width: 0.8px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-banda {
+  fill: none;
+  stroke: var(--tinta);
+  stroke-width: 1px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-bisagra {
   fill: var(--papel-claro);
   stroke: var(--tinta);
   stroke-width: 1.5px;
   vector-effect: non-scaling-stroke;
 }
 
-.herramienta-aguja {
+.compas-tornillo {
+  fill: var(--tinta-suave);
+  stroke: var(--tinta);
+  stroke-width: 0.8px;
+  vector-effect: non-scaling-stroke;
+}
+
+.compas-apoyo {
   fill: var(--tinta);
 }
 
-.herramienta-mina {
+.compas-mina {
   fill: var(--azul-correccion);
+  opacity: 0.35;
 }
+
+/* Regla */
 
 .herramienta-cuerpo {
   fill: var(--escuadra);
