@@ -1,0 +1,414 @@
+{
+  "id": "espiral-dos-centros",
+  "bloque": 10,
+  "titulo": "Espiral de dos centros",
+  "enunciado": "Dado el segmento AB = 8 mm, traza una espiral de dos centros de tres vueltas: semicircunferencias alternas con centros A y B y radios que crecen en AB.",
+  "ideaClave": "En una espiral de dos centros, cada semicircunferencia termina en un punto de la recta de centros y la siguiente, con el otro centro, empieza allí con la misma tangente.",
+  "requisitos": [
+    "compas-basico",
+    "tangente-en-punto"
+  ],
+  "datos": {
+    "A": [
+      60,
+      70
+    ],
+    "B": [
+      68,
+      70
+    ]
+  },
+  "radios": {
+    "s": {
+      "mm": 6
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "r1",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "r2",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 2
+    },
+    {
+      "tipo": "radio",
+      "id": "r3",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 3
+    },
+    {
+      "tipo": "radio",
+      "id": "r4",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 4
+    },
+    {
+      "tipo": "radio",
+      "id": "r5",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 5
+    },
+    {
+      "tipo": "radio",
+      "id": "r6",
+      "entre": [
+        "A",
+        "B"
+      ],
+      "factor": 6
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r1",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P2",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "r2",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P3",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r3",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P4",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "r4",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P5",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r5",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P6",
+      "origen": "B",
+      "direccion": [
+        "B",
+        "A"
+      ],
+      "radio": "r6",
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M1",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r1",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M2",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r2",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M3",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r3",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M4",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r4",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M5",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r5",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "M6",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "r6",
+      "perpendicular": true,
+      "sentido": -1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Y1",
+      "origen": "P1",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "s",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El segmento AB",
+      "texto": "Traza el segmento AB de 8 mm. Será la distancia en la que crece la espiral en cada media vuelta.",
+      "porque": "Cada media vuelta, el radio aumenta en AB: los radios son AB, 2·AB, 3·AB...",
+      "consejo": "Marca A y B con una cruz fina: la espiral se trazará desde B.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Primer arco con centro A",
+      "texto": "Pincha en A con la abertura AB y traza la semicircunferencia por encima de AB, de B a P1, en el lado izquierdo de A.",
+      "porque": "B está a 8 mm de A, y P1 está en el lado contrario a B, también a 8 mm de A.",
+      "consejo": "Traza la semicircunferencia de una sola pasada, sin cambiar la abertura.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "A",
+          "desde": "B",
+          "hasta": "P1",
+          "pasaPor": "M1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P1",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Segundo arco con centro B",
+      "texto": "Pincha en B con la abertura de 16 mm (2·AB) y traza la semicircunferencia por debajo de AB, de P1 a P2.",
+      "porque": "El radio de este arco es 2·AB, y P2 queda a 16 mm de B, del lado contrario a P1.",
+      "consejo": "Cambia la abertura a 16 mm antes de pinchar en B: el arco crece cada media vuelta.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "B",
+          "desde": "P1",
+          "hasta": "P2",
+          "pasaPor": "M2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P2",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Tercer y cuarto arco",
+      "texto": "Con centro A y radio 24 mm, traza el arco por encima de AB de P2 a P3. Con centro B y radio 32 mm, el arco por debajo de P3 a P4.",
+      "porque": "Cada arco empieza donde termina el anterior, sobre la recta de centros: así ambos son tangentes allí.",
+      "consejo": "Cambia la abertura entre arco y arco y comprueba que cada punto cae en la recta AB.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "A",
+          "desde": "P2",
+          "hasta": "P3",
+          "pasaPor": "M3",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "B",
+          "desde": "P3",
+          "hasta": "P4",
+          "pasaPor": "M4",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P3",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P4",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Quinto y sexto arco",
+      "texto": "Con centro A y radio 40 mm, traza el arco por encima de P4 a P5. Con centro B y radio 48 mm, el de P5 a P6 por debajo.",
+      "porque": "Tres vueltas completas son seis semicircunferencias: el último radio es 6·AB, 48 mm.",
+      "consejo": "Los radios crecen de 8 en 8 mm: revisa cada abertura antes de pinchar.",
+      "dibujo": [
+        {
+          "tipo": "arcoEntre",
+          "centro": "A",
+          "desde": "P4",
+          "hasta": "P5",
+          "pasaPor": "M5",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "arcoEntre",
+          "centro": "B",
+          "desde": "P5",
+          "hasta": "P6",
+          "pasaPor": "M6",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P5",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P6",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tangencias",
+      "texto": "En P1, P2 y P3 el radio es perpendicular a AB para los dos arcos que se encuentran: los arcos son tangentes en esos puntos.",
+      "porque": "Los dos centros y el punto de unión están sobre la recta AB, así que los radios coinciden en esa dirección.",
+      "consejo": "Si dudas, apoya la escuadra en AB en P1: el arco debe llegar perpendicular a la recta.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "P1",
+          "hacia1": "A",
+          "hacia2": "M1"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Cambiar la abertura en mitad de un arco: el arco no es circular y deja de enlazar con el siguiente.",
+    "Trazar dos semicircunferencias seguidas por el mismo lado de AB: el enlace no es tangente y la espiral se cruza.",
+    "Olvidar que el radio crece en AB cada media vuelta: los arcos quedan del mismo tamaño y no hay espiral."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P1",
+        "Y1"
+      ],
+      "centro": "A",
+      "punto": "P1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P1",
+      "centro": "A",
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P2",
+      "centro": "B",
+      "radio": "r2"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "P6",
+      "centro": "B",
+      "radio": "r6"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
