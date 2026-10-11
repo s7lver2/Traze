@@ -76,6 +76,23 @@ describe('generarProblema con las lecciones reales', () => {
   });
 });
 
+describe('lecciones que hablan de horizontal o vertical', () => {
+  it('no se giran ni se deforman: sus problemas conservan la orientación', () => {
+    const fijas = lecciones.filter((leccion) =>
+      /horizontal|vertical/i.test([leccion.enunciado, ...leccion.pasos.flatMap((paso) => [paso.titulo, paso.texto])].join(' ')),
+    );
+    for (const leccion of fijas) {
+      const problema = generarProblema(leccion, 9);
+      expect(problema, leccion.id).not.toBeNull();
+      expect(problema!.variante, leccion.id).toBe('semejanza');
+      const ids = Object.keys(leccion.datos);
+      const angulo = (datos: Record<string, [number, number]>) =>
+        Math.atan2(datos[ids[1]][1] - datos[ids[0]][1], datos[ids[1]][0] - datos[ids[0]][0]);
+      expect(angulo(problema!.leccion.datos), leccion.id).toBeCloseTo(angulo(leccion.datos), 6);
+    }
+  });
+});
+
 describe('enunciadoDelProblema', () => {
   it('añade las medidas fijas en mm y no toca un enunciado sin ellas', () => {
     const conMm = lecciones.find((leccion) => Object.values(leccion.radios).some((radio) => 'mm' in radio));

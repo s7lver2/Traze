@@ -1,0 +1,80 @@
+/* Retos: niveles, mensajes y generador de problemas */
+
+.niveles {
+  display: grid;
+  gap: var(--e2);
+  margin: var(--e2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.boton-nivel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 44px;
+  padding: var(--e2) var(--e4);
+  border-radius: var(--radio-medio);
+  text-align: left;
+}
+
+.nivel-titulo {
+  font-family: var(--serif);
+  font-weight: 600;
+}
+
+.nivel-texto {
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* El instrumento elegido */
+.boton[aria-pressed='true'] {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+/* El color no es lo único que distingue el mensaje: lleva borde y texto propio */
+.mensaje {
+  margin: var(--e3) 0 0;
+  padding: var(--e2) var(--e3);
+  border-left: 4px solid var(--tinta-suave);
+  border-radius: 0 var(--radio-chico) var(--radio-chico) 0;
+  background: var(--papel-claro);
+}
+
+.mensaje-ok {
+  border-left-color: var(--exito-texto);
+}
+
+.mensaje-error {
+  border-left-color: var(--rojo-profe);
+}
+
+.mensaje-info {
+  border-left-color: var(--azul-correccion);
+}
+
+.postit-ajustes summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.generador {
+  --giro: 0deg;
+  margin: 0 0 var(--e6);
+}
+
+.generador h2 {
+  margin-top: 0;
+}
+
+@media (max-width: 1100px) {
+  .escenario-reto .barra {
+    position: static;
+    border-radius: var(--radio-medio);
+  }
+}

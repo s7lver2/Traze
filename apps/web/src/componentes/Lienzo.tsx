@@ -1,6 +1,7 @@
+import { useRef, type PointerEvent } from 'react';
 import type { PrimitivaResuelta } from '@traze/lecciones';
 import { ROTULO } from '@traze/lecciones/rotulos';
-import { herramientaActiva } from '../reproductor/herramientas';
+import { herramientaActiva, type HerramientaActiva } from '../reproductor/herramientas';
 import { primitivasVisibles, type PrimitivaAnimada } from '../reproductor/tiempos';
 import {
   descripcionAnguloRecto,
@@ -13,6 +14,17 @@ import {
 } from '../reproductor/trazado';
 import { Herramienta } from './Herramienta';
 
+/** Lo que hace falta para trabajar sobre el dibujo: pinchar puntos y ver qué se señala. */
+export interface Interaccion {
+  alPulsar: (posicion: { x: number; y: number }) => void;
+  /** Puntos que se señalan al alumno (pista). */
+  resaltados: readonly { x: number; y: number }[];
+  /** Puntos ya pinchados en la acción en curso. */
+  elegidos: readonly { x: number; y: number }[];
+  /** El instrumento que el alumno tiene en la mano (sustituye al que se deduce del dibujo). */
+  herramienta: HerramientaActiva | null;
+}
+
 interface Propiedades {
   ancho: number;
   alto: number;
@@ -21,6 +33,7 @@ interface Propiedades {
   progreso: number;
   ocultarConstruccion: boolean;
   descripcion: string;
+  interaccion?: Interaccion;
 }
 
 function Trazo({ animada }: { animada: PrimitivaAnimada }) {
@@ -83,16 +96,31 @@ export function Lienzo({
   progreso,
   ocultarConstruccion,
   descripcion,
+  interaccion,
 }: Propiedades) {
   const visibles = primitivasVisibles(dibujos, paso, progreso).filter(
     ({ primitiva }) => !(ocultarConstruccion && esConstruccion(primitiva)),
   );
 
-  const activa = herramientaActiva(visibles);
+  const activa = interaccion ? interaccion.herramienta : herramientaActiva(visibles);
+  const referencia = useRef<SVGSVGElement>(null);
+
+  function pulsar(evento: PointerEvent<SVGSVGElement>) {
+    const svg = referencia.current;
+    const matriz = svg?.getScreenCTM();
+    if (!interaccion || !svg || !matriz) return;
+    const punto = svg.createSVGPoint();
+    punto.x = evento.clientX;
+    punto.y = evento.clientY;
+    const enLienzo = punto.matrixTransform(matriz.inverse());
+    interaccion.alPulsar({ x: enLienzo.x, y: enLienzo.y });
+  }
 
   return (
     <svg
-      className="lienzo"
+      ref={referencia}
+      className={interaccion ? 'lienzo lienzo-interactivo' : 'lienzo'}
+      onPointerDown={interaccion ? pulsar : undefined}
       viewBox={`0 0 ${ancho} ${alto}`}
       preserveAspectRatio="xMidYMid meet"
       role="img"
@@ -124,6 +152,13 @@ export function Lienzo({
       </g>
 
       {activa && <Herramienta activa={activa} />}
+
+      {interaccion?.elegidos.map((punto, i) => (
+        <circle key={`e${i}`} className="elegido" cx={punto.x} cy={punto.y} r={2.2} />
+      ))}
+      {interaccion?.resaltados.map((punto, i) => (
+        <circle key={`r${i}`} className="resalte" cx={punto.x} cy={punto.y} r={3.6} />
+      ))}
 
       <g className="rotulos">
         {visibles.map(({ clave, primitiva }) =>

@@ -102,13 +102,17 @@ export function generarProblema(
   const diametro = Math.max(cajaBase.x2 - cajaBase.x1, cajaBase.y2 - cajaBase.y1, 1);
   const derivados = Object.keys(referencia.puntos).filter((id) => !idsDatos.includes(id));
   const { ancho, alto } = base.lienzo;
+  // Si el texto habla de «horizontal» o «vertical», girar o deformar la figura lo haría mentira.
+  const posicionFija = /horizontal|vertical/i.test(
+    [base.enunciado, ...base.pasos.flatMap((paso) => [paso.titulo, paso.texto])].join(' '),
+  );
   // Si la lección ya tiene puntos muy juntos, el problema no puede exigir más separación que ella.
   const separacion = Math.min(SEPARACION_MINIMA_MM, 0.6 * separacionMinima(Object.values(referencia.puntos)));
 
   for (let intento = 0; intento < intentos; intento++) {
-    const conVariacion = intento < INTENTOS_CON_VARIACION && azar() < 0.8;
+    const conVariacion = !posicionFija && intento < INTENTOS_CON_VARIACION && azar() < 0.8;
     const escala = ESCALA_MIN + azar() * (ESCALA_MAX - ESCALA_MIN);
-    const giro = azar() < 0.5 ? (azar() - 0.5) * 2 * GIRO_SUAVE : azar() * 2 * Math.PI;
+    const giro = posicionFija ? 0 : azar() < 0.5 ? (azar() - 0.5) * 2 * GIRO_SUAVE : azar() * 2 * Math.PI;
     const destino = punto(ancho * (0.3 + azar() * 0.4), alto * (0.3 + azar() * 0.4));
     const semejanza: Semejanza = { escala, giro, centro, destino };
 

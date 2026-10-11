@@ -173,3 +173,34 @@
   stroke-width: 0.8px;
   vector-effect: non-scaling-stroke;
 }
+
+/* Reto: se pincha sobre el dibujo */
+
+.lienzo-interactivo {
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.resalte {
+  fill: none;
+  stroke: var(--azul-correccion);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+  animation: resalte 1.4s var(--curva) infinite;
+}
+
+.elegido {
+  fill: var(--azul-correccion);
+  pointer-events: none;
+}
+
+@keyframes resalte {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
