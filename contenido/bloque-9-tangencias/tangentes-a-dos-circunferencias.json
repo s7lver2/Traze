@@ -1,0 +1,349 @@
+{
+  "id": "tangentes-a-dos-circunferencias",
+  "bloque": 9,
+  "titulo": "Tangentes exteriores a dos circunferencias",
+  "enunciado": "Traza las dos tangentes exteriores comunes a las circunferencias de centros O1 y O2, con radios r1 = 40 mm y r2 = 15 mm.",
+  "ideaClave": "Las tangentes exteriores comunes son paralelas a la recta que une los puntos de tangencia de una circunferencia auxiliar de radio r1 − r2.",
+  "requisitos": [
+    "tangentes-desde-punto-exterior"
+  ],
+  "datos": {
+    "O1": [
+      60,
+      80
+    ],
+    "O2": [
+      130,
+      100
+    ]
+  },
+  "radios": {
+    "r1": {
+      "mm": 40
+    },
+    "r2": {
+      "mm": 15
+    },
+    "rho": {
+      "mm": 25
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoMedio",
+      "id": "M",
+      "entre": [
+        "O1",
+        "O2"
+      ]
+    },
+    {
+      "tipo": "radio",
+      "id": "dm",
+      "entre": [
+        "O1",
+        "M"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "Ta",
+        "Tb"
+      ],
+      "centros": [
+        "M",
+        "O1"
+      ],
+      "radios": [
+        "dm",
+        "rho"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P1",
+      "origen": "O1",
+      "direccion": [
+        "O1",
+        "Ta"
+      ],
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "P2",
+      "origen": "O2",
+      "direccion": [
+        "O1",
+        "Ta"
+      ],
+      "radio": "r2"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q1",
+      "origen": "O1",
+      "direccion": [
+        "O1",
+        "Tb"
+      ],
+      "radio": "r1"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q2",
+      "origen": "O2",
+      "direccion": [
+        "O1",
+        "Tb"
+      ],
+      "radio": "r2"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Las dos circunferencias",
+      "texto": "Tenemos dos circunferencias: la grande de centro O1 y radio 40 mm, y la pequeña de centro O2 y radio 15 mm. Une O1 con O2.",
+      "porque": "Las tangentes exteriores tocan a las dos circunferencias dejándolas en el mismo lado de la recta.",
+      "consejo": "Traza O1O2 en trazo fino: servirá de guía para todo el trazado.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O1",
+          "radio": "r1",
+          "hacia": "P1",
+          "amplitud": 2.9,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O2",
+          "radio": "r2",
+          "hacia": "P2",
+          "amplitud": 2.9,
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "O2",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "O1"
+        },
+        {
+          "tipo": "punto",
+          "id": "O2"
+        }
+      ]
+    },
+    {
+      "titulo": "Circunferencia auxiliar",
+      "texto": "Con centro O1 y radio r1 − r2 = 25 mm, traza una circunferencia auxiliar. Halla el punto medio M de O1O2.",
+      "porque": "Restar r2 a las dos circunferencias convierte el problema en trazar tangentes desde O2 a la auxiliar.",
+      "consejo": "Pincha en O1 con la abertura de 25 mm y no la cambies hasta el paso 3.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O1",
+          "radio": "rho",
+          "hacia": "Ta",
+          "amplitud": 2.9
+        },
+        {
+          "tipo": "punto",
+          "id": "M",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Puntos de tangencia desde O2",
+      "texto": "Con centro M y radio MO1, traza una circunferencia que corte a la auxiliar en Ta y Tb. Une O2 con Ta y con Tb.",
+      "porque": "El ángulo O1TaO2 es recto, porque está inscrito en la circunferencia de diámetro O1O2: O2Ta es tangente a la auxiliar.",
+      "consejo": "Traza el arco de MO1 con cuidado; si el corte cae mal, la tangente sale torcida.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "M",
+          "radio": "dm",
+          "hacia": "Ta"
+        },
+        {
+          "tipo": "punto",
+          "id": "Ta",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Tb",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "Ta",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "Tb",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "Ta",
+          "hacia1": "O1",
+          "hacia2": "O2"
+        }
+      ]
+    },
+    {
+      "titulo": "Primera tangente exterior",
+      "texto": "Prolonga O1Ta hasta la circunferencia grande en P1, y traza por O2 la paralela O1Ta hasta la pequeña, en P2. Une P1 con P2.",
+      "porque": "Los radios O1P1 y O2P2 son paralelos a O1Ta, así que P1P2 es perpendicular a ambos y toca a las dos circunferencias.",
+      "consejo": "Traza O2P2 con la escuadra apoyada en O1Ta; los dos radios deben quedar paralelos.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "P1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "P2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "P1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "P2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "P1",
+            "P2"
+          ],
+          "extension": 6,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Segunda tangente exterior",
+      "texto": "Repite con Tb: prolonga O1Tb hasta Q1 en la grande y traza la paralela por O2 hasta Q2 en la pequeña. Une Q1 con Q2.",
+      "porque": "La segunda tangente sale igual que la primera, con el otro punto de tangencia Tb.",
+      "consejo": "Comprueba que O2Q2 y O1Q1 son paralelos antes de unir los extremos.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O1",
+          "hasta": "Q1",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O2",
+          "hasta": "Q2",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q1",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q2",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "recta",
+          "por": [
+            "Q1",
+            "Q2"
+          ],
+          "extension": 6,
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las tangencias",
+      "texto": "En P1 y en P2, el radio es perpendicular a la tangente: la recta P1P2 toca a las dos circunferencias.",
+      "porque": "Una recta es tangente a una circunferencia cuando el radio en el punto de contacto es perpendicular a ella.",
+      "consejo": "Si dudas, apoya la escuadra en la tangente y comprueba que el radio forma ángulo recto.",
+      "dibujo": [
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "P1",
+          "hacia1": "O1",
+          "hacia2": "P2"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "P2",
+          "hacia1": "O2",
+          "hacia2": "P1"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Usar r1 + r2 para la auxiliar en lugar de r1 − r2: las tangentes salen desplazadas.",
+    "Trazar los radios O1P1 y O2P2 que no son paralelos: la recta no toca a las dos circunferencias.",
+    "Confundir las tangentes exteriores con las interiores, que cruzan la recta O1O2."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P1",
+        "P2"
+      ],
+      "centro": "O1",
+      "punto": "P1"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "P1",
+        "P2"
+      ],
+      "centro": "O2",
+      "punto": "P2"
+    },
+    {
+      "tipo": "tangente",
+      "recta": [
+        "Q1",
+        "Q2"
+      ],
+      "centro": "O1",
+      "punto": "Q1"
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "Q2",
+      "centro": "O2",
+      "radio": "r2"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
