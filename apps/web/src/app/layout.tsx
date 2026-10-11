@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Source_Serif_4 } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Cabecera } from '../componentes/Cabecera';
-import './globals.css';
 import '../estilos/tokens.css';
 import '../estilos/base.css';
 import '../estilos/hoja.css';
