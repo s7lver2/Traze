@@ -1,0 +1,353 @@
+{
+  "id": "giro",
+  "bloque": 8,
+  "titulo": "Giro de un triángulo",
+  "enunciado": "Dado el triángulo ABC y el centro de giro O, gíralo 90° en sentido contrario a las agujas del reloj para obtener A'B'C'.",
+  "ideaClave": "En un giro, cada punto se mueve sobre su circunferencia de centro O, y el ángulo entre el punto original y su giro es el ángulo de giro.",
+  "requisitos": [
+    "compas-basico",
+    "suma-resta-angulos"
+  ],
+  "datos": {
+    "O": [
+      100,
+      120
+    ],
+    "A": [
+      130,
+      100
+    ],
+    "B": [
+      160,
+      80
+    ],
+    "C": [
+      140,
+      40
+    ]
+  },
+  "derivados": [
+    {
+      "tipo": "radio",
+      "id": "rA",
+      "entre": [
+        "O",
+        "A"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "rB",
+      "entre": [
+        "O",
+        "B"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "radio",
+      "id": "rC",
+      "entre": [
+        "O",
+        "C"
+      ],
+      "factor": 1
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "A'",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "A"
+      ],
+      "radio": "rA",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B'",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "B"
+      ],
+      "radio": "rB",
+      "perpendicular": true
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "C'",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "C"
+      ],
+      "radio": "rC",
+      "perpendicular": true
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "El triángulo y el centro",
+      "texto": "Tenemos el triángulo ABC y el centro de giro O. Vamos a girar cada vértice 90° alrededor de O.",
+      "porque": "Un giro es un movimiento que deja fijo el centro O y mueve cada punto sobre su circunferencia.",
+      "consejo": "Marca O con una cruz bien visible: es el único punto que no se mueve.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C",
+          "hasta": "A",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        }
+      ]
+    },
+    {
+      "titulo": "Girar el vértice A",
+      "texto": "Une O con A. Levanta en O la perpendicular a OA, en sentido contrario a las agujas del reloj, y lleva la distancia OA sobre ella: marca A'.",
+      "porque": "OA' es perpendicular a OA y mide lo mismo: A ha girado 90° alrededor de O.",
+      "consejo": "Usa la escuadra apoyada en OA y gira hacia la izquierda; con la abertura OA marca A'.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rA",
+          "hacia": "A'"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "A'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "A'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "A",
+          "hacia2": "A'"
+        }
+      ]
+    },
+    {
+      "titulo": "Girar el vértice B",
+      "texto": "Repite con B: une O con B y levanta la perpendicular en sentido contrario a las agujas del reloj. Con la abertura OB marca B'.",
+      "porque": "OB' es perpendicular a OB y mide lo mismo: también B ha girado 90°.",
+      "consejo": "Cambia la abertura a OB, que no es la misma que OA, antes de marcar B'.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rB",
+          "hacia": "B'"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "B'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "B",
+          "hacia2": "B'"
+        }
+      ]
+    },
+    {
+      "titulo": "Girar el vértice C",
+      "texto": "Igual con C: une O con C y levanta la perpendicular hacia la izquierda. Con la abertura OC marca C'.",
+      "porque": "OC' es perpendicular a OC y mide lo mismo: el giro conserva las distancias a O.",
+      "consejo": "Comprueba que el ángulo COC' es recto con la escuadra antes de marcar el punto.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "rC",
+          "hacia": "C'"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "C'",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "punto",
+          "id": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "marcaAnguloRecto",
+          "vertice": "O",
+          "hacia1": "C",
+          "hacia2": "C'"
+        }
+      ]
+    },
+    {
+      "titulo": "El triángulo girado",
+      "texto": "Une A' con B', B' con C' y C' con A'. Obtienes el triángulo A'B'C', girado 90° respecto de O.",
+      "porque": "El giro conserva las distancias y los ángulos, así que el triángulo girado es igual al original.",
+      "consejo": "Repasa el triángulo girado en trazo grueso; las líneas a O quedan en trazo fino.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A'",
+          "hasta": "B'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "B'",
+          "hasta": "C'",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "C'",
+          "hasta": "A'",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba el giro",
+      "texto": "OA = OA' y el ángulo AOA' mide 90°. Lo mismo ocurre con B y con C, y el triángulo girado mide lo mismo que el original.",
+      "porque": "Un giro de centro O conserva las distancias a O y los ángulos entre puntos.",
+      "consejo": "Si dudas, mide OA con el compás y compara con OA': deben coincidir.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "A"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "O",
+            "A'"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Girar hacia el lado contrario: el triángulo se coloca en la posición simétrica y no girada.",
+    "Usar la misma abertura para A, B y C: los vértices quedan a distancias de O distintas de las originales.",
+    "Olvidar que el giro es respecto de O: al girar desde el centro de un lado, el resultado es otro triángulo."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "O",
+          "A"
+        ],
+        [
+          "O",
+          "A'"
+        ]
+      ]
+    },
+    {
+      "tipo": "angulo",
+      "vertice": "O",
+      "a": "A",
+      "b": "A'",
+      "grados": 90
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "A'",
+          "B'"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "A",
+          "O",
+          "B"
+        ],
+        [
+          "A'",
+          "O",
+          "B'"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
