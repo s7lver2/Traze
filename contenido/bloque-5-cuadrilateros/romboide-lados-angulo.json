@@ -1,0 +1,281 @@
+{
+  "id": "romboide-lados-angulo",
+  "bloque": 5,
+  "titulo": "Romboide dados dos lados y el ángulo",
+  "enunciado": "Construye el romboide ABCD conocidos los lados consecutivos AB = 70 mm y AD = 50 mm y el ángulo α = 60° que forman en A.",
+  "ideaClave": "En un paralelogramo los lados opuestos son paralelos e iguales, y el cuarto vértice sale de trazar dos paralelas.",
+  "requisitos": [
+    "paralela-por-punto",
+    "suma-resta-angulos"
+  ],
+  "datos": {
+    "A": [
+      50,
+      110
+    ],
+    "B": [
+      120,
+      110
+    ],
+    "D": [
+      75,
+      66.7
+    ]
+  },
+  "radios": {
+    "s": {
+      "mm": 30
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D2",
+      "origen": "D",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "s"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "B2",
+      "origen": "B",
+      "direccion": [
+        "A",
+        "D"
+      ],
+      "radio": "s"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "C",
+      "rectas": [
+        [
+          "D",
+          "D2"
+        ],
+        [
+          "B",
+          "B2"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los dos lados y el ángulo",
+      "texto": "Traza AB de 70 mm y AD de 50 mm, con el ángulo α = 60° entre ellos en A.",
+      "porque": "Dos lados consecutivos y el ángulo que forman determinan el romboide.",
+      "consejo": "Traza primero AB; luego copia el ángulo en A con el compás antes de medir AD.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        },
+        {
+          "tipo": "punto",
+          "id": "D"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a AB por D",
+      "texto": "Por D traza la paralela a AB. Sobre ella estará el vértice C.",
+      "porque": "Los lados opuestos de un paralelogramo son paralelos: DC es paralelo a AB.",
+      "consejo": "Apoya la regla en AB, desliza la escuadra hasta D y traza sin mover la regla.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "D",
+            "D2"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela a AD por B",
+      "texto": "Por B traza la paralela a AD. Sobre ella también estará C.",
+      "porque": "Los lados opuestos AD y BC son paralelos, así que BC sale paralelo a AD.",
+      "consejo": "Usa la misma técnica que en el paso anterior, con AD como guía.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "B",
+            "B2"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "Las dos paralelas se cortan en C. Márcalo: es el cuarto vértice del romboide.",
+      "porque": "C es el punto donde se cortan las dos paralelas: está a la vez sobre la paralela a AB y sobre la paralela a AD.",
+      "consejo": "Marca C con una cruz fina y deja las paralelas en trazo fino para que se vea bien el corte.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Los lados BC y DC",
+      "texto": "Une B con C y D con C. Ya tienes el romboide ABCD.",
+      "porque": "BC y DC completan los lados opuestos: BC es paralelo y de igual longitud a AD, y DC a AB.",
+      "consejo": "Repasa el contorno en trazo grueso y borra las paralelas auxiliares si te estorban.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba los lados opuestos",
+      "texto": "Los lados opuestos AB y DC, y AD y BC, miden lo mismo y son paralelos. Los ángulos opuestos en A y en C también coinciden.",
+      "porque": "Esas propiedades son las que definen un paralelogramo.",
+      "consejo": "Compara con el compás: AB y DC deben abrir lo mismo, y lo mismo AD y BC.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D",
+            "C"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "D"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "B",
+            "C"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Trazar la paralela por D a AD en lugar de a AB: el vértice C sale fuera del romboide.",
+    "Medir mal el ángulo en A: el romboide sale con un ángulo distinto de 60°.",
+    "Confundir el romboide con el rombo: en el romboide los lados consecutivos son distintos."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "D",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "D",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "D"
+        ],
+        [
+          "B",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualAngulo",
+      "angulos": [
+        [
+          "B",
+          "A",
+          "D"
+        ],
+        [
+          "D",
+          "C",
+          "B"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
