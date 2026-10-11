@@ -1,0 +1,231 @@
+{
+  "id": "tercera-proporcional",
+  "bloque": 7,
+  "titulo": "Tercera proporcional",
+  "enunciado": "Dados los segmentos a = 60 mm y b = 40 mm, halla la tercera proporcional x tal que a/b = b/x.",
+  "ideaClave": "Con dos semirrectas que salen de un mismo origen y una paralela, Thales convierte la proporción a/b = b/x en la igualdad de cocientes de segmentos sobre las rectas.",
+  "requisitos": [
+    "division-segmento-thales"
+  ],
+  "datos": {
+    "O": [
+      30,
+      120
+    ],
+    "P": [
+      90,
+      120
+    ],
+    "Q": [
+      70,
+      120
+    ],
+    "T": [
+      116.6,
+      70
+    ]
+  },
+  "radios": {
+    "b": {
+      "mm": 40
+    },
+    "s": {
+      "mm": 20
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "R",
+      "origen": "O",
+      "direccion": [
+        "O",
+        "T"
+      ],
+      "radio": "b"
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "Q2",
+      "origen": "Q",
+      "direccion": [
+        "P",
+        "R"
+      ],
+      "radio": "s"
+    },
+    {
+      "tipo": "interseccionRectas",
+      "id": "S",
+      "rectas": [
+        [
+          "Q",
+          "Q2"
+        ],
+        [
+          "O",
+          "T"
+        ]
+      ]
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los segmentos a y b",
+      "texto": "Sobre una semirrecta desde O lleva a = OP = 60 mm y b = OQ = 40 mm. La otra semirrecta, OT, sale de O hacia arriba.",
+      "porque": "Con dos semirrectas que salen del mismo origen, las longitudes sobre cada una se pueden comparar con Thales.",
+      "consejo": "Marca O con una cruz fina y lleva las medidas con el compás, sin cambiar la abertura entre P y Q.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "P",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "P"
+        },
+        {
+          "tipo": "punto",
+          "id": "Q"
+        },
+        {
+          "tipo": "punto",
+          "id": "O"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "T",
+          "estilo": "dato"
+        }
+      ]
+    },
+    {
+      "titulo": "Lleva b sobre la otra semirrecta",
+      "texto": "Pincha en O con la abertura b = 40 mm y corta la semirrecta OT en R. Ahora OR = b.",
+      "porque": "OR mide lo mismo que b, así que tenemos a sobre una semirrecta y b sobre la otra.",
+      "consejo": "Usa la misma abertura de 40 mm que usaste para OQ: es el segundo b.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "O",
+          "radio": "b",
+          "hacia": "R"
+        },
+        {
+          "tipo": "punto",
+          "id": "R",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Une P con R",
+      "texto": "Une P con R con la regla. Esa recta es la guía de la paralela.",
+      "porque": "La recta PR corta a los dos rayos en P y en R: sobre ella se apoya la paralela del paso siguiente.",
+      "consejo": "Traza PR en trazo fino, sin prolongarla: sirve solo de guía.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "P",
+          "hasta": "R",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "Paralela por Q",
+      "texto": "Por Q traza la paralela a PR. La paralela corta a la semirrecta OT en S.",
+      "porque": "Por el teorema de Thales, OP/OQ = OR/OS: el segmento OS es la tercera proporcional x.",
+      "consejo": "Apoya la escuadra en PR y desliza hasta Q; traza la paralela de un solo trazo.",
+      "dibujo": [
+        {
+          "tipo": "recta",
+          "por": [
+            "Q",
+            "Q2"
+          ],
+          "extension": 6,
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El corte S y la proporción",
+      "texto": "Marca S, el corte de la paralela con OT. El segmento OS es x. Se cumple a/b = b/x: 60/40 = 40/OS.",
+      "porque": "OS = b²/a = 40²/60 ≈ 26,7 mm: es la tercera proporcional de a y b.",
+      "consejo": "Mide OS con el compás: la abertura debe caer justo en el corte S.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "S",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "O",
+          "hasta": "S",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las razones",
+      "texto": "OP/OQ = 60/40 = 1,5 y OR/OS = 40/26,7 ≈ 1,5: las dos razones coinciden.",
+      "porque": "Las dos razones coinciden porque las rectas PR y QS son paralelas.",
+      "consejo": "Si te sale otra razón, revisa que Q esté sobre la misma semirrecta que P.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "S",
+          "estilo": "resultado"
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Llevar b sobre la semirrecta de a: P y Q quedan sobre el mismo segmento y la paralela no sirve.",
+    "Trazar la paralela por O en lugar de por Q: el corte no da la tercera proporcional.",
+    "Confundir x con b: la tercera proporcional es el cuarto término, no el segundo."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "proporcion",
+      "a": [
+        "O",
+        "P"
+      ],
+      "b": [
+        "O",
+        "Q"
+      ],
+      "c": [
+        "O",
+        "R"
+      ],
+      "d": [
+        "O",
+        "S"
+      ]
+    },
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "Q",
+          "Q2"
+        ],
+        [
+          "P",
+          "R"
+        ]
+      ]
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
