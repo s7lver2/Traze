@@ -1,0 +1,97 @@
+{
+  "consejos": [
+    {
+      "id": "material-lapices",
+      "tipo": "material",
+      "texto": "Lápiz 2H para construcción y HB para el resultado. Afila la mina en bisel para que el trazo salga fino y uniforme."
+    },
+    {
+      "id": "material-compas",
+      "tipo": "material",
+      "texto": "Compás con la mina de la misma dureza que el lápiz y afilada en bisel. Una mina roma abre el trazo y resta precisión."
+    },
+    {
+      "id": "material-goma",
+      "tipo": "material",
+      "texto": "Usa goma blanda y papel limpio. Borra poco: una construcción llena de borrones pierde precisión y se lee peor."
+    },
+    {
+      "id": "material-fijar",
+      "tipo": "material",
+      "texto": "Fija la lámina con cinta de pintor y tenla paralela al borde de la mesa para que la escuadra y el cartabón no bailen."
+    },
+    {
+      "id": "tecnica-compas",
+      "tipo": "tecnica",
+      "texto": "Pincha el compás con firmeza y gira desde la cabeza con una sola mano, sin apretar el lápiz ni inclinar el compás."
+    },
+    {
+      "id": "tecnica-escuadra",
+      "tipo": "tecnica",
+      "texto": "Apoya la escuadra contra la regla y desliza solo una de las dos: así los trazos paralelos salen realmente paralelos."
+    },
+    {
+      "id": "tecnica-abertura",
+      "tipo": "tecnica",
+      "texto": "Antes de pinchar en un punto nuevo, comprueba que la abertura del compás no se ha movido."
+    },
+    {
+      "id": "precision-cortes",
+      "tipo": "precision",
+      "texto": "Corta los arcos con ángulo abierto, cerca de 90°: dos arcos casi tangentes dan un punto impreciso."
+    },
+    {
+      "id": "precision-rectas",
+      "tipo": "precision",
+      "texto": "Prolonga las rectas más allá de los puntos que unen: una recta larga corta mejor la siguiente y se nota si se tuerce."
+    },
+    {
+      "id": "precision-puntos",
+      "tipo": "precision",
+      "texto": "Marca los puntos con un pinchazo fino o una cruz pequeña, nunca con un punto gordo: el error empieza ahí."
+    },
+    {
+      "id": "limpieza-grosores",
+      "tipo": "limpieza",
+      "texto": "Resultado en trazo grueso y construcción en trazo fino. No borres las líneas auxiliares en un examen: demuestran el método."
+    },
+    {
+      "id": "limpieza-rotulacion",
+      "tipo": "limpieza",
+      "texto": "Rotula en mayúscula, con letra pequeña y junto al punto, sin que el texto tape ningún trazo."
+    },
+    {
+      "id": "limpieza-marcas",
+      "tipo": "limpieza",
+      "texto": "Marca siempre los puntos de tangencia y los ángulos rectos: es lo primero que se busca al corregir."
+    },
+    {
+      "id": "atajo-mediatriz",
+      "tipo": "atajo",
+      "texto": "Dos arcos con el mismo radio desde cada extremo: los cortes equidistan de los dos, luego están en la mediatriz."
+    },
+    {
+      "id": "atajo-tangente",
+      "tipo": "atajo",
+      "texto": "Tangente y radio forman 90° en el punto de tangencia: si tienes uno, el otro sale con la escuadra."
+    },
+    {
+      "id": "error-abertura-corta",
+      "tipo": "error",
+      "texto": "Abrir el compás menos de la mitad del segmento: los arcos no se cortan. Ábrelo siempre algo más."
+    },
+    {
+      "id": "error-abertura-cambiada",
+      "tipo": "error",
+      "texto": "Cambiar la abertura del compás a mitad de la construcción: los puntos dejan de estar a la distancia que crees."
+    }
+  ],
+  "listaComprobacion": [
+    "Todos los puntos tienen su letra, en mayúscula y sin tapar ningún trazo.",
+    "El resultado está en trazo grueso y la construcción en trazo fino.",
+    "Las líneas auxiliares siguen a la vista: no se han borrado.",
+    "Los puntos de tangencia y los ángulos rectos están marcados.",
+    "El cajetín está completo: título, tema, escala y número de lámina.",
+    "Nada se sale del marco de la lámina."
+  ]
+}
