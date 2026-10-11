@@ -236,3 +236,13 @@
     transform: scale(1.35);
   }
 }
+
+/* El arco que se está trazando ahora mismo, antes de soltar */
+.arco-vivo {
+  fill: none;
+  stroke: var(--azul-correccion);
+  stroke-width: 1.8px;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}

@@ -1,17 +1,19 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { Leccion, LeccionResuelta } from '@traze/lecciones';
 import { nombreDelBloque } from '@traze/lecciones/bloques';
 import {
   accionActual,
+  barrer,
   clic,
   construido,
   crearEstado,
   crearReto,
   fijarAbertura,
   guiaDeAbertura,
+  guiaDeArco,
   instruccion,
   pedirPista,
   resaltados,
@@ -24,6 +26,13 @@ import {
 import { registrarEstado } from '../progreso-navegador';
 import type { HerramientaActiva } from '../reproductor/herramientas';
 import { clavesDeLosPuntos, useDestacados } from '../reproductor/useDestacados';
+import {
+  enLaCircunferencia,
+  iniciarBarrido,
+  moverBarrido,
+  recorrido,
+  type Barrido,
+} from '../taller/barrido';
 import { Lienzo } from './Lienzo';
 import { TextoConPuntos } from './TextoConPuntos';
 
@@ -50,12 +59,26 @@ const ABERTURA_VISTA = 25;
 
 type Posicion = { x: number; y: number };
 
+/** El compás ya abierto: su radio real y dónde está la mina ahora. */
+interface CompasAbierto {
+  radio: number;
+  angulo: number;
+}
+
 /** El instrumento que el alumno tiene en la mano: sigue al puntero una vez pinchado el primer punto. */
-function herramientaEnMano(estado: EstadoReto, reto: Reto, cursor: Posicion | null): HerramientaActiva | null {
+function herramientaEnMano(
+  estado: EstadoReto,
+  reto: Reto,
+  cursor: Posicion | null,
+  abierto: CompasAbierto | null,
+): HerramientaActiva | null {
   const accion = accionActual(reto, estado);
   if (!accion || estado.clics.length === 0) return null;
   const primero = estado.clics[0];
   if (accion.tipo === 'compas') {
+    if (estado.aberturaFijada !== null && abierto) {
+      return { tipo: 'compas', aguja: primero, mina: enLaCircunferencia(primero, abierto.radio, abierto.angulo) };
+    }
     return {
       tipo: 'compas',
       aguja: primero,
@@ -72,6 +95,9 @@ function herramientaEnMano(estado: EstadoReto, reto: Reto, cursor: Posicion | nu
   return null;
 }
 
+const UMBRAL_ARRASTRE_MM = 2;
+const distanciaEntre = (a: Posicion, b: Posicion): number => Math.hypot(a.x - b.x, a.y - b.y);
+
 interface Propiedades {
   leccion: Leccion;
   resuelta: LeccionResuelta;
@@ -85,6 +111,10 @@ export function RetoInteractivo({ leccion, resuelta, enunciado, semilla, alOtroP
   const reto = useMemo(() => crearReto(leccion, resuelta, enunciado), [leccion, resuelta, enunciado]);
   const [estado, setEstado] = useState<EstadoReto | null>(null);
   const [cursor, setCursor] = useState<Posicion | null>(null);
+  const [abierto, setAbierto] = useState<CompasAbierto | null>(null);
+  const [giro, setGiro] = useState<Barrido | null>(null);
+  const bajada = useRef<Posicion | null>(null);
+  const girando = useRef<Barrido | null>(null);
 
   const dibujos = useMemo(() => construido(estado ?? crearEstado(reto, 'examen'), reto), [estado, reto]);
   const accion = estado ? accionActual(reto, estado) : null;
@@ -108,13 +138,71 @@ export function RetoInteractivo({ leccion, resuelta, enunciado, semilla, alOtroP
   );
 
   function aplicar(resultado: { estado: EstadoReto; evento: string }) {
+    if (resultado.estado.aberturaFijada === null) setAbierto(null);
     setEstado(resultado.estado);
     if (resultado.evento === 'fin' && semilla === null) {
       registrarEstado(leccion.id, resumen(resultado.estado).progreso);
     }
   }
 
+  // Un clic o un arrastre: pinchar y soltar en otro sitio es lo mismo que pinchar los dos puntos.
+  function alBajar(posicion: Posicion) {
+    if (!estado || estado.terminado) return;
+    bajada.current = posicion;
+    const actual = accionActual(reto, estado);
+    if (actual?.tipo === 'compas' && estado.aberturaFijada !== null) {
+      girando.current = iniciarBarrido(actual.centro, posicion);
+      setGiro(girando.current);
+    }
+  }
+
+  function alMover(posicion: Posicion | null) {
+    setCursor(posicion);
+    if (girando.current && posicion) {
+      girando.current = moverBarrido(girando.current, posicion);
+      setGiro(girando.current);
+    }
+  }
+
+  function alSubir(posicion: Posicion) {
+    if (!estado || estado.terminado) return;
+    const inicio = bajada.current;
+    bajada.current = null;
+
+    if (girando.current) {
+      const barrido = girando.current;
+      girando.current = null;
+      setGiro(null);
+      aplicar(barrer(estado, reto, recorrido(barrido)));
+      return;
+    }
+    if (!inicio) return;
+
+    const actual = accionActual(reto, estado);
+    const arrastre = distanciaEntre(inicio, posicion) >= UMBRAL_ARRASTRE_MM;
+    const sePuedeArrastrar =
+      actual && (actual.tipo === 'regla' || (actual.tipo === 'compas' && estado.clics.length === 0));
+    if (arrastre && sePuedeArrastrar) {
+      const primero = clic(estado, reto, inicio);
+      if (primero.evento === 'error') return aplicar(primero);
+      const segundo = clic(primero.estado, reto, posicion);
+      if (actual.tipo === 'compas' && segundo.estado.aberturaFijada !== null) {
+        setAbierto({ radio: distanciaEntre(actual.centro, posicion), angulo: Math.atan2(posicion.y - actual.centro.y, posicion.x - actual.centro.x) });
+      }
+      return aplicar(segundo);
+    }
+    const resultado = clic(estado, reto, posicion);
+    if (actual?.tipo === 'compas' && estado.clics.length === 1 && resultado.estado.aberturaFijada !== null) {
+      setAbierto({ radio: distanciaEntre(actual.centro, posicion), angulo: Math.atan2(posicion.y - actual.centro.y, posicion.x - actual.centro.x) });
+    }
+    aplicar(resultado);
+  }
+
   function empezar(nivel: NivelReto) {
+    setAbierto(null);
+    setGiro(null);
+    girando.current = null;
+    bajada.current = null;
     setCursor(null);
     setEstado(crearEstado(reto, nivel));
   }
@@ -132,6 +220,19 @@ export function RetoInteractivo({ leccion, resuelta, enunciado, semilla, alOtroP
 
   const resumenFinal = estado?.terminado ? resumen(estado) : null;
   const guia = estado ? guiaDeAbertura(estado, reto) : null;
+  const guiaArco = estado ? guiaDeArco(estado, reto) : null;
+  const actualRetoAccion = estado ? accionActual(reto, estado) : null;
+  const arcoVivo =
+    giro && abierto && actualRetoAccion?.tipo === 'compas'
+      ? {
+          x: actualRetoAccion.centro.x,
+          y: actualRetoAccion.centro.y,
+          radio: abierto.radio,
+          desde: giro.minimo,
+          hasta: giro.maximo,
+        }
+      : null;
+  const anguloMina = giro && abierto ? giro.ultimo : abierto?.angulo ?? 0;
   const nombreDelNivel = estado ? NIVELES.find((n) => n.nivel === estado.nivel)?.titulo : null;
 
   return (
@@ -159,12 +260,17 @@ export function RetoInteractivo({ leccion, resuelta, enunciado, semilla, alOtroP
           interaccion={
             estado && !estado.terminado
               ? {
-                  alPulsar: (posicion) => aplicar(clic(estado, reto, posicion)),
-                  alMover: setCursor,
+                  alBajar,
+                  alSubir,
+                  alMover,
                   guia: guia ? { x: guia.centro.x, y: guia.centro.y, radio: guia.radio } : null,
+                  guiaArco: guiaArco
+                    ? { x: guiaArco.centro.x, y: guiaArco.centro.y, radio: guiaArco.radio, inicio: guiaArco.inicio, fin: guiaArco.fin }
+                    : null,
+                  arcoVivo,
                   resaltados: resaltados(estado, reto),
                   elegidos: estado.clics,
-                  herramienta: herramientaEnMano(estado, reto, cursor),
+                  herramienta: herramientaEnMano(estado, reto, cursor, abierto ? { ...abierto, angulo: anguloMina } : null),
                 }
               : undefined
           }

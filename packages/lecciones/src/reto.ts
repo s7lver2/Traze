@@ -28,6 +28,10 @@ export type AccionReto =
       /** Abertura que hay que dar, en mm. */
       abertura: number;
       descripcionAbertura: string;
+      /** Ángulos del arco (en radianes, con y hacia abajo como en el lienzo) y punto hacia el que va. */
+      inicio: number;
+      fin: number;
+      hacia: string;
       primitiva: number;
       texto: string;
     }
@@ -80,6 +84,8 @@ export interface EstadoReto {
   instrumento: Instrumento | null;
   clics: PuntoReto[];
   abertura: number;
+  /** Con el compás ya abierto a la medida correcta: la abertura fijada, a falta de girarlo. */
+  aberturaFijada: number | null;
   errores: number;
   pistas: number;
   pista: boolean;
@@ -123,6 +129,7 @@ function accionesDe(
   leccion: Leccion,
   resuelta: LeccionResuelta,
   punto: (id: string) => PuntoReto,
+  resueltaPrimitiva: PrimitivaResuelta,
 ): AccionReto | null {
   switch (primitiva.tipo) {
     case 'punto':
@@ -152,13 +159,17 @@ function accionesDe(
       };
     case 'arco': {
       const descripcion = nombreDeRadio(leccion, primitiva.radio);
+      const arco = resueltaPrimitiva.tipo === 'arco' ? resueltaPrimitiva : null;
       return {
         tipo: 'compas',
         centro: punto(primitiva.centro),
         abertura: resuelta.radios[primitiva.radio],
         descripcionAbertura: descripcion,
+        inicio: arco?.inicio ?? 0,
+        fin: arco?.fin ?? 0,
+        hacia: primitiva.hacia,
         primitiva: indice,
-        texto: `Pincha el compás en ${primitiva.centro} y ábrelo ${descripcion}: pincha a esa distancia para trazar el arco hacia ${primitiva.hacia}.`,
+        texto: `Pincha el compás en ${primitiva.centro} y ábrelo ${descripcion} arrastrando hasta esa distancia; luego gíralo para trazar el arco hacia ${primitiva.hacia}.`,
       };
     }
     case 'arcoEntre':
@@ -191,7 +202,7 @@ export function crearReto(
         marcas.push(j);
         return;
       }
-      const accion = accionesDe(primitiva, j, leccion, resuelta, punto);
+      const accion = accionesDe(primitiva, j, leccion, resuelta, punto, resuelta.pasos[i].dibujo[j]);
       if (accion) acciones.push(accion);
       else automaticas.push(j);
     });
@@ -235,13 +246,17 @@ export const NOMBRE_INSTRUMENTO: Record<Instrumento, string> = {
   lapiz: 'el lápiz',
 };
 
-function empezarPaso(reto: Reto, paso: number): Pick<EstadoReto, 'paso' | 'orden' | 'accion' | 'hechas' | 'clics'> {
+function empezarPaso(
+  reto: Reto,
+  paso: number,
+): Pick<EstadoReto, 'paso' | 'orden' | 'accion' | 'hechas' | 'clics' | 'aberturaFijada'> {
   return {
     paso,
     orden: reto.pasos[paso].acciones.map((_, i) => i),
     accion: 0,
     hechas: [...reto.pasos[paso].automaticas],
     clics: [],
+    aberturaFijada: null,
   };
 }
 
@@ -285,7 +300,7 @@ export function accionActual(reto: Reto, estado: EstadoReto): AccionReto | null 
 
 export function elegirInstrumento(estado: EstadoReto, instrumento: Instrumento): EstadoReto {
   if (estado.terminado || estado.instrumento === instrumento) return estado;
-  return { ...estado, instrumento, clics: [], mensaje: null };
+  return { ...estado, instrumento, clics: [], aberturaFijada: null, mensaje: null };
 }
 
 export function fijarAbertura(estado: EstadoReto, mm: number): EstadoReto {
@@ -340,6 +355,7 @@ function completar(reto: Reto, estado: EstadoReto, accion: AccionReto): Resultad
     hechas,
     accion: estado.accion + 1,
     clics: [],
+    aberturaFijada: null,
     pista: false,
     mensaje: { tipo: 'ok', texto: 'Muy bien.' },
   };
@@ -371,9 +387,12 @@ export function clic(estado: EstadoReto, reto: Reto, posicion: { x: number; y: n
   const accion = accionActual(reto, estado);
   if (!accion) return { estado, evento: 'nada' };
 
-  // Con el compás ya pinchado, el siguiente clic abre el compás: vale la distancia al centro.
+  // Con el compás ya pinchado, el siguiente clic lo abre: vale la distancia al centro. Después hay que girarlo.
   if (accion.tipo === 'compas' && estado.instrumento === 'compas' && estado.clics.length === 1) {
-    return comprobarAbertura(estado, reto, accion, distanciaEntre(accion.centro, posicion));
+    if (estado.aberturaFijada !== null) {
+      return conInfo(estado, 'El compás ya está abierto: arrastra la mina para girarlo y trazar el arco.');
+    }
+    return abrirCompas(estado, accion, distanciaEntre(accion.centro, posicion));
   }
 
   if (estado.instrumento === null) {
@@ -460,24 +479,99 @@ export function clic(estado: EstadoReto, reto: Reto, posicion: { x: number; y: n
   }
 }
 
+function errorDeAbertura(
+  estado: EstadoReto,
+  accion: Extract<AccionReto, { tipo: 'compas' }>,
+  abertura: number,
+): ResultadoClic | null {
+  if (Math.abs(abertura - accion.abertura) <= toleranciaAbertura(accion.abertura)) return null;
+  const sobra = abertura > accion.abertura;
+  const orientacion =
+    estado.nivel === 'guiado'
+      ? ` Debe ser ${accion.descripcionAbertura} (unos ${decimal(accion.abertura, 1)} mm).`
+      : '';
+  return conError(estado, `El compás está ${sobra ? 'demasiado abierto' : 'demasiado cerrado'}.${orientacion}`);
+}
+
+/** El compás se abre a la medida correcta: queda a falta de girarlo para trazar el arco. */
+function abrirCompas(
+  estado: EstadoReto,
+  accion: Extract<AccionReto, { tipo: 'compas' }>,
+  abertura: number,
+): ResultadoClic {
+  const error = errorDeAbertura(estado, accion, abertura);
+  if (error) return error;
+  return {
+    estado: {
+      ...estado,
+      aberturaFijada: accion.abertura,
+      pista: false,
+      mensaje: { tipo: 'info', texto: 'Bien abierto. Ahora gira el compás: arrastra la mina para trazar el arco.' },
+    },
+    evento: 'acierto',
+  };
+}
+
 function comprobarAbertura(
   estado: EstadoReto,
   reto: Reto,
   accion: Extract<AccionReto, { tipo: 'compas' }>,
   abertura: number,
 ): ResultadoClic {
-  if (Math.abs(abertura - accion.abertura) > toleranciaAbertura(accion.abertura)) {
-    const sobra = abertura > accion.abertura;
-    const orientacion =
-      estado.nivel === 'guiado'
-        ? ` Debe ser ${accion.descripcionAbertura} (unos ${decimal(accion.abertura, 1)} mm).`
-        : '';
+  const error = errorDeAbertura(estado, accion, abertura);
+  return error ?? completar(reto, estado, accion);
+}
+
+const DOS_PI = 2 * Math.PI;
+export const TOLERANCIA_ANGULO = 0.15;
+
+/**
+ * ¿El giro del compás (ángulos continuos, sin saltos de vuelta) cubre el arco que hay que trazar?
+ * Vale girar de más, pero no quedarse corto.
+ */
+export function barridoCubre(
+  barrido: { desde: number; hasta: number },
+  objetivo: { inicio: number; fin: number },
+  tolerancia: number = TOLERANCIA_ANGULO,
+): boolean {
+  const minimo = Math.min(barrido.desde, barrido.hasta) - tolerancia;
+  const maximo = Math.max(barrido.desde, barrido.hasta) + tolerancia;
+  const objetivoMin = Math.min(objetivo.inicio, objetivo.fin);
+  const objetivoMax = Math.max(objetivo.inicio, objetivo.fin);
+  for (let vuelta = -3; vuelta <= 3; vuelta++) {
+    if (objetivoMin + vuelta * DOS_PI >= minimo && objetivoMax + vuelta * DOS_PI <= maximo) return true;
+  }
+  return false;
+}
+
+/** El giro del compás ya abierto: el alumno arrastra la mina y suelta. */
+export function barrer(
+  estado: EstadoReto,
+  reto: Reto,
+  barrido: { desde: number; hasta: number },
+): ResultadoClic {
+  const accion = accionActual(reto, estado);
+  if (!accion || accion.tipo !== 'compas' || estado.aberturaFijada === null) return { estado, evento: 'nada' };
+  if (!barridoCubre(barrido, accion)) {
     return conError(
       estado,
-      `El compás está ${sobra ? 'demasiado abierto' : 'demasiado cerrado'}.${orientacion}`,
+      estado.nivel === 'guiado'
+        ? `El arco no llega hasta ${accion.hacia}: sigue girando el compás.`
+        : 'El arco se ha quedado corto: gira más el compás.',
     );
   }
   return completar(reto, estado, accion);
+}
+
+/** El arco que se enseña como guía del giro: en guiado, o con pista. */
+export function guiaDeArco(
+  estado: EstadoReto,
+  reto: Reto,
+): { centro: PuntoReto; radio: number; inicio: number; fin: number } | null {
+  const accion = accionActual(reto, estado);
+  if (!accion || accion.tipo !== 'compas' || estado.aberturaFijada === null) return null;
+  if (!(estado.nivel === 'guiado' || estado.pista)) return null;
+  return { centro: accion.centro, radio: accion.abertura, inicio: accion.inicio, fin: accion.fin };
 }
 
 /** Compás abierto con la abertura fijada con el deslizador (alternativa al clic para quien no use ratón). */
@@ -495,7 +589,9 @@ export function guiaDeAbertura(
   reto: Reto,
 ): { centro: PuntoReto; radio: number } | null {
   const accion = accionActual(reto, estado);
-  if (!accion || accion.tipo !== 'compas' || estado.clics.length !== 1) return null;
+  if (!accion || accion.tipo !== 'compas' || estado.clics.length !== 1 || estado.aberturaFijada !== null) {
+    return null;
+  }
   if (!(estado.nivel === 'guiado' || estado.pista)) return null;
   return { centro: accion.centro, radio: accion.abertura };
 }
@@ -529,7 +625,11 @@ export function instruccion(estado: EstadoReto, reto: Reto): string {
   const accion = accionActual(reto, estado);
   const paso = reto.pasos[estado.paso];
   if (!accion) return paso.titulo;
-  if (estado.nivel === 'guiado') return accion.texto;
+  if (estado.nivel === 'guiado') {
+    return accion.tipo === 'compas' && estado.aberturaFijada !== null
+      ? `Gira el compás: arrastra la mina para trazar el arco hacia ${accion.hacia}.`
+      : accion.texto;
+  }
   if (estado.nivel === 'memoria') return paso.titulo;
   return `Paso ${estado.paso + 1} de ${reto.pasos.length}`;
 }

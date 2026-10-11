@@ -16,13 +16,20 @@ import { Herramienta } from './Herramienta';
 
 /** Lo que hace falta para trabajar sobre el dibujo: pinchar puntos y ver qué se señala. */
 export interface Interaccion {
-  alPulsar: (posicion: { x: number; y: number }) => void;
+  /** Se baja el botón (o se toca) sobre el dibujo, en milímetros. */
+  alBajar: (posicion: { x: number; y: number }) => void;
+  /** Se suelta: si es cerca de donde se bajó es un clic; si no, un arrastre. */
+  alSubir: (posicion: { x: number; y: number }) => void;
   /** Puntos que se señalan al alumno (pista). */
   resaltados: readonly { x: number; y: number }[];
   /** El ratón se mueve sobre el dibujo (para que el compás siga al puntero). */
   alMover?: (posicion: { x: number; y: number } | null) => void;
   /** Circunferencia guía de la abertura del compás. */
   guia?: { x: number; y: number; radio: number } | null;
+  /** Arco guía: lo que hay que recorrer con el compás. */
+  guiaArco?: { x: number; y: number; radio: number; inicio: number; fin: number } | null;
+  /** El arco que el alumno está trazando ahora mismo con el compás. */
+  arcoVivo?: { x: number; y: number; radio: number; desde: number; hasta: number } | null;
   /** Puntos ya pinchados en la acción en curso. */
   elegidos: readonly { x: number; y: number }[];
   /** El instrumento que el alumno tiene en la mano (sustituye al que se deduce del dibujo). */
@@ -123,9 +130,17 @@ export function Lienzo({
     return { x: enLienzo.x, y: enLienzo.y };
   }
 
-  function pulsar(evento: PointerEvent<SVGSVGElement>) {
+  function bajar(evento: PointerEvent<SVGSVGElement>) {
     const posicion = aLienzo(evento);
-    if (interaccion && posicion) interaccion.alPulsar(posicion);
+    if (!interaccion || !posicion) return;
+    // Con el puntero capturado, el arrastre sigue llegando aunque salga del dibujo.
+    evento.currentTarget.setPointerCapture?.(evento.pointerId);
+    interaccion.alBajar(posicion);
+  }
+
+  function subir(evento: PointerEvent<SVGSVGElement>) {
+    const posicion = aLienzo(evento);
+    if (interaccion && posicion) interaccion.alSubir(posicion);
   }
 
   function mover(evento: PointerEvent<SVGSVGElement>) {
@@ -136,7 +151,9 @@ export function Lienzo({
     <svg
       ref={referencia}
       className={interaccion ? 'lienzo lienzo-interactivo' : 'lienzo'}
-      onPointerDown={interaccion ? pulsar : undefined}
+      onPointerDown={interaccion ? bajar : undefined}
+      onPointerUp={interaccion ? subir : undefined}
+      onPointerCancel={interaccion ? subir : undefined}
       onPointerMove={interaccion?.alMover ? mover : undefined}
       onPointerLeave={interaccion?.alMover ? () => interaccion.alMover?.(null) : undefined}
       viewBox={`0 0 ${ancho} ${alto}`}
@@ -177,6 +194,40 @@ export function Lienzo({
           cx={interaccion.guia.x}
           cy={interaccion.guia.y}
           r={interaccion.guia.radio}
+        />
+      )}
+      {interaccion?.guiaArco && (
+        <path
+          className="guia-abertura"
+          d={descripcionArco(
+            {
+              tipo: 'arco',
+              cx: interaccion.guiaArco.x,
+              cy: interaccion.guiaArco.y,
+              radio: interaccion.guiaArco.radio,
+              inicio: interaccion.guiaArco.inicio,
+              fin: interaccion.guiaArco.fin,
+              estilo: 'construccion',
+            },
+            1,
+          )}
+        />
+      )}
+      {interaccion?.arcoVivo && (
+        <path
+          className="arco-vivo"
+          d={descripcionArco(
+            {
+              tipo: 'arco',
+              cx: interaccion.arcoVivo.x,
+              cy: interaccion.arcoVivo.y,
+              radio: interaccion.arcoVivo.radio,
+              inicio: interaccion.arcoVivo.desde,
+              fin: interaccion.arcoVivo.hasta,
+              estilo: 'construccion',
+            },
+            1,
+          )}
         />
       )}
       {interaccion?.elegidos.map((punto, i) => (

@@ -11,8 +11,11 @@ import {
   crearEstado,
   crearReto,
   elegirInstrumento,
+  barrer,
+  barridoCubre,
   fijarAbertura,
   guiaDeAbertura,
+  guiaDeArco,
   instruccion,
   instrumentoDe,
   pedirPista,
@@ -46,8 +49,8 @@ function jugarAccion(estado: EstadoReto, reto: Reto, accion: AccionReto): Estado
       break;
     case 'compas':
       siguiente = clic(siguiente, reto, accion.centro).estado;
-      siguiente = fijarAbertura(siguiente, accion.abertura);
-      siguiente = trazarArco(siguiente, reto).estado;
+      siguiente = clic(siguiente, reto, { x: accion.centro.x + accion.abertura, y: accion.centro.y }).estado;
+      siguiente = barrer(siguiente, reto, { desde: accion.inicio, hasta: accion.fin }).estado;
       break;
     case 'compasEntre':
       for (const punto of [accion.centro, accion.desde, accion.hasta]) {
@@ -201,7 +204,13 @@ describe('reglas del reto (lección piloto)', () => {
         expect(corto.evento).toBe('error');
         expect(corto.estado.mensaje?.texto).toContain('demasiado cerrado');
         const bueno = clic(corto.estado, retoCompas, { x: accion.centro.x, y: accion.centro.y + accion.abertura });
-        expect(['completada', 'paso', 'fin']).toContain(bueno.evento);
+        expect(bueno.evento).toBe('acierto');
+        expect(bueno.estado.aberturaFijada).not.toBeNull();
+        expect(guiaDeAbertura(bueno.estado, retoCompas)).toBeNull();
+        expect(guiaDeArco(bueno.estado, retoCompas)).toMatchObject({ radio: accion.abertura });
+        const final = barrer(bueno.estado, retoCompas, { desde: accion.inicio, hasta: accion.fin });
+        expect(['completada', 'paso', 'fin']).toContain(final.evento);
+        expect(final.estado.aberturaFijada).toBeNull();
         return;
       }
       estado = jugarAccion(estado, retoCompas, accion);
@@ -272,3 +281,59 @@ describe('reglas del reto (lección piloto)', () => {
     throw new Error('la lección no tiene dos puntos seguidos que marcar');
   });
 });
+
+describe('el giro del compás', () => {
+  it('cubre el arco si llega de un extremo al otro, en cualquier sentido', () => {
+    expect(barridoCubre({ desde: 0, hasta: 1 }, { inicio: 0.2, fin: 0.9 })).toBe(true);
+    expect(barridoCubre({ desde: 1, hasta: 0 }, { inicio: 0.2, fin: 0.9 })).toBe(true);
+    expect(barridoCubre({ desde: 0, hasta: 2 }, { inicio: 0.9, fin: 0.2 })).toBe(true);
+  });
+
+  it('no cubre un arco si se queda corto', () => {
+    expect(barridoCubre({ desde: 0, hasta: 0.5 }, { inicio: 0.2, fin: 0.9 })).toBe(false);
+    expect(barridoCubre({ desde: 0.6, hasta: 1.2 }, { inicio: 0.2, fin: 0.9 })).toBe(false);
+  });
+
+  it('da igual dar una vuelta de más: los ángulos se comparan módulo una vuelta', () => {
+    const vuelta = 2 * Math.PI;
+    expect(barridoCubre({ desde: vuelta, hasta: vuelta + 1 }, { inicio: 0.2, fin: 0.9 })).toBe(true);
+    expect(barridoCubre({ desde: -vuelta, hasta: -vuelta + 1 }, { inicio: 0.2, fin: 0.9 })).toBe(true);
+  });
+
+  it('tolera un pequeño margen en los extremos', () => {
+    expect(barridoCubre({ desde: 0.3, hasta: 0.85 }, { inicio: 0.2, fin: 0.9 })).toBe(true);
+    expect(barridoCubre({ desde: 0.5, hasta: 0.85 }, { inicio: 0.2, fin: 0.9 })).toBe(false);
+  });
+
+  it('un arco corto es un error que no avanza y no borra la abertura', () => {
+    const conCompas = lecciones.find((leccion) =>
+      leccion.pasos.some((paso) => paso.dibujo.some((primitiva) => primitiva.tipo === 'arco')),
+    )!;
+    const retoCompas = retoDe(conCompas);
+    let estado = crearEstado(retoCompas, 'memoria');
+    for (let vuelta = 0; vuelta < 500; vuelta++) {
+      const accion = accionActual(retoCompas, estado)!;
+      if (accion.tipo === 'compas') {
+        estado = clic(estado, retoCompas, accion.centro).estado;
+        estado = clic(estado, retoCompas, { x: accion.centro.x + accion.abertura, y: accion.centro.y }).estado;
+        const corto = barrer(estado, retoCompas, { desde: accion.inicio, hasta: accion.inicio + 0.01 });
+        expect(corto.evento).toBe('error');
+        expect(corto.estado.errores).toBe(1);
+        expect(corto.estado.aberturaFijada).not.toBeNull();
+        expect(corto.estado.mensaje?.texto).toContain('corto');
+        return;
+      }
+      estado = jugarAccion(estado, retoCompas, accion);
+    }
+    throw new Error('no se encontró ningún arco');
+  });
+
+  it('antes de abrir el compás no se puede girar', () => {
+    const estado = crearEstado(reto0(), 'guiado');
+    expect(barrer(estado, reto0(), { desde: 0, hasta: 6 }).evento).toBe('nada');
+  });
+});
+
+function reto0(): Reto {
+  return retoDe(lecciones.find((leccion) => leccion.id === 'mediatriz-segmento')!);
+}
