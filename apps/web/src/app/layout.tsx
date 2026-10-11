@@ -1,7 +1,18 @@
 import type { Metadata } from 'next';
+import { Source_Serif_4 } from 'next/font/google';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import './globals.css';
+import '../estilos/tokens.css';
+import '../estilos/base.css';
+
+const serif = Source_Serif_4({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--fuente-serif',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
+});
 
 export const metadata: Metadata = {
   title: { default: 'Traze: Dibujo Técnico paso a paso', template: '%s · Traze' },
@@ -11,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es-ES">
+    <html lang="es-ES" className={serif.variable}>
       <body>
         <header className="cabecera">
           <Link className="logo" href="/">

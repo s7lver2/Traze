@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--mesa);
+}
+
+/* Mesa: fondo cálido con una cuadrícula de 22 px casi invisible */
+body {
+  margin: 0;
+  color: var(--tinta);
+  font-family: var(--interfaz);
+  line-height: 1.55;
+  background-color: var(--mesa);
+  background-image:
+    linear-gradient(var(--rejilla-mesa) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rejilla-mesa) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--azul-correccion);
+  outline-offset: 2px;
+}
+
+a {
+  color: var(--azul-correccion);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  margin: 0 0 var(--e2);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+}
+
+h2 {
+  font-size: 1.35rem;
+}
+
+.etiqueta {
+  margin: 0;
+  font-family: var(--interfaz);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-suave);
+}
+
+@keyframes entrada {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
