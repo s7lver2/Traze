@@ -1,0 +1,268 @@
+{
+  "id": "trapecio-bases-lados",
+  "bloque": 5,
+  "titulo": "Trapecio dadas las bases y los lados",
+  "enunciado": "Construye el trapecio ABCD conocidas sus bases AB = 100 mm y DC = 60 mm y los lados oblicuos AD = 50 mm y BC ≈ 41,2 mm.",
+  "ideaClave": "Trasladando un lado oblicuo sobre la base mayor se obtiene un triángulo de lados a − b, c y d, y el trapecio queda completado por la paralela a la base.",
+  "requisitos": [
+    "paralela-por-punto",
+    "triangulo-tres-lados"
+  ],
+  "datos": {
+    "A": [
+      40,
+      110
+    ],
+    "B": [
+      140,
+      110
+    ]
+  },
+  "radios": {
+    "b": {
+      "mm": 60
+    },
+    "c": {
+      "mm": 50
+    },
+    "d": {
+      "mm": 41.2311
+    }
+  },
+  "derivados": [
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "E",
+      "origen": "A",
+      "direccion": [
+        "A",
+        "B"
+      ],
+      "radio": "b"
+    },
+    {
+      "tipo": "cortesCirculos",
+      "ids": [
+        "C",
+        "Cb"
+      ],
+      "centros": [
+        "E",
+        "B"
+      ],
+      "radios": [
+        "c",
+        "d"
+      ]
+    },
+    {
+      "tipo": "puntoEnDireccion",
+      "id": "D",
+      "origen": "A",
+      "direccion": [
+        "E",
+        "C"
+      ],
+      "radio": "c"
+    }
+  ],
+  "pasos": [
+    {
+      "titulo": "La base mayor AB",
+      "texto": "Traza la base mayor AB de 100 mm. La base menor DC medirá 60 mm, y los lados oblicuos AD y BC.",
+      "porque": "Un trapecio tiene dos lados paralelos, las bases, y dos lados oblicuos que no lo son.",
+      "consejo": "Traza AB con la regla bien apoyada y marca A y B con una cruz fina.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "B",
+          "estilo": "dato"
+        },
+        {
+          "tipo": "punto",
+          "id": "A"
+        },
+        {
+          "tipo": "punto",
+          "id": "B"
+        }
+      ]
+    },
+    {
+      "titulo": "Lleva la base menor sobre AB",
+      "texto": "Desde A lleva 60 mm sobre AB y marca E. El segmento EB mide 100 − 60 = 40 mm.",
+      "porque": "Trasladar el lado AD hasta E hace que el triángulo EBC tenga base a − b.",
+      "consejo": "Marca E con una cruz fina antes de seguir; lo usarás en el paso siguiente.",
+      "dibujo": [
+        {
+          "tipo": "punto",
+          "id": "E",
+          "estilo": "construccion"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "B",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El vértice C",
+      "texto": "Pincha en E con abertura de 50 mm y traza un arco. Pincha en B con abertura de 41 mm y traza otro arco. Llama C al corte.",
+      "porque": "C está a 50 mm de E y a 41 mm de B: el triángulo EBC tiene los lados que necesitamos.",
+      "consejo": "Traza los dos arcos por encima de AB, y no cambies la abertura de un arco a otro.",
+      "dibujo": [
+        {
+          "tipo": "arco",
+          "centro": "E",
+          "radio": "c",
+          "hacia": "C"
+        },
+        {
+          "tipo": "arco",
+          "centro": "B",
+          "radio": "d",
+          "hacia": "C"
+        },
+        {
+          "tipo": "punto",
+          "id": "C",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "segmento",
+          "desde": "E",
+          "hasta": "C",
+          "estilo": "construccion"
+        }
+      ]
+    },
+    {
+      "titulo": "El lado BC",
+      "texto": "Une B con C: es el lado oblicuo BC del trapecio, de unos 41 mm.",
+      "porque": "BC es uno de los lados oblicuos y tiene la longitud d que nos dan.",
+      "consejo": "Une B con C en trazo grueso; el triángulo EBC queda así completo.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "B",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Traslada EC hasta A",
+      "texto": "Desde A traza la paralela a EC con longitud de 50 mm y marca el extremo D. Es el vértice D del trapecio.",
+      "porque": "AD es igual y paralelo a EC: la traslación de EC lleva E a A y C a D.",
+      "consejo": "Usa la escuadra apoyada en EC y, luego, mide 50 mm con el compás desde A.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "A",
+          "hasta": "D",
+          "estilo": "resultado"
+        },
+        {
+          "tipo": "punto",
+          "id": "D",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "La base menor DC",
+      "texto": "Une D con C: es la base menor, paralela a AB y de 60 mm. El trapecio ABCD ya está.",
+      "porque": "DC es paralela a AB porque es la traslación de AE, y mide lo mismo que AE, que son 60 mm.",
+      "consejo": "Repasa el contorno del trapecio en trazo grueso y borra las auxiliares que te estorben.",
+      "dibujo": [
+        {
+          "tipo": "segmento",
+          "desde": "D",
+          "hasta": "C",
+          "estilo": "resultado"
+        }
+      ]
+    },
+    {
+      "titulo": "Comprueba las bases y los lados",
+      "texto": "Las bases AB y DC son paralelas. DC mide 60 mm, AD mide 50 mm y BC mide unos 41 mm.",
+      "porque": "La traslación conserva la longitud y la dirección: por eso DC y AE son iguales y paralelos.",
+      "consejo": "Compara DC con AE con el compás: deben abrir lo mismo.",
+      "dibujo": [
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "D",
+            "C"
+          ]
+        },
+        {
+          "tipo": "marcaIgualdad",
+          "segmento": [
+            "A",
+            "E"
+          ]
+        }
+      ]
+    }
+  ],
+  "errores": [
+    "Llevar la base menor desde B en lugar de desde A: el triángulo auxiliar sale mal y el trapecio se deforma.",
+    "Trazar AD paralelo a AB en lugar de paralelo a EC: el lado AD deja de tener la longitud c.",
+    "Cambiar la abertura entre los dos arcos del vértice C: el lado BC no mide d."
+  ],
+  "comprobaciones": [
+    {
+      "tipo": "paralelas",
+      "rectas": [
+        [
+          "D",
+          "C"
+        ],
+        [
+          "A",
+          "B"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "D",
+          "C"
+        ],
+        [
+          "A",
+          "E"
+        ]
+      ]
+    },
+    {
+      "tipo": "igualLongitud",
+      "segmentos": [
+        [
+          "A",
+          "D"
+        ],
+        [
+          "E",
+          "C"
+        ]
+      ]
+    },
+    {
+      "tipo": "puntoEnCircunferencia",
+      "punto": "C",
+      "centro": "B",
+      "radio": "d"
+    }
+  ],
+  "meta": {
+    "version": 1,
+    "revision": "pendiente"
+  }
+}
