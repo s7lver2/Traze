@@ -126,6 +126,19 @@ describe('aberturaDelPaso', () => {
     expect(aberturaDelPaso([arco(53.5)], {}, {}, {})).toBeUndefined();
   });
 
+  it('un radio fijo se muestra en milímetros', () => {
+    const radios = { f: { mm: 30 } };
+    expect(aberturaDelPaso([arco(30)], { f: 30 }, radios, {})).toBe('30 mm');
+    expect(aberturaDelPaso([arco(12.5)], { f: 12.5 }, radios, {})).toBe('12,5 mm');
+  });
+
+  it('mezcla radios relativos y fijos en el orden en que se declaran', () => {
+    const radios = { ...RADIOS, f: { mm: 30 } };
+    expect(aberturaDelPaso([arco(53.5), arco(30)], { r: 53.5, f: 30 }, radios, { r: 0.75 })).toBe(
+      '0,75 × AB, 30 mm',
+    );
+  });
+
   it('solo cuenta los radios que el paso usa', () => {
     const radios = { ...RADIOS, s: { entre: ['C', 'D'] as const, factor: 0.4 } };
     const resueltos = { r: 53.5, s: 20 };

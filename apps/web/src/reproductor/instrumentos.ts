@@ -1,10 +1,9 @@
 import type { PrimitivaResuelta } from '@traze/lecciones';
 import { decimal } from './formato';
 
-export interface RadioDeclarado {
-  entre: readonly [string, string];
-  factor: number;
-}
+export type RadioDeclarado =
+  | { entre: readonly [string, string]; factor: number }
+  | { mm: number };
 
 export interface Banda {
   instrumento?: string;
@@ -45,7 +44,11 @@ export function aberturaDelPaso(
             primitiva.tipo === 'arco' && Math.abs(primitiva.radio - resueltos[id]) < TOLERANCIA,
         ),
     )
-    .map((id) => `${decimal(factores[id] ?? radios[id].factor, 2)} × ${radios[id].entre.join('')}`);
+    .map((id) => {
+      const radio = radios[id];
+      if ('mm' in radio) return `${decimal(resueltos[id], 1).replace(/,0$/, '')} mm`;
+      return `${decimal(factores[id] ?? radio.factor, 2)} × ${radio.entre.join('')}`;
+    });
   return textos.length > 0 ? textos.join(', ') : undefined;
 }
 

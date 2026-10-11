@@ -10,8 +10,6 @@ import { duracionPaso } from '../reproductor/tiempos';
 import { BandaInstrumentos } from './BandaInstrumentos';
 import { Lienzo } from './Lienzo';
 
-const FACTOR_MIN = 0.3;
-const FACTOR_MAX = 0.85;
 const MAX_SALTO_MS = 100;
 
 interface Propiedades {
@@ -23,8 +21,17 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   const total = resuelta.pasos.length;
   const [estado, despachar] = useReducer(reductor, total, (pasos) => crearEstado(pasos));
   const [vista, setVista] = useState<LeccionResuelta>(resuelta);
-  const [factores, setFactores] = useState<Record<string, number>>(() =>
-    Object.fromEntries(Object.entries(leccion.radios).map(([id, radio]) => [id, radio.factor])),
+  const [factores, setFactores] = useState<Record<string, number>>(() => {
+    const iniciales: Record<string, number> = {};
+    for (const [id, radio] of Object.entries(leccion.radios)) {
+      if ('factor' in radio) iniciales[id] = radio.factor;
+    }
+    return iniciales;
+  });
+  const deslizadores = Object.entries(leccion.radios).flatMap(([id, radio]) =>
+    'deslizador' in radio && radio.deslizador
+      ? [{ id, entre: radio.entre, min: radio.deslizador.min, max: radio.deslizador.max }]
+      : [],
   );
   const [aviso, setAviso] = useState<string | null>(null);
 
@@ -128,18 +135,18 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
           {banda && <BandaInstrumentos banda={banda} />}
         </aside>
 
-        {Object.keys(leccion.radios).length > 0 && (
+        {deslizadores.length > 0 && (
           <aside className="postit postit-datos datos-modificables">
             <h3>Prueba otros datos</h3>
-            {Object.entries(leccion.radios).map(([id, radio]) => (
+            {deslizadores.map(({ id, entre, min, max }) => (
               <label key={id} className="deslizador">
                 <span>
-                  Abertura del compás ({id}): {decimal(factores[id], 2)} × {radio.entre.join('')}
+                  Abertura del compás ({id}): {decimal(factores[id], 2)} × {entre.join('')}
                 </span>
                 <input
                   type="range"
-                  min={FACTOR_MIN}
-                  max={FACTOR_MAX}
+                  min={min}
+                  max={max}
                   step={0.01}
                   value={factores[id]}
                   onChange={(evento) => cambiarFactor(id, Number(evento.target.value))}

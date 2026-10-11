@@ -28,7 +28,7 @@ Campos del JSON de la lección (los opcionales pueden omitirse):
 - **requisitos** (opcional): Lista de ids de lecciones previas que ya existan; [] si no hay ninguna.
 - **lienzo** (opcional): { "ancho": 210, "alto": 140 } en milímetros. No lo cambies sin necesidad.
 - **datos** (obligatorio): Puntos de partida, por ejemplo { "A": [60, 70] }, en milímetros. Son las únicas coordenadas de la lección.
-- **radios** (opcional): Aberturas de compás: { "r": { "entre": ["A", "B"], "factor": 0.75 } }. El radio vale factor × distancia(A, B).
+- **radios** (opcional): Aberturas de compás. Relativa a dos datos: { "r": { "entre": ["A", "B"], "factor": 0.75 } }, vale factor × distancia(A, B). Fija: { "s": { "mm": 30 } }. Solo pueden usar puntos de «datos»; para un radio que depende de puntos calculados usa el derivado «radio». Opcional en los relativos: "deslizador": { "min": 0.55, "max": 0.85 }, solo si cualquier valor del rango da una construcción válida (por ejemplo, para cortar dos arcos hace falta un radio mayor que la mitad de la distancia entre los centros).
 - **derivados** (opcional): Puntos que calcula el programa, en orden: cada uno solo puede usar puntos ya definidos en «datos» o en derivados anteriores.
 - **pasos** (obligatorio): De 6 a 10 pasos. Cada paso lleva «titulo», «texto», «porque», «consejo» y «dibujo» (lista de primitivas).
 - **errores** (opcional): Errores frecuentes del alumno: 2 o 3 frases concretas.
@@ -105,6 +105,12 @@ Campos: ids [M, N], centros [P, Q], radio (id de un radio).
 {"tipo":"interseccionArcos","ids":["M","N"],"centros":["A","B"],"radio":"r"}
 ```
 
+**radio**: Define un radio que vale factor × distancia(P, Q), con P y Q ya definidos (datos o derivados anteriores). Úsalo cuando la abertura del compás depende de un punto calculado.
+Campos: id, entre [P, Q], factor.
+```json
+{"tipo":"radio","id":"t","entre":["M","N"],"factor":0.5}
+```
+
 ### Comprobaciones
 
 El programa las ejecuta con una tolerancia de 1e-6: si alguna falla, la lección se rechaza.
@@ -172,7 +178,11 @@ Esta lección es válida y completa. Imita su forma, no su contenido.
         "A",
         "B"
       ],
-      "factor": 0.75
+      "factor": 0.75,
+      "deslizador": {
+        "min": 0.55,
+        "max": 0.85
+      }
     }
   },
   "derivados": [

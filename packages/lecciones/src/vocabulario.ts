@@ -72,7 +72,7 @@ export const CAMPOS_LECCION: readonly CampoLeccion[] = [
     nombre: 'radios',
     obligatorio: false,
     descripcion:
-      'Aberturas de compás: { "r": { "entre": ["A", "B"], "factor": 0.75 } }. El radio vale factor × distancia(A, B).',
+      'Aberturas de compás. Relativa a dos datos: { "r": { "entre": ["A", "B"], "factor": 0.75 } }, vale factor × distancia(A, B). Fija: { "s": { "mm": 30 } }. Solo pueden usar puntos de «datos»; para un radio que depende de puntos calculados usa el derivado «radio». Opcional en los relativos: "deslizador": { "min": 0.55, "max": 0.85 }, solo si cualquier valor del rango da una construcción válida (por ejemplo, para cortar dos arcos hace falta un radio mayor que la mitad de la distancia entre los centros).',
   },
   {
     nombre: 'derivados',
@@ -156,6 +156,13 @@ export const DERIVADOS: readonly EntradaVocabulario[] = [
     descripcion:
       'Crea los dos puntos donde se cortan los arcos de ese radio con centro en P y en Q. El primero (M) queda a la izquierda al mirar de P a Q en pantalla y el segundo (N) a la derecha. Si el radio no es mayor que la mitad de PQ, la construcción es imposible.',
     ejemplo: { tipo: 'interseccionArcos', ids: ['M', 'N'], centros: ['A', 'B'], radio: 'r' },
+  },
+  {
+    tipo: 'radio',
+    campos: 'id, entre [P, Q], factor',
+    descripcion:
+      'Define un radio que vale factor × distancia(P, Q), con P y Q ya definidos (datos o derivados anteriores). Úsalo cuando la abertura del compás depende de un punto calculado.',
+    ejemplo: { tipo: 'radio', id: 't', entre: ['M', 'N'], factor: 0.5 },
   },
 ];
 

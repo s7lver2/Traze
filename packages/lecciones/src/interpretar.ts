@@ -12,7 +12,7 @@ import {
   unitario,
   type Punto,
 } from '@traze/geometria';
-import type { Estilo, Leccion, Primitiva } from './esquema';
+import type { Derivado, Estilo, Leccion, Primitiva } from './esquema';
 
 export const TOLERANCIA = 1e-6;
 
@@ -108,6 +108,10 @@ function calcularRadios(
 ): Record<string, number> {
   const radios: Record<string, number> = {};
   for (const [id, definicion] of Object.entries(leccion.radios)) {
+    if ('mm' in definicion) {
+      radios[id] = definicion.mm;
+      continue;
+    }
     const [nombreA, nombreB] = definicion.entre;
     const factor = Object.hasOwn(factores, id) ? factores[id] : definicion.factor;
     const radio = factor * distancia(obtener(puntos, nombreA), obtener(puntos, nombreB));
@@ -209,6 +213,48 @@ function resolverPrimitiva(
   }
 }
 
+function resolverDerivado(
+  derivado: Derivado,
+  puntos: Record<string, Punto>,
+  radios: Record<string, number>,
+  factores: Readonly<Record<string, number>>,
+): void {
+  switch (derivado.tipo) {
+    case 'puntoMedio': {
+      const [nombreA, nombreB] = derivado.entre;
+      puntos[derivado.id] = puntoMedio(obtener(puntos, nombreA), obtener(puntos, nombreB));
+      return;
+    }
+    case 'interseccionArcos': {
+      const [nombreA, nombreB] = derivado.centros;
+      const radio = obtenerRadio(radios, derivado.radio);
+      const cortes = interseccionCircunferencias(
+        { centro: obtener(puntos, nombreA), radio },
+        { centro: obtener(puntos, nombreB), radio },
+      );
+      const mensaje =
+        `Los arcos con centro en «${nombreA}» y «${nombreB}» y radio «${derivado.radio}» no se cortan: ` +
+        'el radio debe ser mayor que la mitad de la distancia entre los centros';
+      if (!cortes) throw new ConstruccionImposible(mensaje);
+      const [primero, segundo] = cortes;
+      if (distancia(primero, segundo) < EPS) throw new ConstruccionImposible(mensaje);
+      puntos[derivado.ids[0]] = primero;
+      puntos[derivado.ids[1]] = segundo;
+      return;
+    }
+    case 'radio': {
+      const [nombreA, nombreB] = derivado.entre;
+      const factor = Object.hasOwn(factores, derivado.id) ? factores[derivado.id] : derivado.factor;
+      const radio = factor * distancia(obtener(puntos, nombreA), obtener(puntos, nombreB));
+      if (!(radio > EPS)) {
+        throw new ConstruccionImposible(`El radio «${derivado.id}» no es positivo`);
+      }
+      radios[derivado.id] = radio;
+      return;
+    }
+  }
+}
+
 export function interpretarLeccion(
   leccion: Leccion,
   factores: Readonly<Record<string, number>> = {},
@@ -221,26 +267,7 @@ export function interpretarLeccion(
   const radios = calcularRadios(leccion, puntos, factores);
 
   for (const derivado of leccion.derivados) {
-    if (derivado.tipo === 'puntoMedio') {
-      const [nombreA, nombreB] = derivado.entre;
-      puntos[derivado.id] = puntoMedio(obtener(puntos, nombreA), obtener(puntos, nombreB));
-      continue;
-    }
-
-    const [nombreA, nombreB] = derivado.centros;
-    const radio = obtenerRadio(radios, derivado.radio);
-    const cortes = interseccionCircunferencias(
-      { centro: obtener(puntos, nombreA), radio },
-      { centro: obtener(puntos, nombreB), radio },
-    );
-    const mensaje =
-      `Los arcos con centro en «${nombreA}» y «${nombreB}» y radio «${derivado.radio}» no se cortan: ` +
-      'el radio debe ser mayor que la mitad de la distancia entre los centros';
-    if (!cortes) throw new ConstruccionImposible(mensaje);
-    const [primero, segundo] = cortes;
-    if (distancia(primero, segundo) < EPS) throw new ConstruccionImposible(mensaje);
-    puntos[derivado.ids[0]] = primero;
-    puntos[derivado.ids[1]] = segundo;
+    resolverDerivado(derivado, puntos, radios, factores);
   }
 
   const pasos = leccion.pasos.map((paso): PasoResuelto => ({

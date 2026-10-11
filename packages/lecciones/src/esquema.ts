@@ -45,9 +45,24 @@ export const pasoSchema = z.object({
   dibujo: z.array(primitivaSchema).min(1),
 });
 
+const radioSchema = z.union(
+  [
+    z.object({
+      entre: parDeIds,
+      factor: z.number().positive(),
+      deslizador: z
+        .object({ min: z.number().positive(), max: z.number().positive() })
+        .optional(),
+    }),
+    z.object({ mm: z.number().positive() }),
+  ],
+  { errorMap: () => ({ message: 'un radio lleva «entre» y «factor», o bien «mm»' }) },
+);
+
 export const derivadoSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('puntoMedio'), id, entre: parDeIds }),
   z.object({ tipo: z.literal('interseccionArcos'), ids: parDeIds, centros: parDeIds, radio: id }),
+  z.object({ tipo: z.literal('radio'), id, entre: parDeIds, factor: z.number().positive() }),
 ]);
 
 export const comprobacionSchema = z.discriminatedUnion('tipo', [
@@ -60,6 +75,7 @@ export type Primitiva = z.infer<typeof primitivaSchema>;
 export type TipoPrimitiva = Primitiva['tipo'];
 export type Estilo = z.infer<typeof estilo>;
 export type Paso = z.infer<typeof pasoSchema>;
+export type Derivado = z.infer<typeof derivadoSchema>;
 type Comprobacion = z.infer<typeof comprobacionSchema>;
 type Ruta = (string | number)[];
 type Referencia = { ruta: Ruta; nombre: string };
@@ -116,6 +132,38 @@ function referenciasDeComprobacion(c: Comprobacion): Referencia[] {
   }
 }
 
+const parEn = (base: Ruta, nombres: readonly [string, string]): Referencia[] => [
+  { ruta: [...base, 0], nombre: nombres[0] },
+  { ruta: [...base, 1], nombre: nombres[1] },
+];
+
+interface UsoDeDerivado {
+  puntos: Referencia[];
+  radios: Referencia[];
+  crea: string[];
+  creaRadio?: string;
+}
+
+function usoDeDerivado(derivado: Derivado): UsoDeDerivado {
+  switch (derivado.tipo) {
+    case 'puntoMedio':
+      return { puntos: parEn(['entre'], derivado.entre), radios: [], crea: [derivado.id] };
+    case 'interseccionArcos':
+      return {
+        puntos: parEn(['centros'], derivado.centros),
+        radios: [{ ruta: ['radio'], nombre: derivado.radio }],
+        crea: [...derivado.ids],
+      };
+    case 'radio':
+      return {
+        puntos: parEn(['entre'], derivado.entre),
+        radios: [],
+        crea: [],
+        creaRadio: derivado.id,
+      };
+  }
+}
+
 export const metaSchema = z
   .object({
     version: z.number().int().min(1).default(1),
@@ -147,7 +195,7 @@ export const leccionSchema = z
       .object({ ancho: z.number().positive(), alto: z.number().positive() })
       .default({ ancho: 210, alto: 140 }),
     datos: z.record(id, z.tuple([z.number(), z.number()])),
-    radios: z.record(id, z.object({ entre: parDeIds, factor: z.number().positive() })).default({}),
+    radios: z.record(id, radioSchema).default({}),
     derivados: z.array(derivadoSchema).default([]),
     pasos: z.array(pasoSchema).min(1).max(10),
     errores: z.array(z.string()).default([]),
@@ -169,24 +217,41 @@ export const leccionSchema = z
     const radios = new Set(Object.keys(leccion.radios));
 
     for (const [idRadio, radio] of Object.entries(leccion.radios)) {
-      radio.entre.forEach((nombre, i) =>
-        falta(['radios', idRadio, 'entre', i], 'El punto', nombre, datos),
-      );
+      if ('entre' in radio) {
+        radio.entre.forEach((nombre, i) =>
+          falta(['radios', idRadio, 'entre', i], 'El punto', nombre, datos),
+        );
+      }
     }
 
     const definidos = new Set(datos);
     leccion.derivados.forEach((derivado, i) => {
-      if (derivado.tipo === 'puntoMedio') {
-        derivado.entre.forEach((nombre, j) =>
-          falta(['derivados', i, 'entre', j], 'El punto', nombre, definidos),
-        );
-        definidos.add(derivado.id);
-      } else {
-        derivado.centros.forEach((nombre, j) =>
-          falta(['derivados', i, 'centros', j], 'El punto', nombre, definidos),
-        );
-        falta(['derivados', i, 'radio'], 'El radio', derivado.radio, radios);
-        derivado.ids.forEach((nombre) => definidos.add(nombre));
+      const uso = usoDeDerivado(derivado);
+      for (const ref of uso.puntos) {
+        falta(['derivados', i, ...ref.ruta], 'El punto', ref.nombre, definidos);
+      }
+      for (const ref of uso.radios) {
+        falta(['derivados', i, ...ref.ruta], 'El radio', ref.nombre, radios);
+      }
+      for (const nombre of uso.crea) {
+        if (definidos.has(nombre)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ['derivados', i],
+            message: `El punto «${nombre}» ya está definido`,
+          });
+        }
+        definidos.add(nombre);
+      }
+      if (uso.creaRadio !== undefined) {
+        if (radios.has(uso.creaRadio)) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            path: ['derivados', i, 'id'],
+            message: `El radio «${uso.creaRadio}» ya está definido`,
+          });
+        }
+        radios.add(uso.creaRadio);
       }
     });
 
