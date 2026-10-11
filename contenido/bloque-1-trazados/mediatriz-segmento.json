@@ -1,0 +1,88 @@
+{
+  "id": "mediatriz-segmento",
+  "bloque": 1,
+  "titulo": "Mediatriz de un segmento",
+  "enunciado": "Dado el segmento AB, traza su mediatriz con regla y compás.",
+  "ideaClave": "La mediatriz es el lugar geométrico de los puntos que equidistan de A y de B.",
+  "requisitos": [],
+  "datos": { "A": [60, 70], "B": [140, 60] },
+  "radios": { "r": { "entre": ["A", "B"], "factor": 0.75 } },
+  "derivados": [
+    { "tipo": "interseccionArcos", "ids": ["M", "N"], "centros": ["A", "B"], "radio": "r" },
+    { "tipo": "puntoMedio", "id": "O", "entre": ["A", "B"] }
+  ],
+  "pasos": [
+    {
+      "titulo": "Los datos",
+      "texto": "Tenemos el segmento AB. Hay que trazar su mediatriz con regla y compás.",
+      "porque": "La mediatriz es la recta perpendicular a AB que pasa por su punto medio.",
+      "consejo": "Marca A y B con un punto fino y rotúlalos en mayúscula.",
+      "dibujo": [
+        { "tipo": "segmento", "desde": "A", "hasta": "B", "estilo": "dato" },
+        { "tipo": "punto", "id": "A" },
+        { "tipo": "punto", "id": "B" }
+      ]
+    },
+    {
+      "titulo": "Arcos con centro en A",
+      "texto": "Pincha el compás en A y ábrelo más de la mitad de AB. Traza un arco a cada lado del segmento.",
+      "porque": "Todos los puntos de un arco están a la misma distancia de su centro: el radio.",
+      "consejo": "Gira el compás desde la cabeza, con una sola mano y sin apretar el lápiz.",
+      "dibujo": [
+        { "tipo": "arco", "centro": "A", "radio": "r", "hacia": "M" },
+        { "tipo": "arco", "centro": "A", "radio": "r", "hacia": "N" }
+      ]
+    },
+    {
+      "titulo": "Arcos con centro en B",
+      "texto": "Sin cambiar la abertura, pincha en B y traza otros dos arcos que corten a los primeros.",
+      "porque": "Con el mismo radio desde A y desde B, los cortes están a igual distancia de los dos extremos.",
+      "consejo": "Comprueba que la abertura no se ha movido antes de pinchar en B.",
+      "dibujo": [
+        { "tipo": "arco", "centro": "B", "radio": "r", "hacia": "M" },
+        { "tipo": "arco", "centro": "B", "radio": "r", "hacia": "N" }
+      ]
+    },
+    {
+      "titulo": "Marca los cortes M y N",
+      "texto": "Los arcos se cortan en dos puntos. Llámalos M y N.",
+      "porque": "M y N equidistan de A y de B, así que los dos pertenecen a la mediatriz.",
+      "consejo": "Cuanto más abierto es el ángulo con que se cortan los arcos, más preciso sale el punto.",
+      "dibujo": [
+        { "tipo": "punto", "id": "M", "estilo": "construccion" },
+        { "tipo": "punto", "id": "N", "estilo": "construccion" }
+      ]
+    },
+    {
+      "titulo": "Une M con N",
+      "texto": "Apoya la regla en M y N y traza la recta que pasa por ambos.",
+      "porque": "Dos puntos determinan una recta. Esa recta es la mediatriz.",
+      "consejo": "Dibuja el resultado en trazo grueso y la construcción en trazo fino.",
+      "dibujo": [
+        { "tipo": "recta", "por": ["M", "N"], "extension": 8, "estilo": "resultado" }
+      ]
+    },
+    {
+      "titulo": "Comprueba el resultado",
+      "texto": "La mediatriz corta a AB en su punto medio O y forma 90° con el segmento: AO = OB.",
+      "porque": "Por eso la mediatriz sirve también para dividir un segmento en dos partes iguales.",
+      "consejo": "Si dudas, mide AO y OB con la regla: deben coincidir.",
+      "dibujo": [
+        { "tipo": "punto", "id": "O", "estilo": "resultado" },
+        { "tipo": "marcaAnguloRecto", "vertice": "O", "hacia1": "B", "hacia2": "M" },
+        { "tipo": "marcaIgualdad", "segmento": ["A", "O"] },
+        { "tipo": "marcaIgualdad", "segmento": ["O", "B"] }
+      ]
+    }
+  ],
+  "errores": [
+    "Abrir el compás menos de la mitad de AB: los arcos no se cortan.",
+    "Cambiar la abertura al pasar de A a B: M y N dejan de estar en la mediatriz."
+  ],
+  "comprobaciones": [
+    { "tipo": "equidistante", "punto": "M", "a": "A", "b": "B" },
+    { "tipo": "equidistante", "punto": "N", "a": "A", "b": "B" },
+    { "tipo": "perpendicular", "recta": ["M", "N"], "segmento": ["A", "B"] },
+    { "tipo": "pasaPorPuntoMedio", "recta": ["M", "N"], "segmento": ["A", "B"] }
+  ]
+}
