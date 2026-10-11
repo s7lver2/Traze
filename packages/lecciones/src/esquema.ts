@@ -45,12 +45,12 @@ export const pasoSchema = z.object({
   dibujo: z.array(primitivaSchema).min(1),
 });
 
-const derivadoSchema = z.discriminatedUnion('tipo', [
+export const derivadoSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('puntoMedio'), id, entre: parDeIds }),
   z.object({ tipo: z.literal('interseccionArcos'), ids: parDeIds, centros: parDeIds, radio: id }),
 ]);
 
-const comprobacionSchema = z.discriminatedUnion('tipo', [
+export const comprobacionSchema = z.discriminatedUnion('tipo', [
   z.object({ tipo: z.literal('equidistante'), punto: id, a: id, b: id }),
   z.object({ tipo: z.literal('perpendicular'), recta: parDeIds, segmento: parDeIds }),
   z.object({ tipo: z.literal('pasaPorPuntoMedio'), recta: parDeIds, segmento: parDeIds }),
@@ -116,6 +116,25 @@ function referenciasDeComprobacion(c: Comprobacion): Referencia[] {
   }
 }
 
+export const metaSchema = z
+  .object({
+    version: z.number().int().min(1).default(1),
+    revision: z.enum(['pendiente', 'revisada']).default('pendiente'),
+    revisadaPor: z.string().min(1).optional(),
+    revisadaEl: z
+      .string()
+      .regex(/^\d{4}-\d{2}-\d{2}$/, 'la fecha va como AAAA-MM-DD')
+      .optional(),
+  })
+  .superRefine((meta, ctx) => {
+    if (meta.revision === 'revisada' && (!meta.revisadaPor || !meta.revisadaEl)) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: 'una lección revisada necesita revisadaPor y revisadaEl',
+      });
+    }
+  });
+
 export const leccionSchema = z
   .object({
     id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'el id de lección va en minúsculas y con guiones'),
@@ -133,6 +152,7 @@ export const leccionSchema = z
     pasos: z.array(pasoSchema).min(1).max(10),
     errores: z.array(z.string()).default([]),
     comprobaciones: z.array(comprobacionSchema).min(1),
+    meta: metaSchema.default({}),
   })
   .superRefine((leccion, ctx) => {
     const falta = (ruta: Ruta, tipo: string, nombre: string, conocidos: ReadonlySet<string>) => {
