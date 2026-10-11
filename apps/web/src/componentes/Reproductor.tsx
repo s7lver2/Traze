@@ -4,15 +4,16 @@ import { useEffect, useMemo, useReducer, useState } from 'react';
 import type { Leccion, LeccionResuelta } from '@traze/lecciones';
 import { ConstruccionImposible, interpretarLeccion } from '@traze/lecciones/interpretar';
 import { crearEstado, reductor, VELOCIDADES } from '../reproductor/estado';
+import { decimal } from '../reproductor/formato';
+import { etiquetaPaso, situacionPaso } from '../reproductor/indice';
+import { derivarBanda } from '../reproductor/instrumentos';
 import { duracionPaso } from '../reproductor/tiempos';
+import { BandaInstrumentos } from './BandaInstrumentos';
 import { Lienzo } from './Lienzo';
 
 const FACTOR_MIN = 0.3;
 const FACTOR_MAX = 0.85;
 const MAX_SALTO_MS = 100;
-
-const decimal = (numero: number, cifras: number): string =>
-  numero.toFixed(cifras).replace('.', ',');
 
 interface Propiedades {
   leccion: Leccion;
@@ -31,6 +32,10 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   const dibujos = useMemo(() => vista.pasos.map((paso) => paso.dibujo), [vista]);
   const pasoActual = vista.pasos[estado.paso];
   const duracion = duracionPaso(dibujos[estado.paso]);
+  const banda = useMemo(
+    () => derivarBanda(dibujos[estado.paso], vista.radios, leccion.radios, factores),
+    [dibujos, estado.paso, vista.radios, leccion.radios, factores],
+  );
 
   useEffect(() => {
     const consulta = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -70,22 +75,25 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
   return (
     <section className="reproductor" aria-label="Demostración animada">
       <div className="sala">
-        <Lienzo
-          ancho={vista.lienzo.ancho}
-          alto={vista.lienzo.alto}
-          dibujos={dibujos}
-          paso={estado.paso}
-          progreso={estado.progreso}
-          ocultarConstruccion={estado.ocultarConstruccion}
-          descripcion={`Paso ${estado.paso + 1} de ${total}: ${pasoActual.titulo}`}
-        />
+        <div className="lienzo-marco">
+          <Lienzo
+            ancho={vista.lienzo.ancho}
+            alto={vista.lienzo.alto}
+            dibujos={dibujos}
+            paso={estado.paso}
+            progreso={estado.progreso}
+            ocultarConstruccion={estado.ocultarConstruccion}
+            descripcion={`Paso ${estado.paso + 1} de ${total}: ${pasoActual.titulo}`}
+          />
+          <span className="escuadra" aria-hidden="true" />
+        </div>
 
         <div className="panel-paso">
           <p className="etiqueta" aria-live="polite">
             Paso {estado.paso + 1} de {total}
           </p>
           <h2>{pasoActual.titulo}</h2>
-          <p>{pasoActual.texto}</p>
+          <p className="texto-paso">{pasoActual.texto}</p>
           <p className="porque">
             <strong>Por qué.</strong> {pasoActual.porque}
           </p>
@@ -99,24 +107,30 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
       </div>
 
       <ol className="indice-pasos" aria-label="Pasos de la lección">
-        {vista.pasos.map((paso, i) => (
-          <li key={i}>
-            <button
-              type="button"
-              className={i === estado.paso ? 'activo' : undefined}
-              aria-current={i === estado.paso ? 'step' : undefined}
-              aria-label={`Ir al paso ${i + 1}: ${paso.titulo}`}
-              onClick={() => despachar({ tipo: 'irA', paso: i })}
-            >
-              {i + 1}
-            </button>
-          </li>
-        ))}
+        {vista.pasos.map((paso, i) => {
+          const situacion = situacionPaso(i, estado.paso);
+          return (
+            <li key={i}>
+              <button
+                type="button"
+                className={`paso-boton paso-${situacion}`}
+                aria-current={situacion === 'actual' ? 'step' : undefined}
+                aria-label={etiquetaPaso(i, paso.titulo, situacion)}
+                onClick={() => despachar({ tipo: 'irA', paso: i })}
+              >
+                <span className="paso-circulo" aria-hidden="true">
+                  {situacion === 'hecho' ? '✓' : i + 1}
+                </span>
+              </button>
+            </li>
+          );
+        })}
       </ol>
 
       <div className="controles" role="group" aria-label="Controles de la lección">
         <button
           type="button"
+          className="boton"
           disabled={estado.paso === 0}
           onClick={() => despachar({ tipo: 'anterior' })}
         >
@@ -124,6 +138,7 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
         </button>
         <button
           type="button"
+          className="boton boton-principal"
           disabled={!estado.animar}
           onClick={() => despachar({ tipo: 'alternarReproduccion' })}
         >
@@ -131,21 +146,23 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
         </button>
         <button
           type="button"
+          className="boton"
           disabled={estado.paso === total - 1}
           onClick={() => despachar({ tipo: 'siguiente' })}
         >
           Siguiente →
         </button>
-        <button type="button" onClick={() => despachar({ tipo: 'reiniciar' })}>
+        <button type="button" className="boton" onClick={() => despachar({ tipo: 'reiniciar' })}>
           Reiniciar
         </button>
-        <button type="button" onClick={() => despachar({ tipo: 'verSolucion' })}>
+        <button type="button" className="boton" onClick={() => despachar({ tipo: 'verSolucion' })}>
           Ver solución completa
         </button>
 
         <label className="campo">
           Velocidad
           <select
+            className="selector"
             value={estado.velocidad}
             onChange={(evento) => {
               const valor = VELOCIDADES.find((v) => v === Number(evento.target.value));
@@ -169,6 +186,8 @@ export function Reproductor({ leccion, resuelta }: Propiedades) {
           Ocultar construcción
         </label>
       </div>
+
+      {banda && <BandaInstrumentos banda={banda} />}
 
       {Object.keys(leccion.radios).length > 0 && (
         <div className="datos-modificables">
